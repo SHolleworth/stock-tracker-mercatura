@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useEffect, useState } from "react"
 import {
   LineChart,
   Line,
@@ -8,20 +8,27 @@ import {
   ReferenceArea,
   ResponsiveContainer,
 } from "recharts"
+import { requestHistoricalPrices } from "./services"
 
 const ChartContainer = () => {
-  let data = [
-    { time: Date.now(), price: 318 },
-    { time: Date.now() + 60000, price: 318 },
-    { time: Date.now() + 120000, price: 408 },
-    { time: Date.now() + 180000, price: 388 },
-    { time: Date.now() + 240000, price: 178 },
-    { time: Date.now() + 300000, price: 233 },
-  ]
+  const [intradayPrices, setIntradayPrices] = useState()
 
-  // data = data.sort((a, b) => a.pv - b.pv)
+  useEffect(() => {
+    (async () => {
+      try {
+        const prices = await requestHistoricalPrices()
+        setIntradayPrices(prices)
+      } catch (error) {
+        console.error(error)
+      }
+    })()
+  }, [])
 
-  return <Chart data={data} />
+  return (
+    <div style={{ padding: "20px 200px 20px 200px" }}>
+      <Chart data={intradayPrices} />
+    </div>
+  )
 }
 
 export const Chart = ({ data }) => {
@@ -35,7 +42,7 @@ export const Chart = ({ data }) => {
   const line = (
     <Line
       type="linear"
-      dataKey="price"
+      dataKey="average"
       dot={false}
       stroke={colours.accentPrimary}
       strokeWidth={2}
@@ -48,9 +55,8 @@ export const Chart = ({ data }) => {
 
   const xAxis = (
     <XAxis
-      type="number"
-      dataKey="time"
-      domain={[data[0].time, data[data.length - 1].time]}
+      type="category"
+      dataKey="minute"
       axisLine={false}
       tickCount={6}
       tickSize={12}
@@ -62,10 +68,11 @@ export const Chart = ({ data }) => {
   const yAxis = (
     <YAxis
       type="number"
-      dataKey="price"
+      dataKey="average"
       axisLine={false}
       tickSize={12}
       tickLine={{ stroke: colours.coreSecondary3 }}
+      domain={[145, 157]}
       stroke={colours.keys}
     />
   )

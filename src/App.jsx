@@ -9,6 +9,7 @@ function App() {
       <Stats />
       <KeyStatistics />
       <Chart />
+      <KeyStatistics />
     </div>
   )
 }
