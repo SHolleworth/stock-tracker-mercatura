@@ -11,12 +11,13 @@ import {
 import { requestHistoricalPrices } from "./services"
 
 const ChartContainer = () => {
-  const [intradayPrices, setIntradayPrices] = useState()
+  const [intradayPrices, setIntradayPrices] = useState([])
 
   useEffect(() => {
     (async () => {
       try {
         const prices = await requestHistoricalPrices()
+        console.log(prices)
         setIntradayPrices(prices)
       } catch (error) {
         console.error(error)
@@ -24,11 +25,15 @@ const ChartContainer = () => {
     })()
   }, [])
 
-  return (
-    <div style={{ padding: "20px 200px 20px 200px" }}>
-      <Chart data={intradayPrices} />
-    </div>
-  )
+  if (intradayPrices.length) {
+    return (
+      <div style={{ padding: "20px 200px 20px 200px" }}>
+        <Chart data={intradayPrices} />
+      </div>
+    )
+  } else {
+    return null
+  }
 }
 
 export const Chart = ({ data }) => {
@@ -64,6 +69,11 @@ export const Chart = ({ data }) => {
       stroke={colours.keys}
     />
   )
+  const averages = data.map((el) => el.average)
+  const min = Math.floor(Math.min(...averages))
+  const max = Math.ceil(Math.max(...averages))
+
+  console.log(`${min} and ${max}`)
 
   const yAxis = (
     <YAxis
@@ -72,7 +82,7 @@ export const Chart = ({ data }) => {
       axisLine={false}
       tickSize={12}
       tickLine={{ stroke: colours.coreSecondary3 }}
-      domain={[145, 157]}
+      domain={[min, max]}
       stroke={colours.keys}
     />
   )
