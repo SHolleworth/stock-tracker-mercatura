@@ -20,7 +20,7 @@ jobs:
       - run: npm install
       - run: npm run build
   deploy:
-    if: ${{ github.event_name == "push" }}
+    if: ${{ github.event_name == 'push' }}
     runs-on: ubuntu-latest
     steps:
       - name: Deploy
