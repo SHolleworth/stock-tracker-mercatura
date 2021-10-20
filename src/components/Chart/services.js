@@ -3,7 +3,9 @@ import t from "../../../../token"
 const base = "https://sandbox.iexapis.com/stable/"
 const token = `token=${t}`
 
-export const requestHistoricalPrices = async () => {
-  const response = await fetch(`${base}/stock/AAPL/intraday-prices?${token}`)
+export const requestIntradayPrices = async () => {
+  const response = await fetch(
+    `${base}/stock/AAPL/intraday-prices?${token}&chartInterval=5`
+  )
   return response.json()
 }
