@@ -8,6 +8,7 @@ on:
       - main
 jobs:
   build:
+    concurrency: staging_environment
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -20,6 +21,7 @@ jobs:
       - run: npm install
       - run: npm run build
   deploy:
+    concurrency: staging_environment
     if: ${{ github.event_name == 'push' }}
     runs-on: ubuntu-latest
     steps:
