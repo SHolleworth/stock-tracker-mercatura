@@ -1,7 +1,8 @@
 name: Continous Deployment
 on:
-  pull_request:
-    types: [closed]
+  push:
+    branches:
+      - main
 jobs:
   build-test-deploy:
     runs-on: ubuntu-latest
