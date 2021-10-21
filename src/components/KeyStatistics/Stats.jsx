@@ -10,13 +10,13 @@ const Stats = () => {
   }, [])
 
   return (
-    <div className="container">
+    <>
       {Object.keys(statistics).length === 0 ? (
         "Loading..."
       ) : (
         <KeyStatistics stats={statistics} />
       )}
-    </div>
+    </>
   )
 }
 

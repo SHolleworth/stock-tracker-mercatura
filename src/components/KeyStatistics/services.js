@@ -11,7 +11,6 @@ async function getKeyStatistics() {
     const quoteResponse = await fetch(QUOTE_URL)
     const fundamentalsResponse = await fetch(FUNDAMENTALS_URL)
 
-    console.log(QUOTE_URL)
     const quote = await quoteResponse.json()
     const fundamentals = await fundamentalsResponse.json()
 
