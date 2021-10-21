@@ -21,7 +21,7 @@ function NewsFeed() {
         {articles.map((article) => {
           return (
             <NewsArticle
-              key={article}
+              key={article.headline}
               link={article.url}
               content={article.headline}
               timeSincePublication={article.datetime}

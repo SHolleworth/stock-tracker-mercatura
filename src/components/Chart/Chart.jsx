@@ -20,6 +20,10 @@ const colours = {
   keys: "#7f7f7f",
 }
 
+const removeNulls = (prices) => {
+  return prices.filter((price) => price.average)
+}
+
 const ChartContainer = () => {
   const [intradayPrices, setIntradayPrices] = useState([])
   // console.clear(0)
@@ -27,8 +31,9 @@ const ChartContainer = () => {
     (async () => {
       try {
         const prices = await requestIntradayPrices()
+        const pricesWithoutNulls = removeNulls(prices)
         console.log(prices)
-        setIntradayPrices(prices)
+        setIntradayPrices(pricesWithoutNulls)
       } catch (error) {
         console.error(error)
       }
@@ -37,7 +42,7 @@ const ChartContainer = () => {
 
   if (intradayPrices.length) {
     return (
-      <div className={"chart-container"}>
+      <div className="chart-container">
         <Chart data={intradayPrices} />
       </div>
     )
@@ -103,7 +108,7 @@ export const Chart = ({ data }) => {
   )
 
   const axisStyle = { fontFamily: "Roboto" }
-  const interval = 6
+  const interval = 10
   const xAxis = (
     <XAxis
       type="category"
@@ -167,8 +172,8 @@ export const Chart = ({ data }) => {
   })
 
   const renderChart = (
-    <ResponsiveContainer width={"100%"} height={500}>
-      <LineChart height={500} width={500} data={data}>
+    <ResponsiveContainer width={"100%"} height={"100%"}>
+      <LineChart data={data}>
         {referenceAreas}
         {grid}
         {line}

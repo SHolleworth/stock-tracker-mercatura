@@ -7,6 +7,7 @@ import NewsFeed from "./components/NewsFeed/NewsFeed"
 function App() {
   return (
     <div className="App">
+      <div className="logo-section"></div>
       <div className="main-section">
         <Chart />
         <Stats />

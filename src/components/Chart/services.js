@@ -5,7 +5,7 @@ const token = `token=${t}`
 
 export const requestIntradayPrices = async () => {
   const response = await fetch(
-    `${base}/stock/AAPL/intraday-prices?${token}&chartInterval=1`
+    `${base}/stock/AAPL/intraday-prices?${token}&chartInterval=2`
   )
   return response.json()
 }
