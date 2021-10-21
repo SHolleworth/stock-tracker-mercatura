@@ -1,10 +1,10 @@
 import React from "react"
-import KeyStatistics from "./components/KeyStatistics"
+import Stats from "./components/KeyStatistics/Stats"
 
 function App() {
   return (
     <div className="App">
-      <KeyStatistics />
+      <Stats />
     </div>
   )
 }

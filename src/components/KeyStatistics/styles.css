@@ -1,30 +1,43 @@
-.container {
-  width: 800px;
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
 }
 
 .stats {
   display: flex;
-  justify-content: space-evenly;
   flex-wrap: wrap;
-  font-family: "Robot", sans-serif;
-  font-weight: 600;
+  font-family: "Roboto", sans-serif;
+  font-weight: 500;
+  justify-content: space-between;
+  color: #2b2b2b;
 }
 
 .stats__title {
   flex-basis: 100%;
-  text-align: center;
   font-family: "Merriweather", serif;
+  margin-bottom: 25px;
 }
 
 .stats__list {
+  flex: 1;
   list-style: none;
+  min-width: 300px;
+  max-width: 500px;
 }
 
 .stats__list li {
+  display: flex;
+  justify-content: space-between;
   border-bottom: 1px solid #eaebeb;
-  margin: 5px 0;
+  padding: 7.5px 0;
 }
 
 .stats__list li:last-child {
   border-bottom: none;
+}
+
+.stats li span {
+  color: #7f7f7f;
+  font-weight: normal;
 }
