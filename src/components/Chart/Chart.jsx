@@ -36,7 +36,7 @@ const ChartContainer = () => {
 
   if (intradayPrices.length) {
     return (
-      <div style={{ padding: "20px 200px 20px 200px" }}>
+      <div className={"chart-container"}>
         <Chart data={intradayPrices} />
       </div>
     )
@@ -45,9 +45,8 @@ const ChartContainer = () => {
   }
 }
 
-const CustomisedAxisTick = ({ x, y, fill, payload, style, min }) => {
-  console.log(payload)
-  let text = ""
+const CustomisedYAxisTick = ({ x, y, fill, payload, style, min }) => {
+  let text = "-"
   if ((payload.value - min) % 2 === 0) {
     text = Number.parseFloat(payload.value).toFixed(0)
   }
@@ -55,12 +54,31 @@ const CustomisedAxisTick = ({ x, y, fill, payload, style, min }) => {
     <Text
       x={x}
       y={y}
-      fill={fill}
+      fill={colours.keys}
       style={style}
+      fontSize={12}
       textAnchor="end"
       verticalAnchor="middle"
     >
       {text}
+    </Text>
+  )
+}
+
+const CustomisedXAxisTick = ({ x, y, payload, style, index }) => {
+  const time = payload.value
+  // convert24HourTo12Hour(time)
+  let textAnchor = index === 0 ? "start" : "middle"
+  return (
+    <Text
+      x={x}
+      y={y + 10}
+      textAnchor={textAnchor}
+      fill={colours.keys}
+      style={style}
+      fontSize={12}
+    >
+      {time}
     </Text>
   )
 }
@@ -72,26 +90,32 @@ export const Chart = ({ data }) => {
       dataKey="average"
       dot={false}
       stroke={colours.accentPrimary}
-      strokeWidth={3}
+      strokeWidth={2}
     />
   )
 
   const grid = (
-    <CartesianGrid stroke={colours.coreSecondary3} vertical={false} />
+    <CartesianGrid
+      stroke={colours.coreSecondary3}
+      vertical={false}
+      strokeWidth={1}
+    />
   )
 
   const axisStyle = { fontFamily: "Roboto" }
-  const interval = 4
+  const interval = 6
   const xAxis = (
     <XAxis
       type="category"
-      dataKey="label"
-      axisLine={false}
+      dataKey="minute"
       interval={interval - 1}
+      axisLine={false}
       tickMargin={10}
+      tick={<CustomisedXAxisTick />}
       tickSize={12}
       tickLine={{ stroke: colours.coreSecondary3 }}
-      stroke={colours.keys}
+      stroke={colours.coreSecondary3}
+      strokeWidth={0.5}
       style={axisStyle}
     />
   )
@@ -101,7 +125,7 @@ export const Chart = ({ data }) => {
   const max = Math.max(...averages) + 1
   const difference = Math.ceil(max - min)
   let ticks = []
-  for (let i = 0; i < difference; i += 0.5) {
+  for (let i = 0; i < difference; i += 1) {
     ticks.push(min + i)
   }
 
@@ -109,12 +133,11 @@ export const Chart = ({ data }) => {
     <YAxis
       type="number"
       dataKey="average"
-      axisLine={false}
-      stroke={colours.keys}
+      stroke={colours.coreSecondary3}
       style={axisStyle}
       ticks={ticks}
       tickMargin={10}
-      tick={<CustomisedAxisTick min={min} />}
+      tick={<CustomisedYAxisTick min={min} />}
       tickSize={12}
       tickLine={{ stroke: colours.coreSecondary3 }}
       domain={[min, max]}
@@ -126,11 +149,11 @@ export const Chart = ({ data }) => {
   )
   const referenceAreas = referenceAreaArray.map((el, index) => {
     const offset = index * interval
-    const x1 = data[offset].label
+    const x1 = data[offset].minute
     const x2 =
       index === referenceAreaArray.length - 1
         ? data[data.length - 1]
-        : data[offset + interval].label
+        : data[offset + interval].minute
     return (
       <ReferenceArea
         key={index}
@@ -138,14 +161,14 @@ export const Chart = ({ data }) => {
         x2={x2}
         y1={min}
         y2={max}
-        fill={index % 2 === 0 ? colours.coreSecondary2 : "rgba(0, 0, 0, 0)"}
+        fill={index % 2 !== 0 ? colours.coreSecondary2 : "rgba(0, 0, 0, 0)"}
       />
     )
   })
 
   const renderChart = (
-    <ResponsiveContainer width="100%" height={800}>
-      <LineChart data={data}>
+    <ResponsiveContainer width={"100%"} height={500}>
+      <LineChart height={500} width={500} data={data}>
         {referenceAreas}
         {grid}
         {line}
@@ -155,7 +178,7 @@ export const Chart = ({ data }) => {
     </ResponsiveContainer>
   )
 
-  return <div>{renderChart}</div>
+  return renderChart
 }
 
 export default ChartContainer

@@ -1,4 +1,8 @@
+.chart-container {
+  width: 80%;
+}
+
 .axis-text {
   color: #000;
-  font-family: "Roboto";
+  font-family: Roboto;
 }
