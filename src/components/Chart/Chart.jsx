@@ -10,6 +10,7 @@ import {
   Text,
 } from "recharts"
 import { requestIntradayPrices } from "./services"
+import convert24HourTo12Hour from "../../utils/convert24HourTo12Hour"
 import "./styles.css"
 
 const colours = {
@@ -66,8 +67,7 @@ const CustomisedYAxisTick = ({ x, y, fill, payload, style, min }) => {
 }
 
 const CustomisedXAxisTick = ({ x, y, payload, style, index }) => {
-  const time = payload.value
-  // convert24HourTo12Hour(time)
+  const time = convert24HourTo12Hour(payload.value)
   let textAnchor = index === 0 ? "start" : "middle"
   return (
     <Text
