@@ -60,6 +60,7 @@ const CustomisedYAxisTick = ({ x, y, payload, style, min }) => {
       y={y}
       fill={colours.keys}
       style={style}
+      fontSize={12}
       textAnchor="end"
       verticalAnchor="middle"
     >
@@ -78,6 +79,7 @@ const CustomisedXAxisTick = ({ x, y, payload, style, index }) => {
       textAnchor={textAnchor}
       fill={colours.keys}
       style={style}
+      fontSize={12}
     >
       {time}
     </Text>
