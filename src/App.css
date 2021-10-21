@@ -1,10 +1,43 @@
 body {
     background-color: #f9fafa;
+    margin: 0;
+}
+
+h1, h2, h3 {
+    font-family: "Merriweather";
+    font-weight: 100;
+    color: #4d4d4d;
+}
+
+h2 {
+    font-size: 1em;
+}
+
+h3 {
+    font-size: 0.75em;
+    line-height: 1.8;
+    
 }
 
 .App {
     display: flex;
-    flex-direction: column;
     justify-content: center;
     align-items: center;
+    height: 100vh;
+}
+
+.main-section {
+    height: 100%;
+    flex: 4;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.news-summary-section {
+    height: 100%;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
 }

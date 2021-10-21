@@ -1,0 +1,29 @@
+a {
+text-decoration: none;  
+}
+
+.background {
+    flex: 1;
+    background-color: #f1f2f2;
+    display: flex;
+    flex-direction: column;
+    padding: 30px;
+}
+
+.news-article {
+    border-bottom: solid 1px #d8d9d9;
+    padding: 0 10px 15px 10px;
+    margin-bottom: 10px;
+}
+
+.latest-news-text {
+    margin-bottom: 0;
+    margin-left: 10px;
+}
+
+.time-source-text {
+    font-family: "Roboto";
+    font-style: italic;
+    font-size: .6em;
+    color: #7f7f7f
+}
