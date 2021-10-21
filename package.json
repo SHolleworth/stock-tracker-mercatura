@@ -6,7 +6,7 @@
     "build": "vite build",
     "serve": "vite preview",
     "lint": "lint-staged",
-    "test": "jest --passWithNoTests",
+    "test": "jest",
     "prepare": "husky install"
   },
   "dependencies": {
