@@ -1,83 +1,74 @@
-import React, { useState, useEffect } from "react"
-import { stats } from "./services"
+import React from "react"
 import { abbreviateNumber, addDollarSign } from "./utils"
 import "./styles.css"
 
-const KeyStatistics = () => {
-  const [statistics, setStatistics] = useState()
-
-  useEffect(() => {
-    stats.then((res) => setStatistics(res))
-  }, [])
-
-  return !statistics ? null : (
-    <div className="container">
-      <div className="stats" data-testid="stats-data">
-        <h2 className="stats__title">Key Statistics</h2>
-        <ul className="stats__list">
-          <li>
-            Open <span>{addDollarSign(statistics.open)}</span>
-          </li>
-          <li>
-            High <span>{addDollarSign(statistics.high)}</span>
-          </li>
-          <li>
-            Low <span>{addDollarSign(statistics.low)}</span>
-          </li>
-          <li>
-            Previous Close{" "}
-            <span>{addDollarSign(statistics.previousClose)}</span>
-          </li>
-        </ul>
-        <ul className="stats__list">
-          <li>
-            Day Range{" "}
-            <span>
-              {addDollarSign(`${statistics.high} - ${statistics.low}`)}
-            </span>
-          </li>
-          <li>
-            52 Week Range{" "}
-            <span>
-              {addDollarSign(
-                `${statistics.week52High} - ${statistics.week52Low}`
-              )}
-            </span>
-          </li>
-          <li>
-            Market Cap <span>{abbreviateNumber(statistics.marketCap)}</span>
-          </li>
-          <li>
-            P/E Ratio <span>{statistics.peRatio}</span>
-          </li>
-        </ul>
-        <ul className="stats__list">
-          <li>
-            Dividend Yield{" "}
-            <span>{statistics.dividendYield.toFixed(2) + "%"}</span>
-          </li>
-          <li>
-            Earnings Per Share{" "}
-            <span>
-              {addDollarSign(
-                statistics.incomeNetPerWabsoSplitAdjusted.toFixed(2)
-              )}
-            </span>
-          </li>
-          <li>
-            Volume{" "}
-            <span>
-              {statistics.isUsMarketOpen
-                ? statistics.volume
-                : "Market is closed"}
-            </span>
-          </li>
-          <li>
-            Total Avg. Volume{" "}
-            <span>{abbreviateNumber(statistics.avgTotalVolume)}</span>
-          </li>
-        </ul>
-      </div>
+const KeyStatistics = ({
+  stats: {
+    open,
+    high,
+    low,
+    previousClose,
+    week52High,
+    week52Low,
+    marketCap,
+    peRatio,
+    dividendYield,
+    incomeNetPerWabsoSplitAdjusted,
+    isUsMarketOpen,
+    volume,
+    avgTotalVolume,
+  },
+}) => {
+  return (
+    <div className="stats">
+      <h2 className="stats__title">Key Statistics</h2>
+      <ul className="stats__list">
+        <li>
+          Open <span>{open ? addDollarSign(open) : "-"}</span>
+        </li>
+        <li>
+          High <span>{high ? addDollarSign(high) : "-"}</span>
+        </li>
+        <li>
+          Low <span>{low ? addDollarSign(low) : "-"}</span>
+        </li>
+        <li>
+          Previous Close <span>{addDollarSign(previousClose)}</span>
+        </li>
+      </ul>
+      <ul className="stats__list">
+        <li>
+          Day Range{" "}
+          <span>{high ? addDollarSign(`${high} - ${low}`) : "-"}</span>
+        </li>
+        <li>
+          52 Week Range{" "}
+          <span>{addDollarSign(`${week52High} - ${week52Low}`)}</span>
+        </li>
+        <li>
+          Market Cap <span>{abbreviateNumber(marketCap)}</span>
+        </li>
+        <li>
+          P/E Ratio <span>{peRatio}</span>
+        </li>
+      </ul>
+      <ul className="stats__list">
+        <li>
+          Dividend Yield <span>{dividendYield.toFixed(2) + "%"}</span>
+        </li>
+        <li>
+          Earnings Per Share{" "}
+          <span>
+            {addDollarSign(incomeNetPerWabsoSplitAdjusted.toFixed(2))}
+          </span>
+        </li>
+        <li>
+          Volume <span>{isUsMarketOpen ? volume : "-"}</span>
+        </li>
+        <li>
+          Total Avg. Volume <span>{abbreviateNumber(avgTotalVolume)}</span>
+        </li>
+      </ul>
     </div>
   )
 }

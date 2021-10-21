@@ -15,5 +15,3 @@ describe("Numbers are being correctly abbreviated", () => {
     expect(thousandsResult).toStrictEqual(expectedThousandsResult)
   })
 })
-
-// 2574959298758
