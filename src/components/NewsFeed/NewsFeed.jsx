@@ -7,16 +7,12 @@ function NewsFeed() {
   const [articles, setArticles] = useState(null)
 
   useEffect(() => {
-    (async () => {
-      const news = await requestNews("AAPL")
-      console.log(news)
-      setArticles(news)
-    })()
+    requestNews("AAPL").then((res) => setArticles(res))
   }, [])
 
   if (articles) {
     return (
-      <div className={"background"}>
+      <div className="background">
         <h2 className="latest-news-text">Latest News</h2>
         {articles.map((article) => {
           return (
