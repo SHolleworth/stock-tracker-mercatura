@@ -1,7 +1,5 @@
-import t from "../../../../token"
-
 const base = "https://sandbox.iexapis.com/stable/"
-const token = `token=${t}`
+const token = `token=${import.meta.env.VITE_IEX_TOKEN}`
 
 export const requestIntradayPrices = async () => {
   const response = await fetch(
