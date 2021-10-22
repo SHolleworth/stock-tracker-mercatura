@@ -1,13 +1,17 @@
 import React from "react"
 import { useEffect, useState } from "react"
 import { requestNews } from "./services"
+import convertMillisecondsToNewsFeedTime from "../../utils/convertMillisecondsToNewsFeedTime"
 import "./styles.css"
 
 function NewsFeed() {
   const [articles, setArticles] = useState(null)
 
   useEffect(() => {
-    requestNews("AAPL").then((res) => setArticles(res))
+    requestNews("AAPL").then((news) => {
+      console.log(news)
+      setArticles(news)
+    })
   }, [])
 
   if (articles) {
@@ -33,12 +37,14 @@ function NewsFeed() {
 }
 
 function NewsArticle({ link, content, timeSincePublication, source }) {
+  const timeString = convertMillisecondsToNewsFeedTime(timeSincePublication)
+
   return (
-    <div className="news-article">
+    <div className="article">
       <a href={link}>
-        <h3>{content}</h3>
+        <h3 className="article__content">{content}</h3>
       </a>
-      <p className="time-source-text">{`${timeSincePublication} ago - ${source}`}</p>
+      <p className="article__time-source">{`${timeString} ago - ${source}`}</p>
     </div>
   )
 }

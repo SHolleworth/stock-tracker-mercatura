@@ -19,9 +19,9 @@ a {
   margin: 30px 0 10px 10px;
 }
 
-.time-source-text {
+.article__time-source {
   font-family: "Roboto";
   font-style: italic;
-  font-size: 0.6em;
+  font-size: 0.85em;
   color: #7f7f7f;
 }
