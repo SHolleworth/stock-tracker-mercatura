@@ -1,45 +1,46 @@
 body {
-    background-color: #f9fafa;
-    margin: 0;
+  background-color: #f9fafa;
+  margin: 0;
 }
 
-h1, h2, h3 {
-    font-family: "Merriweather";
-    color: #4d4d4d;
+h1,
+h2,
+h3 {
+  font-family: "Merriweather";
+  color: #4d4d4d;
 }
 
 h2 {
-    font-size: 1.1em;
+  font-size: 1.1em;
 }
 
 h3 {
-    font-size: 0.75em;
-    line-height: 1.8;
-    
+  font-size: 0.75em;
+  line-height: 1.8;
 }
 
 .App {
-    display: flex;
-    justify-content: center;
-    height: 100vh;
+  display: flex;
+  justify-content: center;
+  height: 100vh;
 }
 
 .logo-section {
-    height: 100%;
-    flex: 1;
-    background-color: #f1f2f2
+  height: 100%;
+  flex: 1;
+  background-color: #f1f2f2;
 }
 
 .main-section {
-    width: 65%;
-    display: flex;
-    flex-direction: column;
-    padding: 80px 50px 0 50px;
+  width: 65%;
+  display: flex;
+  flex-direction: column;
+  padding: 80px 50px 0 50px;
 }
 
 .news-summary-section {
-    height: 100%;
-    flex: 2;
-    display: flex;
-    flex-direction: column;
+  height: 100%;
+  flex: 2;
+  display: flex;
+  flex-direction: column;
 }
