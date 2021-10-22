@@ -26,18 +26,14 @@ const removeNulls = (prices) => {
 
 const ChartContainer = () => {
   const [intradayPrices, setIntradayPrices] = useState([])
-  // console.clear(0)
+
   useEffect(() => {
-    (async () => {
-      try {
-        const prices = await requestIntradayPrices()
+    requestIntradayPrices()
+      .then((prices) => {
         const pricesWithoutNulls = removeNulls(prices)
-        console.log(prices)
         setIntradayPrices(pricesWithoutNulls)
-      } catch (error) {
-        console.error(error)
-      }
-    })()
+      })
+      .catch((err) => console.error(err))
   }, [])
 
   if (intradayPrices.length) {

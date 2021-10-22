@@ -3,6 +3,7 @@ import Stats from "./components/Stats"
 import Chart from "./components/Chart"
 import "./App.css"
 import NewsFeed from "./components/NewsFeed/NewsFeed"
+import CompanySummary from "./components/CompanySummary/CompanySummary"
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
       </div>
       <div className="news-summary-section">
         <NewsFeed />
+        <CompanySummary />
       </div>
     </div>
   )
