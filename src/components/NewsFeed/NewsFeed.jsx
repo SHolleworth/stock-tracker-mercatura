@@ -12,7 +12,7 @@ function NewsFeed() {
 
   if (articles) {
     return (
-      <div className="background">
+      <div className="newsfeed__background">
         <h2 className="latest-news-text">Latest News</h2>
         {articles.map((article) => {
           return (

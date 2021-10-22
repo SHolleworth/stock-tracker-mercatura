@@ -1,7 +1,13 @@
-.company_summary {
+.company__summary {
   display: flex;
   flex-direction: column;
-  padding: 30px;
+  border-bottom: solid 1px #d8d9d9;
+  padding-bottom: 20px;
+  margin-bottom: 20px;
+}
+
+.company__summary h2 {
+  padding: 0 10px;
 }
 
 .company__name {
@@ -9,6 +15,7 @@
   color: #4d4d4d;
   font-weight: 500;
   margin-bottom: 8px;
+  padding: 0 10px;
 }
 
 .company__website {
@@ -17,4 +24,13 @@
   font-style: italic;
   margin-bottom: 8px;
   font-size: 13px;
+  padding: 0 10px;
+}
+
+.company__description {
+  color: #4d4d4d;
+  font-family: "Roboto", sans-serif;
+  line-height: 1.67;
+  letter-spacing: 0.09px;
+  padding: 0 10px;
 }

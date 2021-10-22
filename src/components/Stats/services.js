@@ -2,7 +2,7 @@ const BASE_URL = "https://sandbox.iexapis.com/stable/"
 const QUOTE_URL = `${BASE_URL}stock/AAPL/quote?token=${
   import.meta.env.VITE_IEX_TOKEN
 }`
-const FUNDAMENTALS_URL = `${BASE_URL}/time-series/FUNDAMENTAL_VALUATIONS/AAPL?token=${
+const FUNDAMENTALS_URL = `${BASE_URL}time-series/FUNDAMENTAL_VALUATIONS/AAPL?token=${
   import.meta.env.VITE_IEX_TOKEN
 }`
 
