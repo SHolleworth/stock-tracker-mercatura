@@ -2,16 +2,13 @@ a {
   text-decoration: none;
 }
 
-.newsfeed__background {
-}
-
-.news-article {
+.article {
   border-bottom: solid 1px #d8d9d9;
   padding: 0 10px 15px 10px;
   margin-bottom: 10px;
 }
 
-.news-article a h3 {
+.article__content {
   margin-bottom: 10px;
 }
 
@@ -22,6 +19,6 @@ a {
 .article__time-source {
   font-family: "Roboto";
   font-style: italic;
-  font-size: 0.85em;
+  font-size: 16px;
   color: #7f7f7f;
 }

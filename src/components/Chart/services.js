@@ -1,5 +1,3 @@
-const t = import.meta.env.VITE_IEX_TOKEN
-
 const base = "https://sandbox.iexapis.com/stable/"
 const token = `token=${import.meta.env.VITE_IEX_TOKEN}`
 
