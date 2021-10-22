@@ -3,7 +3,7 @@ const token = `token=${import.meta.env.VITE_IEX_TOKEN}`
 
 export const requestIntradayPrices = async () => {
   const response = await fetch(
-    `${base}/stock/AAPL/intraday-prices?${token}&chartInterval=2`
+    `${base}/stock/AAPL/intraday-prices?${token}&chartInterval=10`
   )
   return response.json()
 }

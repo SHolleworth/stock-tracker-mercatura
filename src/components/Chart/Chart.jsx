@@ -39,7 +39,7 @@ const ChartContainer = () => {
   if (intradayPrices.length) {
     return (
       <div className="chart-container">
-        <Chart data={intradayPrices} />
+        <Chart data={intradayPrices} interval={4} />
       </div>
     )
   } else {
@@ -47,7 +47,7 @@ const ChartContainer = () => {
   }
 }
 
-const CustomisedYAxisTick = ({ x, y, fill, payload, style, min }) => {
+const CustomisedYAxisTick = ({ x, y, payload, style, min }) => {
   let text = "-"
   if ((payload.value - min) % 2 === 0) {
     text = Number.parseFloat(payload.value).toFixed(0)
@@ -58,7 +58,6 @@ const CustomisedYAxisTick = ({ x, y, fill, payload, style, min }) => {
       y={y}
       fill={colours.keys}
       style={style}
-      fontSize={12}
       textAnchor="end"
       verticalAnchor="middle"
     >
@@ -77,14 +76,13 @@ const CustomisedXAxisTick = ({ x, y, payload, style, index }) => {
       textAnchor={textAnchor}
       fill={colours.keys}
       style={style}
-      fontSize={12}
     >
       {time}
     </Text>
   )
 }
 
-export const Chart = ({ data }) => {
+export const Chart = ({ data, interval }) => {
   const line = (
     <Line
       type="linear"
@@ -104,7 +102,6 @@ export const Chart = ({ data }) => {
   )
 
   const axisStyle = { fontFamily: "Roboto" }
-  const interval = 10
   const xAxis = (
     <XAxis
       type="category"
@@ -121,6 +118,7 @@ export const Chart = ({ data }) => {
     />
   )
 
+  //min and max are used to control the height of the graph
   const averages = data.map((el) => el.average)
   const min = Math.floor(Math.min(...averages))
   const max = Math.max(...averages) + 1
@@ -145,6 +143,8 @@ export const Chart = ({ data }) => {
     />
   )
 
+  //The amount of reference areas is going to be equal to the amount of data points
+  //divided by the interval between the x-axis's ticks
   const referenceAreaArray = new Array(Math.ceil(data.length / interval)).fill(
     ""
   )
