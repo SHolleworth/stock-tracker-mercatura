@@ -7,6 +7,7 @@ import CompanySummary from "./components/CompanySummary/CompanySummary"
 import TopPeers from "./components/Top Peers/TopPeers"
 import SymbolContextProvider from "./contexts/SymbolContext"
 import LivePrice from "./components/LivePrice"
+import logo from "./assets/ra-logo.svg"
 
 function App() {
   return (
