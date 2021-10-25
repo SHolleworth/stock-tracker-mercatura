@@ -1,0 +1,19 @@
+.peers__buttons {
+  display: flex;
+  justify-content: center;
+}
+
+.peer {
+  border-radius: 43px;
+  background-color: #f1f2f2;
+  padding: 10px 15px;
+  font-family: "Roboto", sans-serif;
+  margin: 0 5px;
+  border: 2px solid #d8d9d9;
+  flex: 1 0 18%;
+}
+
+.peer:hover {
+  background-color: #d8d9d9;
+  cursor: pointer;
+}

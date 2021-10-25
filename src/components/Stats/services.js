@@ -6,7 +6,7 @@ const FUNDAMENTALS_URL = `${BASE_URL}time-series/FUNDAMENTAL_VALUATIONS/AAPL?tok
   import.meta.env.VITE_IEX_TOKEN
 }`
 
-async function getKeyStatistics() {
+export async function getKeyStatistics() {
   try {
     const quoteResponse = await fetch(QUOTE_URL)
     const fundamentalsResponse = await fetch(FUNDAMENTALS_URL)
@@ -20,5 +20,3 @@ async function getKeyStatistics() {
     console.log("Error: ", err)
   }
 }
-
-export const stats = getKeyStatistics()

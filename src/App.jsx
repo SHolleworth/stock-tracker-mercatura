@@ -4,6 +4,7 @@ import Chart from "./components/Chart"
 import "./App.css"
 import NewsFeed from "./components/NewsFeed/NewsFeed"
 import CompanySummary from "./components/CompanySummary/CompanySummary"
+import TopPeers from "./components/Top Peers/TopPeers"
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
       <div className="news-summary-section">
         <NewsFeed />
         <CompanySummary />
+        <TopPeers />
       </div>
     </div>
   )
