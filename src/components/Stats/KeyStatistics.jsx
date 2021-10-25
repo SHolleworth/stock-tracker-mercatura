@@ -14,7 +14,6 @@ const KeyStatistics = ({
     peRatio,
     dividendYield,
     incomeNetPerWabsoSplitAdjusted,
-    isUsMarketOpen,
     volume,
     avgTotalVolume,
   },
@@ -64,7 +63,7 @@ const KeyStatistics = ({
             </span>
           </li>
           <li>
-            Volume <span>{isUsMarketOpen ? volume : "-"}</span>
+            Volume <span>{volume ?? "-"}</span>
           </li>
           <li>
             Total Avg. Volume <span>{abbreviateNumber(avgTotalVolume)}</span>
