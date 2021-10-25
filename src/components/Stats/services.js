@@ -1,12 +1,13 @@
 const BASE_URL = "https://sandbox.iexapis.com/stable/"
-const QUOTE_URL = `${BASE_URL}stock/AAPL/quote?token=${
-  import.meta.env.VITE_IEX_TOKEN
-}`
-const FUNDAMENTALS_URL = `${BASE_URL}time-series/FUNDAMENTAL_VALUATIONS/AAPL?token=${
-  import.meta.env.VITE_IEX_TOKEN
-}`
 
-export async function getKeyStatistics() {
+export async function getKeyStatistics(symbol) {
+  const QUOTE_URL = `${BASE_URL}stock/${symbol}/quote?token=${
+    import.meta.env.VITE_IEX_TOKEN
+  }`
+
+  const FUNDAMENTALS_URL = `${BASE_URL}time-series/FUNDAMENTAL_VALUATIONS/${symbol}?token=${
+    import.meta.env.VITE_IEX_TOKEN
+  }`
   try {
     const quoteResponse = await fetch(QUOTE_URL)
     const fundamentalsResponse = await fetch(FUNDAMENTALS_URL)

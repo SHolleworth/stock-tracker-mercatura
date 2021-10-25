@@ -1,6 +1,7 @@
 .peers__buttons {
   display: flex;
   justify-content: center;
+  flex-wrap: wrap;
 }
 
 .peer {
@@ -10,7 +11,8 @@
   font-family: "Roboto", sans-serif;
   margin: 0 5px;
   border: 2px solid #d8d9d9;
-  flex: 1 0 18%;
+  flex-basis: 18%;
+  margin: 5px;
 }
 
 .peer:hover {

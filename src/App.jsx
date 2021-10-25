@@ -5,7 +5,7 @@ import "./App.css"
 import NewsFeed from "./components/NewsFeed/NewsFeed"
 import CompanySummary from "./components/CompanySummary/CompanySummary"
 import TopPeers from "./components/Top Peers/TopPeers"
-import SymbolContextProvider from "./contexts/UserContext"
+import SymbolContextProvider from "./contexts/SymbolContext"
 
 function App() {
   return (

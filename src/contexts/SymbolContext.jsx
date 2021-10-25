@@ -10,9 +10,9 @@ const SymbolContextProvider = ({ children }) => {
   const [symbol, setSymbol] = useState("AAPL")
 
   return (
-    <SymbolContextProvider value={{ symbol, setSymbol }}>
+    <SymbolContext.Provider value={{ symbol, setSymbol }}>
       {children}
-    </SymbolContextProvider>
+    </SymbolContext.Provider>
   )
 }
 

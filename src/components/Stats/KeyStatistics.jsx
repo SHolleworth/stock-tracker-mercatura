@@ -54,12 +54,12 @@ const KeyStatistics = ({
         </ul>
         <ul className="stats__list">
           <li>
-            Dividend Yield <span>{dividendYield.toFixed(2) + "%"}</span>
+            Dividend Yield <span>{dividendYield?.toFixed(2) + "%"}</span>
           </li>
           <li>
             Earnings Per Share{" "}
             <span>
-              {addDollarSign(incomeNetPerWabsoSplitAdjusted.toFixed(2))}
+              {addDollarSign(incomeNetPerWabsoSplitAdjusted?.toFixed(2))}
             </span>
           </li>
           <li>

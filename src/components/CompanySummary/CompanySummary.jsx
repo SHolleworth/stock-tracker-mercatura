@@ -1,16 +1,18 @@
 import React, { useState, useEffect } from "react"
 import { requestCompanyInfo } from "./services"
 import "./styles.css"
+import { useSymbol } from "../../contexts/SymbolContext"
 
 const CompanySummary = () => {
   const [companyInfo, setCompanyInfo] = useState({})
+  const { symbol } = useSymbol()
 
   useEffect(() => {
-    requestCompanyInfo("AAPL").then((res) => {
+    requestCompanyInfo(symbol).then((res) => {
       const newDescription = res.description.substring(0, 500)
       setCompanyInfo({ ...res, description: newDescription })
     })
-  }, [])
+  }, [symbol])
 
   return Object.keys(companyInfo).length === 0 ? (
     "Loading..."

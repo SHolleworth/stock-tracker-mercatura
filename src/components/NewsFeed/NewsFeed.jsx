@@ -3,15 +3,17 @@ import { useEffect, useState } from "react"
 import { requestNews } from "./services"
 import convertMillisecondsToNewsFeedTime from "../../utils/convertMillisecondsToNewsFeedTime"
 import "./styles.css"
+import { useSymbol } from "../../contexts/SymbolContext"
 
 function NewsFeed() {
   const [articles, setArticles] = useState(null)
+  const { symbol } = useSymbol()
 
   useEffect(() => {
-    requestNews("AAPL").then((news) => {
+    requestNews(symbol).then((news) => {
       setArticles(news)
     })
-  }, [])
+  }, [symbol])
 
   if (articles) {
     return (
