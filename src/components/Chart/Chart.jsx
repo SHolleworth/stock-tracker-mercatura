@@ -171,7 +171,7 @@ export const Chart = ({ data, interval }) => {
 
   const renderChart = (
     <ResponsiveContainer width={"100%"} height={"100%"}>
-      <LineChart data={data}>
+      <LineChart data={data} margin={{ left: 20, right: 40, bottom: 10 }}>
         {referenceAreas}
         {grid}
         {line}
