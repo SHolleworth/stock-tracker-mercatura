@@ -9,7 +9,6 @@ function NewsFeed() {
 
   useEffect(() => {
     requestNews("AAPL").then((news) => {
-      console.log(news)
       setArticles(news)
     })
   }, [])

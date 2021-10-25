@@ -1,9 +1,7 @@
 import getQuotientAndRemainder from "./getQuotientAndRemainder"
 
 const convertMillisecondsToNewsFeedTime = (milliseconds) => {
-  console.log(milliseconds)
   const millisecondsSincePost = milliseconds - Date.now()
-  console.log(millisecondsSincePost)
   const [yearsSincePost, yearsRemainder] = getQuotientAndRemainder(
     millisecondsSincePost,
     3.154e10
