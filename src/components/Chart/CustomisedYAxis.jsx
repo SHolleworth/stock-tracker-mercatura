@@ -10,7 +10,7 @@ const CustomisedYAxisTick = ({ x, y, payload, style, min }) => {
 	return (
 		<Text
 			x={x}
-			y={y}
+			y={y - 1}
 			fill={colours.keys}
 			style={style}
 			fontSize={12}

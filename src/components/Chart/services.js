@@ -12,3 +12,8 @@ export const requestIntradayPrices = async () => {
 	)
 	return response.json()
 }
+
+export const requestHistoricalPrices = async () => {
+	const response = await fetch(`${base}/stock/AAPL/chart/5dm?${token}`)
+	return response.json()
+}

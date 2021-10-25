@@ -1,12 +1,22 @@
-.chart-container {
-	width: 100%;
+.chart__container {
+	width: 1260px;
 	height: 700px;
 	margin-top: 50px;
-	overflow-x: scroll;
+	overflow-x: auto;
+	display: flex;
+	flex-direction: row-reverse;
+}
+
+.chart__container::-webkit-scrollbar {
+	display: none;
+}
+
+.chart__inner {
+	cursor: grab;
 	display: flex;
 }
 
-.axis-text {
+.axis__text {
 	color: #000;
 	font-family: Roboto;
 }
