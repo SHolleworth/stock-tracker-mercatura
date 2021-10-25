@@ -13,15 +13,15 @@ const Stats = () => {
       .catch((err) => console.error(err))
   }, [symbol])
 
-  return (
-    <>
-      {Object.keys(statistics).length === 0 ? (
-        "Loading..."
-      ) : (
-        <KeyStatistics stats={statistics} />
-      )}
-    </>
-  )
+	return (
+		<>
+			{Object.keys(statistics).length === 0 ? (
+				"Loading..."
+			) : (
+				<KeyStatistics stats={statistics} />
+			)}
+		</>
+	)
 }
 
 export default Stats

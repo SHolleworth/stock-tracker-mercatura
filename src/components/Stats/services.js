@@ -12,12 +12,12 @@ export async function getKeyStatistics(symbol) {
     const quoteResponse = await fetch(QUOTE_URL)
     const fundamentalsResponse = await fetch(FUNDAMENTALS_URL)
 
-    const quote = await quoteResponse.json()
-    const fundamentals = await fundamentalsResponse.json()
+		const quote = await quoteResponse.json()
+		const fundamentals = await fundamentalsResponse.json()
 
-    const content = { ...quote, ...fundamentals[0] }
-    return content
-  } catch (err) {
-    console.log("Error: ", err)
-  }
+		const content = { ...quote, ...fundamentals[0] }
+		return content
+	} catch (err) {
+		console.log("Error: ", err)
+	}
 }

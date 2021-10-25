@@ -1,24 +1,24 @@
 a {
-  text-decoration: none;
+	text-decoration: none;
 }
 
 .article {
-  border-bottom: solid 1px #d8d9d9;
-  padding: 0 10px 15px 10px;
-  margin-bottom: 10px;
+	border-bottom: solid 1px #d8d9d9;
+	padding: 0 10px 15px 10px;
+	margin-bottom: 10px;
 }
 
 .article__content {
-  margin-bottom: 10px;
+	margin-bottom: 10px;
 }
 
 .latest-news-text {
-  margin: 30px 0 10px 10px;
+	margin: 30px 0 10px 10px;
 }
 
 .article__time-source {
-  font-family: "Roboto";
-  font-style: italic;
-  font-size: 12px;
-  color: #7f7f7f;
+	font-family: "Roboto";
+	font-style: italic;
+	font-size: 12px;
+	color: #7f7f7f;
 }
