@@ -6,6 +6,7 @@ import NewsFeed from "./components/NewsFeed/NewsFeed"
 import CompanySummary from "./components/CompanySummary/CompanySummary"
 import TopPeers from "./components/Top Peers/TopPeers"
 import SymbolContextProvider from "./contexts/SymbolContext"
+import LivePrice from "./components/LivePrice"
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
       <div className="logo-section"></div>
       <SymbolContextProvider>
         <div className="main-section">
+          <LivePrice />
           <Chart />
           <Stats />
         </div>
