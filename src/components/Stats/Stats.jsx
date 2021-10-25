@@ -1,13 +1,17 @@
 import React, { useState, useEffect } from "react"
 import KeyStatistics from "./KeyStatistics"
-import { stats } from "./services"
+import { getKeyStatistics } from "./services"
+import { useSymbol } from "../../contexts/SymbolContext"
 
 const Stats = () => {
   const [statistics, setStatistics] = useState({})
+  const { symbol } = useSymbol()
 
   useEffect(() => {
-    stats.then((res) => setStatistics(res)).catch((err) => console.error(err))
-  }, [])
+    getKeyStatistics(symbol)
+      .then((res) => setStatistics(res))
+      .catch((err) => console.error(err))
+  }, [symbol])
 
   return (
     <>

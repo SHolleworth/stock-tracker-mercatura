@@ -14,7 +14,6 @@ const KeyStatistics = ({
     peRatio,
     dividendYield,
     incomeNetPerWabsoSplitAdjusted,
-    isUsMarketOpen,
     volume,
     avgTotalVolume,
   },
@@ -55,16 +54,16 @@ const KeyStatistics = ({
         </ul>
         <ul className="stats__list">
           <li>
-            Dividend Yield <span>{dividendYield.toFixed(2) + "%"}</span>
+            Dividend Yield <span>{dividendYield?.toFixed(2) + "%"}</span>
           </li>
           <li>
             Earnings Per Share{" "}
             <span>
-              {addDollarSign(incomeNetPerWabsoSplitAdjusted.toFixed(2))}
+              {addDollarSign(incomeNetPerWabsoSplitAdjusted?.toFixed(2))}
             </span>
           </li>
           <li>
-            Volume <span>{isUsMarketOpen ? volume : "-"}</span>
+            Volume <span>{volume ?? "-"}</span>
           </li>
           <li>
             Total Avg. Volume <span>{abbreviateNumber(avgTotalVolume)}</span>

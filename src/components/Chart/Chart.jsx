@@ -12,6 +12,7 @@ import {
 import { requestIntradayPrices } from "./services"
 import convert24HourTo12Hour from "../../utils/convert24HourTo12Hour"
 import "./styles.css"
+import { useSymbol } from "../../contexts/SymbolContext"
 
 const colours = {
   accentPrimary: "#aaabd1",
@@ -26,15 +27,16 @@ const removeNulls = (prices) => {
 
 const ChartContainer = () => {
   const [intradayPrices, setIntradayPrices] = useState([])
+  const { symbol } = useSymbol()
 
   useEffect(() => {
-    requestIntradayPrices()
+    requestIntradayPrices(symbol)
       .then((prices) => {
         const pricesWithoutNulls = removeNulls(prices)
         setIntradayPrices(pricesWithoutNulls)
       })
       .catch((err) => console.error(err))
-  }, [])
+  }, [symbol])
 
   if (intradayPrices.length) {
     return (
