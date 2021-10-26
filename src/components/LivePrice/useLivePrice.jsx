@@ -13,8 +13,11 @@ const useLivePrice = (symbol) => {
     const sse = new EventSource(CURL_URL)
 
     sse.onmessage = (e) => {
-      console.log(e.data)
-      setPrice(JSON.parse(e.data))
+      if (JSON.parse(e.data).length !== 0) {
+        setPrice(JSON.parse(e.data))
+      } else {
+        console.log("Just got an empty message")
+      }
     }
 
     sse.onerror = (error) => {
