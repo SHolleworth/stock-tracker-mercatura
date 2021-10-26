@@ -5,6 +5,7 @@ import { LineChart, Line, CartesianGrid, ResponsiveContainer } from "recharts"
 import { colours } from "./colours"
 import { ReferenceAreas } from "./ReferenceAreas"
 import { TopXAxis } from "./TopXAxis"
+import { CustomisedToolTip } from "./CustomisedToolTip"
 
 export const HistoricalPriceChart = ({
 	axisProps,
@@ -16,6 +17,7 @@ export const HistoricalPriceChart = ({
 }) => {
 	const line = (
 		<Line
+			isAnimationActive={false}
 			type="linear"
 			dataKey="average"
 			dot={false}
@@ -33,8 +35,12 @@ export const HistoricalPriceChart = ({
 	)
 
 	return (
-		<ResponsiveContainer height={"100%"} width={daySize * 4}>
-			<LineChart data={data} margin={{ right: 0, bottom: 10 }}>
+		<ResponsiveContainer height={"100%"} width={daySize * 5}>
+			<LineChart
+				isAnimationActive={false}
+				data={data}
+				margin={{ right: 0, bottom: 10 }}
+			>
 				{ReferenceAreas({ data, interval, min, max })}
 				{grid}
 				{line}
@@ -43,6 +49,7 @@ export const HistoricalPriceChart = ({
 				{CustomisedXAxis({ axisProps, interval })}
 				{CustomisedYAxis({ axisProps, min, max, hide: true })}
 				{TopXAxis({ data, daySize, style: axisProps.style })}
+				{CustomisedToolTip({ style: axisProps.style })}
 			</LineChart>
 		</ResponsiveContainer>
 	)

@@ -18,10 +18,13 @@ const axisProps = {
 
 const ChartContainer = () => {
 	const [historicPrices, historicMinMax] = useHistoricalPrices()
-	const [intradayPrices] = useIntradayPrices()
+	const [intradayPrices, intradayMinMax] = useIntradayPrices()
 	const [chartContainerRef, startScroll] = useDrag()
 	const interval = 3
 	const daySize = 1200
+	const showingCurrentPriceChart = intradayPrices.length < 39
+	const min = Math.min(intradayMinMax.min, historicMinMax.min)
+	const max = Math.max(intradayMinMax.max, historicMinMax.max)
 
 	if (historicPrices.length) {
 		return (
@@ -34,8 +37,8 @@ const ChartContainer = () => {
 					<StaticYAxis
 						data={historicPrices}
 						interval={interval}
-						min={historicMinMax.min}
-						max={historicMinMax.max}
+						min={min}
+						max={max}
 						axisProps={axisProps}
 					/>
 					<HistoricalPriceChart
@@ -43,18 +46,20 @@ const ChartContainer = () => {
 						axisProps={axisProps}
 						data={historicPrices}
 						interval={interval}
-						min={historicMinMax.min}
-						max={historicMinMax.max}
+						min={min}
+						max={max}
 					/>
-					<CurrentPriceChart
-						daySize={daySize}
-						axisProps={axisProps}
-						previousDayData={historicPrices.slice(0, 38)}
-						data={intradayPrices}
-						interval={interval}
-						min={historicMinMax.min}
-						max={historicMinMax.max}
-					/>
+					{showingCurrentPriceChart ? (
+						<CurrentPriceChart
+							daySize={daySize}
+							axisProps={axisProps}
+							previousDayData={historicPrices.slice(-39)}
+							currentDayData={intradayPrices}
+							interval={interval}
+							min={min}
+							max={max}
+						/>
+					) : null}
 				</div>
 			</div>
 		)

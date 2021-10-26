@@ -11,7 +11,7 @@ export const ReferenceAreas = (props) => {
 	return referenceAreaArray.map((el, index) => {
 		const offset = index * props.interval
 		const day = Number.parseInt(getDayFromDate(props.data[offset].date))
-		const opacityWeight = day % 2 === 0 ? 0 : 0.2
+		const opacityWeight = day % 2 === 0 ? 0 : 0.1
 		const x1 = props.data[offset].minute
 		const x2 =
 			index === referenceAreaArray.length - 1
@@ -26,8 +26,8 @@ export const ReferenceAreas = (props) => {
 				y2={props.max}
 				fill={
 					index % 2 !== 0
-						? `rgba(0, 0, 0, ${0.1 + opacityWeight})`
-						: `rgba(0, 0, 0, ${0 + opacityWeight})`
+						? `rgba(0, 0, 0, ${0.05 + opacityWeight})`
+						: `rgba(0, 0, 0, ${0})`
 				}
 			/>
 		)

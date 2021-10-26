@@ -10,25 +10,32 @@ import LivePrice from "./components/LivePrice"
 import logo from "./assets/ra-logo.svg"
 
 function App() {
-  return (
-    <div className="App">
-      <div className="logo-section">
-				<img src={logo} height={120} className={"logo"} />
+	return (
+		<div className="App">
+			<div className="logo-section">
+				<img
+					src={logo}
+					height={120}
+					className={"logo"}
+					alt={"Reactive Analystics Logo"}
+				/>
 			</div>
-      <SymbolContextProvider>
-        <div className="main-section">
-          <LivePrice />
-          <Chart />
-          <Stats />
-        </div>
-        <div className="news-summary-section">
-          <NewsFeed />
-          <CompanySummary />
-          <TopPeers />
-        </div>
-      </SymbolContextProvider>
-    </div>
-  )
+			<SymbolContextProvider>
+				<div className="main-section">
+					<div>
+						<LivePrice />
+					</div>
+					<Chart />
+					<Stats />
+				</div>
+				<div className="news-summary-section">
+					<NewsFeed />
+					<CompanySummary />
+					<TopPeers />
+				</div>
+			</SymbolContextProvider>
+		</div>
+	)
 }
 
 export default App

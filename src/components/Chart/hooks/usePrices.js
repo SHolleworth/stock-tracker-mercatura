@@ -29,12 +29,7 @@ export const useHistoricalPrices = () => {
 						}
 					}
 				)
-				setPrices(
-					pricesWithIdentifiableMinutes.slice(
-						0,
-						pricesWithIdentifiableMinutes.length - 39
-					)
-				)
+				setPrices(pricesWithIdentifiableMinutes)
 			})
 			.catch((err) => console.error(err))
 	}, [symbol])
