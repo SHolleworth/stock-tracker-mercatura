@@ -9,9 +9,7 @@ const TopPeers = () => {
 
   useEffect(() => {
     getPeers(symbol).then((peerData) => {
-      console.log(peerData)
       setPeers(peerData)
-      console.log(peers)
     })
   }, [symbol])
 
