@@ -9,7 +9,7 @@ const LivePrice = () => {
   const { symbol } = useSymbol()
   const price = useLivePrice(symbol)
 
-  return (
+  return !price ? null : (
     <div className="price__display">
       <span className="price">{`$${price?.[0].latestPrice.toFixed(2)}`}</span>
       <img

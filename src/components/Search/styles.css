@@ -1,0 +1,26 @@
+.field {
+  width: 100%;
+  flex: 2;
+}
+
+.field input {
+  background-color: transparent;
+  border: none;
+  width: 100%;
+  font-size: 32px;
+  font-family: "Merriweather";
+}
+
+.field input:focus-visible {
+  outline: none;
+  border-bottom: 2px solid #aaabd1;
+}
+
+.stock__header {
+  display: flex;
+  justify-content: space-between;
+}
+
+.grayborder {
+  border-bottom: 2px solid #eaebeb;
+}

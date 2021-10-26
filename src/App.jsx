@@ -6,7 +6,7 @@ import NewsFeed from "./components/NewsFeed/NewsFeed"
 import CompanySummary from "./components/CompanySummary/CompanySummary"
 import TopPeers from "./components/Top Peers/TopPeers"
 import SymbolContextProvider from "./contexts/SymbolContext"
-import LivePrice from "./components/LivePrice"
+import StockHeader from "./components/Search/StockHeader"
 import logo from "./assets/ra-logo.svg"
 
 function App() {
@@ -32,7 +32,7 @@ function App() {
 			</div>
 			<SymbolContextProvider>
 				<div className="main-section">
-					<div>{renderFlag > 0 ? <LivePrice /> : null}</div>
+					<div>{renderFlag > 0 ? <StockHeader /> : null}</div>
 					{renderFlag > 1 ? <Chart /> : null}
 					{renderFlag > 2 ? <Stats /> : null}
 				</div>
