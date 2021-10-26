@@ -1,5 +1,6 @@
 .chart__container {
 	height: 700px;
+	width: 100%;
 	max-width: 1260px;
 	margin-top: 50px;
 	align-self: center;
@@ -9,7 +10,6 @@
 }
 
 .chart__container::-webkit-scrollbar {
-	display: none;
 }
 
 .chart__inner {

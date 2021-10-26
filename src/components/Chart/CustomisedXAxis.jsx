@@ -10,7 +10,8 @@ const removePrependedIndex = (stringWithIndex) => {
 
 const CustomisedXAxisTick = ({ x, y, payload, style, index }) => {
 	const time = convert24HourTo12Hour(removePrependedIndex(payload.value))
-	let textAnchor = index === 0 ? "start" : "middle"
+	console.log(style)
+	let textAnchor = time === "9:30 AM" ? "start" : "middle"
 	return (
 		<Text
 			x={x}
@@ -43,7 +44,7 @@ function CustomisedXAxis({ axisProps, interval }) {
 			strokeWidth={strokeWidth}
 			style={style}
 			allowDuplicatedCategory={false}
-		/>
+		></XAxis>
 	)
 }
 

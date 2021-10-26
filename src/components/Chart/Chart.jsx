@@ -1,9 +1,9 @@
-import React, { useRef } from "react"
+import React from "react"
 import { StaticYAxis } from "./CustomisedYAxis"
 import { colours } from "./colours"
 import "./styles.css"
 import { useHistoricalPrices, useIntradayPrices } from "./hooks/usePrices"
-import { useScroll } from "./hooks/useScroll"
+import { useDrag } from "./hooks/useDrag"
 import { HistoricalPriceChart } from "./HistoricalPriceChart"
 import { CurrentPriceChart } from "./CurrentPriceChart"
 
@@ -13,14 +13,13 @@ const axisProps = {
 	tickLine: { stroke: colours.coreSecondary3 },
 	stroke: colours.coreSecondary3,
 	strokeWidth: 0.5,
-	style: { fontFamily: "Roboto", userSelect: "none" },
+	style: { fontFamily: "Roboto", userSelect: "none", fill: colours.keys },
 }
 
 const ChartContainer = () => {
 	const [historicPrices, historicMinMax] = useHistoricalPrices()
 	const [intradayPrices] = useIntradayPrices()
-	const chartContainer = useRef(null)
-	const { startScroll } = useScroll(chartContainer)
+	const [chartContainerRef, startScroll] = useDrag()
 	const interval = 3
 	const daySize = 1200
 
@@ -28,7 +27,7 @@ const ChartContainer = () => {
 		return (
 			<div
 				className="chart__container"
-				ref={chartContainer}
+				ref={chartContainerRef}
 				onMouseDown={startScroll}
 			>
 				<div className="chart__inner">

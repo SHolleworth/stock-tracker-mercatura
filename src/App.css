@@ -35,6 +35,10 @@ h3 {
 	padding-top: 60px;
 }
 
+.logo {
+	fill: blue;
+}
+
 .main-section {
 	width: 65%;
 	display: flex;

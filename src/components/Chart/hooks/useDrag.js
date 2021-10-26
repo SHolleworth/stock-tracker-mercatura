@@ -1,4 +1,8 @@
-export const useScroll = (ref) => {
+import { useRef } from "react"
+
+export const useDrag = () => {
+	const ref = useRef(null)
+
 	let pos = { left: 0, x: 0 }
 	const startScroll = (e) => {
 		pos = { left: ref.current.scrollLeft, x: e.clientX }
@@ -17,5 +21,5 @@ export const useScroll = (ref) => {
 		document.removeEventListener("mouseup", endScroll)
 	}
 
-	return { startScroll }
+	return [ref, startScroll]
 }

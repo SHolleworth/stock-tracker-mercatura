@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react"
 import { requestHistoricalPrices, requestIntradayPrices } from "../services"
+import { useSymbol } from "../../../contexts/SymbolContext"
 
 const removeNulls = (prices) => {
 	return prices.filter((price) => price.average)
@@ -8,9 +9,10 @@ const removeNulls = (prices) => {
 export const useHistoricalPrices = () => {
 	const [prices, setPrices] = useState([])
 	const [minMax, setMinMax] = useState({ min: 0, max: 0 })
+	const { symbol } = useSymbol()
 
 	useEffect(() => {
-		requestHistoricalPrices()
+		requestHistoricalPrices(symbol)
 			.then((prices) => {
 				console.log("Historical Prices:")
 				console.log(prices)
@@ -27,10 +29,15 @@ export const useHistoricalPrices = () => {
 						}
 					}
 				)
-				setPrices(pricesWithIdentifiableMinutes)
+				setPrices(
+					pricesWithIdentifiableMinutes.slice(
+						0,
+						pricesWithIdentifiableMinutes.length - 39
+					)
+				)
 			})
 			.catch((err) => console.error(err))
-	}, [])
+	}, [symbol])
 
 	return [prices, minMax]
 }
@@ -38,9 +45,10 @@ export const useHistoricalPrices = () => {
 export const useIntradayPrices = () => {
 	const [prices, setPrices] = useState([])
 	const [minMax, setMinMax] = useState({ min: 0, max: 0 })
+	const { symbol } = useSymbol()
 
 	useEffect(() => {
-		requestIntradayPrices()
+		requestIntradayPrices(symbol)
 			.then((prices) => {
 				console.log("Intraday Prices:")
 				console.log(prices)
@@ -52,7 +60,7 @@ export const useIntradayPrices = () => {
 				setPrices(pricesWithoutNulls)
 			})
 			.catch((err) => console.error(err))
-	}, [])
+	}, [symbol])
 
 	return [prices, minMax]
 }

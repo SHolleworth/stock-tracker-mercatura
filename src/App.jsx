@@ -12,7 +12,9 @@ import logo from "./assets/ra-logo.svg"
 function App() {
   return (
     <div className="App">
-      <div className="logo-section"></div>
+      <div className="logo-section">
+				<img src={logo} height={120} className={"logo"} />
+			</div>
       <SymbolContextProvider>
         <div className="main-section">
           <LivePrice />

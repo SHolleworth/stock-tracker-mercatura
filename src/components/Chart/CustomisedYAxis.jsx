@@ -58,7 +58,7 @@ function CustomisedYAxis({ axisProps, min, max, hide }) {
 			strokeWidth={strokeWidth}
 			style={style}
 			hide={hide}
-		/>
+		></YAxis>
 	)
 }
 

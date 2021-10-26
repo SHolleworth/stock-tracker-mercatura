@@ -1,15 +1,10 @@
 import React from "react"
 import CustomisedYAxis from "./CustomisedYAxis"
 import CustomisedXAxis from "./CustomisedXAxis"
-import {
-	LineChart,
-	Line,
-	CartesianGrid,
-	ReferenceArea,
-	ResponsiveContainer,
-} from "recharts"
-import { getDayFromDate } from "../../utils/getDayFromDate"
+import { LineChart, Line, CartesianGrid, ResponsiveContainer } from "recharts"
 import { colours } from "./colours"
+import { ReferenceAreas } from "./ReferenceAreas"
+import { TopXAxis } from "./TopXAxis"
 
 const removePrependedIndex = (stringWithIndex) => {
 	const spaceIndex = stringWithIndex.indexOf(" ")
@@ -31,7 +26,6 @@ export const CurrentPriceChart = ({
 
 	const line = (
 		<Line
-			type="linear"
 			dataKey="average"
 			dot={false}
 			stroke={colours.accentPrimary}
@@ -60,46 +54,17 @@ export const CurrentPriceChart = ({
 		/>
 	)
 
-	//The amount of reference areas is going to be equal to the amount of data points
-	//divided by the interval between the x-axis's ticks
-	const referenceAreaArray = new Array(
-		Math.ceil(cleanData.length / interval)
-	).fill("")
-	const referenceAreas = referenceAreaArray.map((el, index) => {
-		const offset = index * interval
-		const day = Number.parseInt(getDayFromDate(data[0].date))
-		const opacityWeight = day % 2 === 0 ? 0 : 0.05
-		const x1 = cleanData[offset].minute
-		const x2 =
-			index === referenceAreaArray.length - 1
-				? cleanData[cleanData.length - 1]
-				: cleanData[offset + interval].minute
-		return (
-			<ReferenceArea
-				key={index}
-				x1={x1}
-				x2={x2}
-				y1={min}
-				y2={max}
-				fill={
-					index % 2 !== 0
-						? `rgba(0, 0, 0, ${0.05 + opacityWeight})`
-						: `rgba(0, 0, 0, ${0 + opacityWeight})`
-				}
-			/>
-		)
-	})
-
 	return (
 		<ResponsiveContainer height={"100%"} width={daySize}>
-			<LineChart margin={{ right: 0, bottom: 10 }}>
-				{referenceAreas}
+			<LineChart data={data} margin={{ right: 0, bottom: 10 }}>
+				{ReferenceAreas({ data: cleanData, interval, min, max })}
 				{grid}
 				{previousDayLine}
 				{line}
 				{/* recharts does not like your custom components in it's custom components, so this is a work around */}
 				{CustomisedXAxis({ axisProps, interval })}
 				{CustomisedYAxis({ axisProps, min, max, hide: true })}
+				{TopXAxis({ data, daySize, style: axisProps.style })}
 			</LineChart>
 		</ResponsiveContainer>
 	)
