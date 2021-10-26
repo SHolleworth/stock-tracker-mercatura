@@ -66,7 +66,11 @@ export const CurrentPriceChart = ({
 
 	return (
 		<ResponsiveContainer height={"100%"} width={daySize}>
-			<LineChart data={currentDayData} margin={{ right: 0, bottom: 10 }}>
+			<LineChart
+				data={currentDayData}
+				margin={{ left: 10, right: 0, bottom: 10 }}
+				padding={{ left: 10 }}
+			>
 				{ReferenceAreas({
 					data: cleanPreviousDayData,
 					interval,
@@ -84,6 +88,7 @@ export const CurrentPriceChart = ({
 					daySize,
 					style: axisProps.style,
 				})}
+				<ReferenceLine x={"9:30"} />
 				<ReferenceLine
 					y={previousDayData[previousDayData.length - 1].average}
 					strokeDasharray={"8 5"}

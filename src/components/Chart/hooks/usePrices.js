@@ -3,7 +3,9 @@ import { requestHistoricalPrices, requestIntradayPrices } from "../services"
 import { useSymbol } from "../../../contexts/SymbolContext"
 
 const removeNulls = (prices) => {
-	return prices.filter((price) => price.average)
+	return prices.filter((price) => {
+		return price.average !== null
+	})
 }
 
 export const useHistoricalPrices = () => {
@@ -14,10 +16,8 @@ export const useHistoricalPrices = () => {
 	useEffect(() => {
 		requestHistoricalPrices(symbol)
 			.then((prices) => {
-				console.log("Historical Prices:")
-				console.log(prices)
 				const pricesWithoutNulls = removeNulls(prices)
-				const averages = prices.map((el) => el.average)
+				const averages = pricesWithoutNulls.map((el) => el.average)
 				const min = Math.floor(Math.min(...averages))
 				const max = Math.floor(Math.max(...averages) + 1)
 				setMinMax({ min, max })
@@ -45,10 +45,8 @@ export const useIntradayPrices = () => {
 	useEffect(() => {
 		requestIntradayPrices(symbol)
 			.then((prices) => {
-				console.log("Intraday Prices:")
-				console.log(prices)
 				const pricesWithoutNulls = removeNulls(prices)
-				const averages = prices.map((el) => el.average)
+				const averages = pricesWithoutNulls.map((el) => el.average)
 				const min = Math.floor(Math.min(...averages))
 				const max = Math.floor(Math.max(...averages) + 1)
 				setMinMax({ min, max })

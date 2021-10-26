@@ -1,5 +1,6 @@
 import React from "react"
 import { Text, XAxis } from "recharts"
+import { colours } from "./colours"
 
 const CustomisedXAxisTick = ({ x, dx, y, dy, style, payload }) => {
 	return (
@@ -24,6 +25,7 @@ export const TopXAxis = ({ data, daySize, style }) => {
 			type="category"
 			dataKey="date"
 			tick={<CustomisedXAxisTick />}
+			stroke={colours.accentBeAware2}
 			interval={dateInterval - 1}
 			allowDuplicatedCategory={true}
 			orientation={"top"}

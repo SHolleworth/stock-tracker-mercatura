@@ -16,7 +16,9 @@ it("throws an error when not passed a string", () => {
 	expect(() => {
 		convert24HourTo12Hour(13)
 	}).toThrow(
-		new Error("timeString must be a string in the format m:hh or mm:hh")
+		new Error(
+			"cleanTimeString must be a string in the format m:hh or mm:hh"
+		)
 	)
 })
 
@@ -24,6 +26,8 @@ it("throws an error when passed an incorrect string", () => {
 	expect(() => {
 		convert24HourTo12Hour("1111111")
 	}).toThrowError(
-		new Error("timeString must be a string in the format m:hh or mm:hh")
+		new Error(
+			"cleanTimeString must be a string in the format m:hh or mm:hh"
+		)
 	)
 })

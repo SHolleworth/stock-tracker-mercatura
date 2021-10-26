@@ -3,13 +3,8 @@ import { XAxis, Text } from "recharts"
 import { colours } from "./colours"
 import convert24HourTo12Hour from "../../utils/convert24HourTo12Hour"
 
-const removePrependedIndex = (stringWithIndex) => {
-	const spaceIndex = stringWithIndex.indexOf(" ")
-	return stringWithIndex.slice(spaceIndex + 1)
-}
-
 const CustomisedXAxisTick = ({ x, y, payload, style, index }) => {
-	const time = convert24HourTo12Hour(removePrependedIndex(payload.value))
+	const time = convert24HourTo12Hour(payload.value)
 	let textAnchor = time === "9:30 AM" ? "start" : "middle"
 	return (
 		<Text

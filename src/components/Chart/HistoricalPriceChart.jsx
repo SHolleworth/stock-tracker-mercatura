@@ -6,6 +6,7 @@ import { colours } from "./colours"
 import { ReferenceAreas } from "./ReferenceAreas"
 import { TopXAxis } from "./TopXAxis"
 import { CustomisedToolTip } from "./CustomisedToolTip"
+import { ReferenceLines } from "./ReferenceLines"
 
 export const HistoricalPriceChart = ({
 	axisProps,
@@ -50,6 +51,8 @@ export const HistoricalPriceChart = ({
 				{CustomisedYAxis({ axisProps, min, max, hide: true })}
 				{TopXAxis({ data, daySize, style: axisProps.style })}
 				{CustomisedToolTip({ style: axisProps.style })}
+				{ReferenceLines({ data })}
+				{/* <ReferenceLine  x="3 10:00" stroke={'green'} label="LINE"/> */}
 			</LineChart>
 		</ResponsiveContainer>
 	)

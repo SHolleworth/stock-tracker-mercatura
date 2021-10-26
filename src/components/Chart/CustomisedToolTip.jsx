@@ -21,7 +21,7 @@ function CustomTooltipContent({ label, payload, active }) {
 				<div className="custom-tooltip__label">{hour12Label}</div>
 				<div className="custom-tooltip__content">
 					{"Price: "}{" "}
-					<span>{+Math.floor(payload[0].payload.average)}</span>
+					<span>{+payload[0].payload.average.toFixed(2)}</span>
 				</div>
 			</div>
 		)
