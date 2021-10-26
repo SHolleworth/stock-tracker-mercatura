@@ -33,7 +33,7 @@ export const CurrentPriceChart = ({
 		<Line
 			type="linear"
 			dataKey="average"
-			dot={true}
+			dot={false}
 			stroke={colours.accentPrimary}
 			data={data}
 			strokeWidth={2}

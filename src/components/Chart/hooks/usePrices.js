@@ -12,6 +12,8 @@ export const useHistoricalPrices = () => {
 	useEffect(() => {
 		requestHistoricalPrices()
 			.then((prices) => {
+				console.log("Historical Prices:")
+				console.log(prices)
 				const pricesWithoutNulls = removeNulls(prices)
 				const averages = prices.map((el) => el.average)
 				const min = Math.floor(Math.min(...averages))
@@ -40,6 +42,8 @@ export const useIntradayPrices = () => {
 	useEffect(() => {
 		requestIntradayPrices()
 			.then((prices) => {
+				console.log("Intraday Prices:")
+				console.log(prices)
 				const pricesWithoutNulls = removeNulls(prices)
 				const averages = prices.map((el) => el.average)
 				const min = Math.floor(Math.min(...averages))
