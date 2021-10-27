@@ -16,7 +16,7 @@ function App() {
 		if (renderFlag < 6) {
 			setTimeout(() => {
 				setRenderFlag((previous) => previous + 1)
-			}, [500])
+			}, [100])
 		}
 	}, [renderFlag])
 

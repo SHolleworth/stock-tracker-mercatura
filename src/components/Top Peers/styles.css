@@ -1,21 +1,21 @@
 .peers__buttons {
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
+	display: flex;
+	justify-content: center;
+	flex-wrap: wrap;
 }
 
 .peer {
-  border-radius: 43px;
-  background-color: #f1f2f2;
-  padding: 10px 15px;
-  font-family: "Roboto", sans-serif;
-  margin: 0 5px;
-  border: 2px solid #d8d9d9;
-  flex-basis: 18%;
-  margin: 5px;
+	border-radius: 43px;
+	background-color: #f1f2f2;
+	padding: 7px 15px;
+	font-family: "Roboto", sans-serif;
+	margin: 0 5px;
+	border: 2px solid #d8d9d9;
+	flex-basis: 18%;
+	margin: 5px;
 }
 
 .peer:hover {
-  background-color: #d8d9d9;
-  cursor: pointer;
+	background-color: #d8d9d9;
+	cursor: pointer;
 }
