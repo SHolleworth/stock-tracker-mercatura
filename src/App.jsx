@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useEffect, useState } from "react"
 import Stats from "./components/Stats"
 import Chart from "./components/Chart"
 import "./App.css"
@@ -10,6 +10,16 @@ import LivePrice from "./components/LivePrice"
 import logo from "./assets/ra-logo.svg"
 
 function App() {
+	const [renderFlag, setRenderFlag] = useState(0)
+
+	useEffect(() => {
+		if (renderFlag < 6) {
+			setTimeout(() => {
+				setRenderFlag((previous) => previous + 1)
+			}, [500])
+		}
+	}, [renderFlag])
+
 	return (
 		<div className="App">
 			<div className="logo-section">
@@ -22,16 +32,14 @@ function App() {
 			</div>
 			<SymbolContextProvider>
 				<div className="main-section">
-					<div>
-						<LivePrice />
-					</div>
-					<Chart />
-					<Stats />
+					<div>{renderFlag > 0 ? <LivePrice /> : null}</div>
+					{renderFlag > 1 ? <Chart /> : null}
+					{renderFlag > 2 ? <Stats /> : null}
 				</div>
 				<div className="news-summary-section">
-					<NewsFeed />
-					<CompanySummary />
-					<TopPeers />
+					{renderFlag > 3 ? <NewsFeed /> : null}
+					{renderFlag > 4 ? <CompanySummary /> : null}
+					{renderFlag > 5 ? <TopPeers /> : null}
 				</div>
 			</SymbolContextProvider>
 		</div>

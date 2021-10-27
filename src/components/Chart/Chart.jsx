@@ -22,18 +22,26 @@ const ChartContainer = () => {
 	const [chartContainerRef, startScroll] = useDrag()
 	const interval = 3
 	const daySize = 1200
-	const showingCurrentPriceChart = intradayPrices.length < 39
 	const min = Math.min(intradayMinMax.min, historicMinMax.min)
 	const max = Math.max(intradayMinMax.max, historicMinMax.max)
+	let showingCurrentPriceChart = false
+	let previousDayPrices = []
 
-	if (historicPrices.length) {
-		return (
-			<div
-				className="chart__container"
-				ref={chartContainerRef}
-				onMouseDown={startScroll}
-			>
-				<div className="chart__inner">
+	if (intradayPrices && historicPrices) {
+		previousDayPrices = filterOutPreviousDay(historicPrices)
+		//If the market hasn't opened intraday prices will be the previous days prices
+		showingCurrentPriceChart =
+			intradayPrices[0].date !== previousDayPrices[0].date
+	}
+
+	return (
+		<div
+			className="chart__container"
+			ref={chartContainerRef}
+			onMouseDown={startScroll}
+		>
+			<div className="chart__inner">
+				{historicPrices || showingCurrentPriceChart ? (
 					<StaticYAxis
 						data={historicPrices}
 						interval={interval}
@@ -41,6 +49,8 @@ const ChartContainer = () => {
 						max={max}
 						axisProps={axisProps}
 					/>
+				) : null}
+				{historicPrices ? (
 					<HistoricalPriceChart
 						daySize={daySize}
 						axisProps={axisProps}
@@ -49,23 +59,26 @@ const ChartContainer = () => {
 						min={min}
 						max={max}
 					/>
-					{showingCurrentPriceChart ? (
-						<CurrentPriceChart
-							daySize={daySize}
-							axisProps={axisProps}
-							previousDayData={historicPrices.slice(-39)}
-							currentDayData={intradayPrices}
-							interval={interval}
-							min={min}
-							max={max}
-						/>
-					) : null}
-				</div>
+				) : null}
+				{showingCurrentPriceChart ? (
+					<CurrentPriceChart
+						daySize={daySize}
+						axisProps={axisProps}
+						previousDayData={previousDayPrices}
+						currentDayData={intradayPrices}
+						interval={interval}
+						min={min}
+						max={max}
+					/>
+				) : null}
 			</div>
-		)
-	} else {
-		return null
-	}
+		</div>
+	)
+}
+
+const filterOutPreviousDay = (prices) => {
+	const yesterday = prices[prices.length - 1].date
+	return prices.filter((price) => price.date === yesterday)
 }
 
 export default ChartContainer

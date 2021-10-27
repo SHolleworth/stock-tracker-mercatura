@@ -9,12 +9,11 @@ export const ReferenceLines = ({ data }) => {
 		})
 	)
 	const dateInterval = Math.floor(data.length / [...dates].length)
-	console.log([...dates])
 	return [...dates].map((date, index) => (
 		<ReferenceLine
 			key={date}
 			x={data[index * dateInterval].minute}
-			stroke={colours.accentBeAware2}
+			stroke={colours.daySeparator}
 		/>
 	))
 }

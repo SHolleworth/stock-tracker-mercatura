@@ -28,11 +28,7 @@ export const HistoricalPriceChart = ({
 	)
 
 	const grid = (
-		<CartesianGrid
-			stroke={`rgba(0, 0, 0, 0.05)`}
-			vertical={false}
-			strokeWidth={1}
-		/>
+		<CartesianGrid stroke={`rgba(0, 0, 0, 0.05)`} strokeWidth={1} />
 	)
 
 	return (
@@ -45,14 +41,17 @@ export const HistoricalPriceChart = ({
 				{ReferenceAreas({ data, interval, min, max })}
 				{grid}
 				{line}
-				<Line dataKey="date" xAxisId="top" />
 				{/* recharts does not like your custom components in it's custom components, so this is a work around */}
 				{CustomisedXAxis({ axisProps, interval })}
 				{CustomisedYAxis({ axisProps, min, max, hide: true })}
-				{TopXAxis({ data, daySize, style: axisProps.style })}
+				{TopXAxis({
+					data,
+					daySize,
+					style: axisProps.style,
+					isHidden: false,
+				})}
 				{CustomisedToolTip({ style: axisProps.style })}
 				{ReferenceLines({ data })}
-				{/* <ReferenceLine  x="3 10:00" stroke={'green'} label="LINE"/> */}
 			</LineChart>
 		</ResponsiveContainer>
 	)

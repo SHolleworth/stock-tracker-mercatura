@@ -9,8 +9,11 @@ const removeNulls = (prices) => {
 }
 
 export const useHistoricalPrices = () => {
-	const [prices, setPrices] = useState([])
-	const [minMax, setMinMax] = useState({ min: 0, max: 0 })
+	const [prices, setPrices] = useState(null)
+	const [minMax, setMinMax] = useState({
+		min: Number.POSITIVE_INFINITY,
+		max: Number.NEGATIVE_INFINITY,
+	})
 	const { symbol } = useSymbol()
 
 	useEffect(() => {
@@ -31,15 +34,20 @@ export const useHistoricalPrices = () => {
 				)
 				setPrices(pricesWithIdentifiableMinutes)
 			})
-			.catch((err) => console.error(err))
+			.catch((err) =>
+				console.error("Error retrieving historical prices: " + err)
+			)
 	}, [symbol])
 
 	return [prices, minMax]
 }
 
 export const useIntradayPrices = () => {
-	const [prices, setPrices] = useState([])
-	const [minMax, setMinMax] = useState({ min: 0, max: 0 })
+	const [prices, setPrices] = useState(null)
+	const [minMax, setMinMax] = useState({
+		min: Number.POSITIVE_INFINITY,
+		max: Number.NEGATIVE_INFINITY,
+	})
 	const { symbol } = useSymbol()
 
 	useEffect(() => {
@@ -52,7 +60,9 @@ export const useIntradayPrices = () => {
 				setMinMax({ min, max })
 				setPrices(pricesWithoutNulls)
 			})
-			.catch((err) => console.error(err))
+			.catch((err) =>
+				console.error("Error retrieving intraday prices: " + err)
+			)
 	}, [symbol])
 
 	return [prices, minMax]

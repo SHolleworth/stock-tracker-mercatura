@@ -10,14 +10,13 @@ const CustomisedXAxisTick = ({ x, dx, y, dy, style, payload }) => {
 	)
 }
 
-export const TopXAxis = ({ data, daySize, style }) => {
+export const TopXAxis = ({ data, daySize, style, isHidden }) => {
 	const dates = new Set(
 		data.map((price) => {
 			return price.date
 		})
 	)
 	const dateInterval = Math.floor(data.length / [...dates].length)
-	console.log(dateInterval)
 
 	return (
 		<XAxis
@@ -25,7 +24,8 @@ export const TopXAxis = ({ data, daySize, style }) => {
 			type="category"
 			dataKey="date"
 			tick={<CustomisedXAxisTick />}
-			stroke={colours.accentBeAware2}
+			stroke={colours.daySeparator}
+			tickLine={!isHidden}
 			interval={dateInterval - 1}
 			allowDuplicatedCategory={true}
 			orientation={"top"}
@@ -33,6 +33,7 @@ export const TopXAxis = ({ data, daySize, style }) => {
 			axisLine={false}
 			dx={daySize / 2 - 70}
 			dy={-10}
+			margin={{ bottom: 50 }}
 		/>
 	)
 }

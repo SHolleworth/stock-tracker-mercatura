@@ -59,7 +59,7 @@ export const CurrentPriceChart = ({
 	const grid = (
 		<CartesianGrid
 			stroke={`rgba(0, 0, 0, 0.05)`}
-			vertical={false}
+			// vertical={false}
 			strokeWidth={1}
 		/>
 	)
@@ -68,7 +68,7 @@ export const CurrentPriceChart = ({
 		<ResponsiveContainer height={"100%"} width={daySize}>
 			<LineChart
 				data={currentDayData}
-				margin={{ left: 10, right: 0, bottom: 10 }}
+				margin={{ right: 0, bottom: 10 }}
 				padding={{ left: 10 }}
 			>
 				{ReferenceAreas({
@@ -88,12 +88,16 @@ export const CurrentPriceChart = ({
 					daySize,
 					style: axisProps.style,
 				})}
-				<ReferenceLine x={"9:30"} />
 				<ReferenceLine
 					y={previousDayData[previousDayData.length - 1].average}
 					strokeDasharray={"8 5"}
 					strokeWidth={1}
 					stroke={colours.accentPrimary}
+				/>
+				<ReferenceLine
+					x={"09:30"}
+					strokeWidth={2}
+					stroke={colours.daySeparator}
 				/>
 				{CustomisedToolTip({ style: axisProps.style })}
 			</LineChart>

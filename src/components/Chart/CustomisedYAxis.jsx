@@ -1,33 +1,36 @@
 import React from "react"
-import { colours } from "./colours"
-import { YAxis, Text, ResponsiveContainer, LineChart } from "recharts"
+// import { colours } from "./colours"
+import { YAxis, ResponsiveContainer, LineChart } from "recharts"
+// import { Text } from "recharts"
+import { TopXAxis } from "./TopXAxis"
 
-const CustomisedYAxisTick = ({ x, y, payload, style, min }) => {
-	let text = "-"
-	if ((payload.value - min) % 2 === 0) {
-		text = Number.parseFloat(payload.value).toFixed(0)
-	}
-	return (
-		<Text
-			x={x}
-			y={y - 1}
-			fill={colours.keys}
-			style={style}
-			fontSize={12}
-			textAnchor="end"
-			verticalAnchor="middle"
-		>
-			{text}
-		</Text>
-	)
-}
+// const CustomisedYAxisTick = ({ x, y, payload, style, min }) => {
+// 	let text = "-"
+// 	if ((payload.value - min) % 2 === 0) {
+// 		text = Number.parseFloat(payload.value).toFixed(0)
+// 	}
+// 	return (
+// 		<Text
+// 			x={x}
+// 			y={y - 1}
+// 			fill={colours.keys}
+// 			style={style}
+// 			fontSize={16}
+// 			textAnchor="end"
+// 			verticalAnchor="middle"
+// 		>
+// 			{text}
+// 		</Text>
+// 	)
+// }
 
 export const StaticYAxis = ({ data, axisProps, min, max }) => {
 	return (
 		<div className="static-y-axis">
-			<ResponsiveContainer height={"100%"} width={60}>
+			<ResponsiveContainer height={"100%"} width={61}>
 				<LineChart data={data} margin={{ bottom: 40 }}>
 					{CustomisedYAxis({ axisProps, min, max })}
+					{TopXAxis({ data, style: axisProps.style, isHidden: true })}
 				</LineChart>
 			</ResponsiveContainer>
 		</div>
@@ -48,10 +51,11 @@ function CustomisedYAxis({ axisProps, min, max, hide }) {
 		<YAxis
 			type="number"
 			dataKey="average"
-			ticks={ticks}
+			// ticks={ticks}
 			domain={[min, max]}
-			tick={<CustomisedYAxisTick min={min} />}
+			// tick={<CustomisedYAxisTick min={min} />}
 			tickSize={tickSize}
+			tickCount={5}
 			tickMargin={tickMargin}
 			tickLine={tickLine}
 			stroke={stroke}
