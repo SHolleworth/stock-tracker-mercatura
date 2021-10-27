@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useEffect, useState } from "react"
 import Stats from "./components/Stats"
 import Chart from "./components/Chart"
 import "./App.css"
@@ -7,25 +7,43 @@ import CompanySummary from "./components/CompanySummary/CompanySummary"
 import TopPeers from "./components/Top Peers/TopPeers"
 import SymbolContextProvider from "./contexts/SymbolContext"
 import LivePrice from "./components/LivePrice"
+import logo from "./assets/ra-logo.svg"
 
 function App() {
-  return (
-    <div className="App">
-      <div className="logo-section"></div>
-      <SymbolContextProvider>
-        <div className="main-section">
-          <LivePrice />
-          <Chart />
-          <Stats />
-        </div>
-        <div className="news-summary-section">
-          <NewsFeed />
-          <CompanySummary />
-          <TopPeers />
-        </div>
-      </SymbolContextProvider>
-    </div>
-  )
+	const [renderFlag, setRenderFlag] = useState(0)
+
+	useEffect(() => {
+		if (renderFlag < 6) {
+			setTimeout(() => {
+				setRenderFlag((previous) => previous + 1)
+			}, [200])
+		}
+	}, [renderFlag])
+
+	return (
+		<div className="App">
+			<div className="logo-section">
+				<img
+					src={logo}
+					height={120}
+					className={"logo"}
+					alt={"Reactive Analystics Logo"}
+				/>
+			</div>
+			<SymbolContextProvider>
+				<div className="main-section">
+					<div>{renderFlag > 0 ? <LivePrice /> : null}</div>
+					{renderFlag > 1 ? <Chart /> : null}
+					{renderFlag > 2 ? <Stats /> : null}
+				</div>
+				<div className="news-summary-section">
+					{renderFlag > 3 ? <NewsFeed /> : null}
+					{renderFlag > 4 ? <CompanySummary /> : null}
+					{renderFlag > 5 ? <TopPeers /> : null}
+				</div>
+			</SymbolContextProvider>
+		</div>
+	)
 }
 
 export default App
