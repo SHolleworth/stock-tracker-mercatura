@@ -21,9 +21,9 @@ h3 {
 }
 
 .App {
+	height: 100vh;
 	display: flex;
 	justify-content: space-between;
-	height: 100vh;
 }
 
 .logo-section {
@@ -41,6 +41,7 @@ h3 {
 }
 
 .main-section {
+	height: 100%;
 	width: 65%;
 	display: flex;
 	flex-direction: column;
@@ -56,4 +57,5 @@ h3 {
 	flex-direction: column;
 	background-color: #f1f2f2;
 	padding: 30px;
+	overflow-y: auto;
 }
