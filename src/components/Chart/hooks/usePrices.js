@@ -24,6 +24,10 @@ export const useHistoricalPrices = () => {
 				const min = Math.floor(Math.min(...averages))
 				const max = Math.floor(Math.max(...averages) + 1)
 				setMinMax({ min, max })
+				pricesWithoutNulls.push({
+					...pricesWithoutNulls[pricesWithoutNulls.length - 1],
+					minute: "16:00",
+				})
 				const pricesWithIdentifiableMinutes = pricesWithoutNulls.map(
 					(price, index) => {
 						return {

@@ -4,7 +4,10 @@ import { colours } from "./colours"
 import convert24HourTo12Hour from "../../utils/convert24HourTo12Hour"
 
 const CustomisedXAxisTick = ({ x, y, payload, style, index }) => {
-	const time = convert24HourTo12Hour(payload.value)
+	let time = convert24HourTo12Hour(payload.value)
+	if (time === "4:00 PM") {
+		time = ""
+	}
 	let textAnchor = time === "9:30 AM" ? "start" : "middle"
 	return (
 		<Text
