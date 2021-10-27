@@ -1,12 +1,12 @@
 .chart__container {
-	height: 700px;
+	height: 600px;
 	width: 100%;
 	max-width: 1260px;
 	margin-top: 20px;
 	align-self: center;
 	overflow-x: auto;
 	display: flex;
-	flex-direction: row-reverse;
+	flex-direction: row;
 	padding-bottom: 10px;
 }
 

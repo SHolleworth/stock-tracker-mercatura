@@ -21,5 +21,12 @@ export const useDrag = () => {
 		document.removeEventListener("mouseup", endScroll)
 	}
 
-	return [ref, startScroll]
+	const setScroll = (pixels) => {
+		if (ref.current) {
+			console.log("Setting scroll to " + pixels)
+			ref.current.scrollLeft = pixels
+		}
+	}
+
+	return [ref, startScroll, setScroll]
 }

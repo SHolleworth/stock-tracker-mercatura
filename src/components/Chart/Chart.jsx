@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useEffect } from "react"
 import { StaticYAxis } from "./CustomisedYAxis"
 import { colours } from "./colours"
 import "./styles.css"
@@ -19,7 +19,7 @@ const axisProps = {
 const ChartContainer = () => {
 	const [historicPrices, historicMinMax] = useHistoricalPrices()
 	const [intradayPrices, intradayMinMax] = useIntradayPrices()
-	const [chartContainerRef, startScroll] = useDrag()
+	const [chartContainerRef, startScroll, setScroll] = useDrag()
 	const interval = 3
 	const daySize = 1200
 	const min = Math.min(intradayMinMax.min, historicMinMax.min)
@@ -33,6 +33,10 @@ const ChartContainer = () => {
 		showingCurrentPriceChart =
 			intradayPrices[0].date !== previousDayPrices[0].date
 	}
+
+	useEffect(() => {
+		setScroll(chartContainerRef.current.scrollWidth)
+	}, [intradayPrices, historicPrices])
 
 	return (
 		<div
