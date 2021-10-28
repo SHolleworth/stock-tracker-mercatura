@@ -11,6 +11,6 @@ export const requestLatestPrice = async (symbol) => {
 		return await checkResponseForError(response)
 	} catch (error) {
 		console.error("Error retrieving latest price: " + error)
-		return "No prices available"
+		throw Error()
 	}
 }
