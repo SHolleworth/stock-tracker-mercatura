@@ -1,3 +1,5 @@
+import { checkResponseForError } from "../../utils/checkResponseForError"
+
 const BASE_URL = "https://sandbox.iexapis.com/stable/"
 
 export const getSuggestions = async (value) => {
@@ -6,7 +8,7 @@ export const getSuggestions = async (value) => {
 	}`
 	try {
 		const response = await fetch(SEARCH_URL)
-		return response.json()
+		return await checkResponseForError(response)
 	} catch (error) {
 		console.log(error)
 	}

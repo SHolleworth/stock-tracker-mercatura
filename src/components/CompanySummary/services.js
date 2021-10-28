@@ -8,7 +8,7 @@ export const requestCompanyInfo = async (company) => {
 	}`
 	try {
 		const response = await fetch(COMPANYINFO_URL)
-		return checkResponseForError(response)
+		return await checkResponseForError(response)
 	} catch (error) {
 		console.error("Error retrieving company summary: " + error)
 		return "No summary available."

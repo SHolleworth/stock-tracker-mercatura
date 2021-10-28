@@ -17,8 +17,8 @@ export async function getKeyStatistics(symbol) {
 		console.log("Quote Response:")
 		console.log(quoteResponse)
 
-		const quote = checkResponseForError(quoteResponse)
-		const fundamentals = checkResponseForError(fundamentalsResponse)
+		const quote = await checkResponseForError(quoteResponse)
+		const fundamentals = await checkResponseForError(fundamentalsResponse)
 
 		const content = { body: { ...quote, ...fundamentals[0] }, error: false }
 

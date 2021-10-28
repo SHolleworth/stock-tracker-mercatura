@@ -8,7 +8,7 @@ export const requestLatestPrice = async (symbol) => {
 		const response = await fetch(
 			`${BASE_URL}/stock/${symbol}/quote?${token}`
 		)
-		return checkResponseForError(response)
+		return await checkResponseForError(response)
 	} catch (error) {
 		console.error("Error retrieving latest price: " + error)
 		return "No prices available"

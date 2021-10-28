@@ -1,5 +1,4 @@
 .searchbar {
-	width: 1260px;
 	display: flex;
 	flex-direction: column;
 	box-sizing: border-box;
@@ -26,9 +25,10 @@
 }
 
 .stock__header {
+	width: 100%;
 	display: flex;
 	justify-content: space-between;
-	width: 1260px;
+	max-width: 1260px;
 }
 
 .grayborder {
