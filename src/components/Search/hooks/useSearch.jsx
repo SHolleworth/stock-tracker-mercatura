@@ -6,7 +6,9 @@ const useSearch = (value) => {
 
   useEffect(() => {
     if (value) {
-      getSuggestions(value).then((res) => setSuggestions(res))
+      getSuggestions(value).then((res) => {
+        setSuggestions(res.slice(0, -2))
+      })
     }
 
     return () => setSuggestions(null)
