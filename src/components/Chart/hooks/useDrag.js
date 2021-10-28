@@ -23,7 +23,6 @@ export const useDrag = () => {
 
 	const setScroll = (pixels) => {
 		if (ref.current) {
-			console.log("Setting scroll to " + pixels)
 			ref.current.scrollLeft = pixels
 		}
 	}
