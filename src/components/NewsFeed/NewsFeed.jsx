@@ -19,17 +19,19 @@ function NewsFeed() {
 		return (
 			<div className="newsfeed__background">
 				<h2 className="latest-news-text">Latest News</h2>
-				{articles.map((article) => {
-					return (
-						<NewsArticle
-							key={article.headline}
-							link={article.url}
-							content={article.headline}
-							timeSincePublication={article.datetime}
-							source={article.source}
-						/>
-					)
-				})}
+				{articles.length
+					? articles.map((article) => {
+							return (
+								<NewsArticle
+									key={article.headline}
+									link={article.url}
+									content={article.headline}
+									timeSincePublication={600000}
+									source={article.source}
+								/>
+							)
+					  })
+					: "ERROR LOADING NEWS"}
 			</div>
 		)
 	} else {
