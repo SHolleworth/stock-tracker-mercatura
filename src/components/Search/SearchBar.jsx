@@ -11,8 +11,6 @@ const SearchBar = ({ onFocus, onBlur }) => {
     setValue(target.value)
   }
 
-  console.log(suggestions)
-
   return (
     <div className="searchbar">
       <div className="field">

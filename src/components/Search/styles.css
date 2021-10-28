@@ -3,11 +3,12 @@
   display: flex;
   flex-direction: column;
   box-sizing: border-box;
+  flex: 2;
+  position: relative;
 }
 
 .field {
   width: 100%;
-  flex: 2;
 }
 
 .field input {
@@ -37,6 +38,8 @@
   border-radius: 12px;
   margin-top: 4px;
   font-family: "Roboto";
+  position: absolute;
+  z-index: 9;
 }
 
 .suggestions__list {
