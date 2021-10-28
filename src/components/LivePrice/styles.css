@@ -1,6 +1,9 @@
 .price__display {
   display: flex;
   align-items: center;
+  width: 100%;
+  flex: 1;
+  justify-content: end;
 }
 
 .price {
@@ -28,5 +31,4 @@
 
 .arrow {
   width: 35px;
-  align-self: flex-end;
 }
