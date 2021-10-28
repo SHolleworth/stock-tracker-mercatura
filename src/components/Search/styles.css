@@ -1,77 +1,78 @@
 .searchbar {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  box-sizing: border-box;
-  flex: 2;
-  position: relative;
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+	box-sizing: border-box;
+	flex: 2;
+	position: relative;
 }
 
 .field {
-  width: 100%;
+	width: 100%;
 }
 
 .field input {
-  background-color: transparent;
-  border: none;
-  width: 100%;
-  font-size: 32px;
-  font-family: "Merriweather";
-  padding: 15px 5px;
+	background-color: transparent;
+	border: none;
+	width: 100%;
+	font-size: 32px;
+	font-family: "Merriweather";
+	padding: 15px 5px;
 }
 
 .field input:focus-visible {
-  outline: none;
-  border-bottom: 2px solid #aaabd1;
+	outline: none;
+	border-bottom: 2px solid #aaabd1;
 }
 
 .stock__header {
-  display: flex;
-  justify-content: space-between;
+	display: flex;
+	justify-content: space-between;
+	width: 100%;
 }
 
 .grayborder {
-  border-bottom: 2px solid #eaebeb;
+	border-bottom: 2px solid #eaebeb;
 }
 
 .suggestions {
-  background-color: white;
-  border-radius: 12px;
-  margin-top: 4px;
-  font-family: "Roboto";
-  position: absolute;
-  top: 70px;
-  z-index: 9;
-  box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.15);
-  color: #828282;
-  width: 100%;
+	background-color: white;
+	border-radius: 12px;
+	margin-top: 4px;
+	font-family: "Roboto";
+	position: absolute;
+	top: 70px;
+	z-index: 9;
+	box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.15);
+	color: #828282;
+	width: 100%;
 }
 
 .suggestions__list {
-  list-style: none;
-  padding: 0 8px;
-  margin: 0;
-  font-size: 20px;
-  padding-bottom: 15px;
+	list-style: none;
+	padding: 0 8px;
+	margin: 0;
+	font-size: 20px;
+	padding-bottom: 15px;
 }
 
 .suggestions__list li {
-  padding: 16px;
+	padding: 16px;
 }
 
 .suggestions__title {
-  border-bottom: 1px solid #eaebeb;
-  width: 100%;
-  font-size: 18px;
-  font-weight: 500;
-  padding: 16px;
-  margin-bottom: 8px;
-  color: #7f7f7f;
+	border-bottom: 1px solid #eaebeb;
+	width: 100%;
+	font-size: 18px;
+	font-weight: 500;
+	padding: 16px;
+	margin-bottom: 8px;
+	color: #7f7f7f;
 }
 
 .suggestions__stock:hover {
-  background-color: #f1f2f2;
-  color: black;
-  border-radius: 28px;
-  font-weight: 400;
+	background-color: #f1f2f2;
+	color: black;
+	border-radius: 28px;
+	font-weight: 400;
 }

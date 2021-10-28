@@ -32,7 +32,7 @@ function App() {
 			</div>
 			<SymbolContextProvider>
 				<div className="main-section">
-					<div>{renderFlag > 0 ? <StockHeader /> : null}</div>
+					{renderFlag > 0 ? <StockHeader /> : null}
 					{renderFlag > 1 ? <Chart /> : null}
 					{renderFlag > 2 ? <Stats /> : null}
 				</div>
