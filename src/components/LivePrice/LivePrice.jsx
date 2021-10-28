@@ -5,7 +5,7 @@ import "./styles.css"
 import downArrow from "../../assets/redarrow.svg"
 import normalArrow from "../../assets/normal.svg"
 
-const LivePrice = () => {
+const LivePrice = ({ searchFocused }) => {
 	const { symbol } = useSymbol()
 	const price = useLivePrice(symbol)
 
@@ -13,7 +13,11 @@ const LivePrice = () => {
 		if (price) {
 			if (price.length) {
 				return (
-					<div className="price__display">
+					<div
+						className={`price__display ${
+							searchFocused ? "price__display--hidden" : null
+						}`}
+					>
 						<span className="price">{`$${price?.[0].latestPrice.toFixed(
 							2
 						)}`}</span>

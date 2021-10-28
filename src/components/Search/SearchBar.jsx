@@ -1,15 +1,24 @@
-import React, { useState } from "react"
+import React, { useEffect, useState } from "react"
 import Suggestions from "./Suggestions"
 import useSearch from "./hooks/useSearch"
 import "./styles.css"
+import { useSymbol } from "../../contexts/SymbolContext"
+import { requestCompanyInfo } from "../CompanySummary/services"
 
-const SearchBar = ({ onFocus, onBlur }) => {
+const SearchBar = ({ focused, onFocus, onBlur }) => {
 	const [value, setValue] = useState("")
 	const suggestions = useSearch(value)
+	const { symbol } = useSymbol()
 
 	const handleChange = ({ target }) => {
 		setValue(target.value)
 	}
+
+	useEffect(() => {
+		requestCompanyInfo(symbol).then((info) => {
+			setValue(`${info.symbol} - ${info.companyName}`)
+		})
+	}, [symbol])
 
 	return (
 		<div className="searchbar">
@@ -24,7 +33,7 @@ const SearchBar = ({ onFocus, onBlur }) => {
 					onBlur={onBlur}
 				/>
 			</div>
-			{value ? <Suggestions suggestions={suggestions} /> : null}
+			{focused ? <Suggestions suggestions={suggestions} /> : null}
 		</div>
 	)
 }

@@ -70,6 +70,10 @@
 	color: #7f7f7f;
 }
 
+.suggestions__stock {
+	user-select: none;
+}
+
 .suggestions__stock:hover {
 	background-color: #f1f2f2;
 	color: black;

@@ -1,18 +1,13 @@
-import React, { useState } from "react"
+import React from "react"
 import "./styles.css"
 import LivePrice from "../LivePrice"
 import SearchBar from "./SearchBar"
 
-const StockHeader = () => {
-	const [focused, setFocused] = useState(false)
-
+const StockHeader = ({ focused, setFocused }) => {
 	return (
 		<div className={focused ? "stock__header" : "stock__header grayborder"}>
-			<SearchBar
-				onFocus={() => setFocused(true)}
-				onBlur={() => setFocused(false)}
-			/>
-			{!focused ? <LivePrice /> : null}
+			<SearchBar focused={focused} onFocus={() => setFocused(true)} />
+			<LivePrice searchFocused={focused} />
 		</div>
 	)
 }

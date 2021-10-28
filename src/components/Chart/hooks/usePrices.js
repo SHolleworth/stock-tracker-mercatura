@@ -29,10 +29,12 @@ export const useHistoricalPrices = () => {
 				setMinMax(findMinAndMax(pricesWithoutNulls))
 
 				//Add a point to the end of the last day to make it's length consistent with the others
-				pricesWithoutNulls.push({
-					...pricesWithoutNulls[pricesWithoutNulls.length - 1],
-					minute: "16:00",
-				})
+				if (pricesWithoutNulls.length) {
+					pricesWithoutNulls.push({
+						...pricesWithoutNulls[pricesWithoutNulls.length - 1],
+						minute: "16:00",
+					})
+				}
 
 				//Minutes must be unique in order for the reference areas to work
 				//TODO find a less stupid solution

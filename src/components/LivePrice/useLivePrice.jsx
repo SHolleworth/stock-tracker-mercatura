@@ -10,6 +10,10 @@ const useLivePrice = (symbol) => {
 	useEffect(() => {
 		const sse = new EventSource(CURL_URL)
 
+		sse.onopen = () => {
+			console.log("SSE connection established")
+		}
+
 		sse.onmessage = (e) => {
 			if (JSON.parse(e.data).length !== 0) {
 				setPrice(JSON.parse(e.data))
@@ -31,7 +35,7 @@ const useLivePrice = (symbol) => {
 		}
 
 		return () => sse.close()
-	}, [CURL_URL])
+	}, [CURL_URL, symbol])
 
 	return price
 }
