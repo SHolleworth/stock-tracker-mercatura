@@ -1,3 +1,10 @@
+.searchbar {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+}
+
 .field {
   width: 100%;
   flex: 2;
@@ -23,4 +30,36 @@
 
 .grayborder {
   border-bottom: 2px solid #eaebeb;
+}
+
+.suggestions {
+  background-color: white;
+  border-radius: 12px;
+  margin-top: 4px;
+  font-family: "Roboto";
+}
+
+.suggestions__list {
+  list-style: none;
+  padding: 0;
+  font-size: 20px;
+}
+
+.suggestions__list li {
+  padding: 16px;
+}
+
+.suggestions__title {
+  border-bottom: 1px solid #eaebeb;
+  width: 100%;
+  font-size: 18px;
+  font-weight: 500;
+  padding: 16px;
+}
+
+.suggestions__stock:hover {
+  background-color: #f1f2f2;
+  color: #828282;
+  border-radius: 20px;
+  font-weight: 400;
 }

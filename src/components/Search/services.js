@@ -1,7 +1,7 @@
 const BASE_URL = "https://sandbox.iexapis.com/stable/"
 
 export const getSuggestions = async (value) => {
-  const SEARCH_URL = `${BASE_URL}/search/${value}/${
+  const SEARCH_URL = `${BASE_URL}search/${value}?token=${
     import.meta.env.VITE_IEX_TOKEN
   }`
   try {

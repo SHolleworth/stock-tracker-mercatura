@@ -6,11 +6,13 @@ const useSearch = (value) => {
 
   useEffect(() => {
     if (value) {
-      getSuggestions().then((res) => setSuggestions(res))
+      getSuggestions(value).then((res) => setSuggestions(res))
     }
+
+    return () => setSuggestions(null)
   }, [value])
 
-  return suggestions ?? ""
+  return suggestions ?? null
 }
 
 export default useSearch
