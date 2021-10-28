@@ -4,24 +4,26 @@ import { getKeyStatistics } from "./services"
 import { useSymbol } from "../../contexts/SymbolContext"
 
 const Stats = () => {
-  const [statistics, setStatistics] = useState({})
-  const { symbol } = useSymbol()
+	const [statistics, setStatistics] = useState(null)
+	const { symbol } = useSymbol()
 
-  useEffect(() => {
-    getKeyStatistics(symbol)
-      .then((res) => setStatistics(res))
-      .catch((err) => console.error(err))
-  }, [symbol])
+	useEffect(() => {
+		getKeyStatistics(symbol)
+			.then((res) => {
+				console.log("Response: ")
+				console.log(res)
+				setStatistics(res)
+			})
+			.catch((err) => console.error(err))
+	}, [symbol])
 
-	return (
-		<>
-			{Object.keys(statistics).length === 0 ? (
-				"Loading..."
-			) : (
-				<KeyStatistics stats={statistics} />
-			)}
-		</>
-	)
+	if (statistics) {
+		if (statistics.error) {
+			return statistics.body
+		}
+		return <KeyStatistics stats={statistics.body} />
+	}
+	return "Loading..."
 }
 
 export default Stats

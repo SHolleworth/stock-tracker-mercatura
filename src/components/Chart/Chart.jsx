@@ -1,4 +1,4 @@
-import React, { useEffect } from "react"
+import React, { useEffect, useState } from "react"
 import { StaticYAxis } from "./CustomisedYAxis"
 import { colours } from "./colours"
 import "./styles.css"
@@ -17,26 +17,99 @@ const axisProps = {
 }
 
 const ChartContainer = () => {
-	const [historicPrices, historicMinMax] = useHistoricalPrices()
+	const [isLoading, setIsLoading] = useState(true)
+	const [historicPrices, setHistoricPrices, historicMinMax] =
+		useHistoricalPrices()
 	const [intradayPrices, intradayMinMax] = useIntradayPrices()
 	const [chartContainerRef, startScroll, setScroll] = useDrag()
 	const interval = 3
 	const daySize = 1200
 	const min = Math.min(intradayMinMax.min, historicMinMax.min)
 	const max = Math.max(intradayMinMax.max, historicMinMax.max)
-	let showingCurrentPriceChart = false
-	let previousDayPrices = []
-
-	if (intradayPrices && historicPrices) {
-		previousDayPrices = filterOutPreviousDay(historicPrices)
-		//If the market hasn't opened intraday prices will be the previous days prices
-		showingCurrentPriceChart =
-			intradayPrices[0].date !== previousDayPrices[0].date
-	}
 
 	useEffect(() => {
+		//scroll to the latest day
 		setScroll(chartContainerRef.current.scrollWidth)
+		if (!isLoading) {
+			const temp = [...historicPrices]
+			console.log("Temp before change")
+			console.log(temp)
+			temp[historicPrices.length - 1] = {
+				...temp[historicPrices.length - 1],
+				average: intradayPrices[0].average,
+			}
+			console.log("Temp after change")
+			console.log(temp)
+			setHistoricPrices(temp)
+		}
+	}, [isLoading])
+
+	useEffect(() => {
+		if (
+			intradayPrices &&
+			historicPrices &&
+			intradayPrices.length &&
+			historicPrices.length
+		) {
+			setIsLoading(false)
+		}
 	}, [intradayPrices, historicPrices])
+
+	const chartRenderer = () => {
+		const elements = []
+		if (!historicPrices && !intradayPrices) {
+			return "LOADING"
+		}
+		if (historicPrices) {
+			if (historicPrices.length) {
+				elements.push(
+					<StaticYAxis
+						key={0}
+						data={historicPrices || intradayPrices}
+						interval={interval}
+						min={min}
+						max={max}
+						axisProps={axisProps}
+					/>
+				)
+				elements.push(
+					<HistoricalPriceChart
+						key={1}
+						daySize={daySize}
+						axisProps={axisProps}
+						data={historicPrices}
+						interval={interval}
+						min={min}
+						max={max}
+					/>
+				)
+				if (intradayPrices && intradayPrices.length) {
+					elements.push(
+						<CurrentPriceChart
+							key={2}
+							daySize={daySize}
+							axisProps={axisProps}
+							previousDayData={filterOutPreviousDay(
+								historicPrices
+							)}
+							currentDayData={intradayPrices}
+							interval={interval}
+							min={min}
+							max={max}
+						/>
+					)
+				}
+			} else {
+				return "NO HISTORIC DATA"
+			}
+		}
+		if (historicPrices && intradayPrices) {
+			if (!historicPrices.length && !intradayPrices.length) {
+				return "NO DATA"
+			}
+		}
+		return elements
+	}
 
 	return (
 		<div
@@ -44,45 +117,23 @@ const ChartContainer = () => {
 			ref={chartContainerRef}
 			onMouseDown={startScroll}
 		>
-			<div className="chart__inner">
-				{historicPrices || showingCurrentPriceChart ? (
-					<StaticYAxis
-						data={historicPrices}
-						interval={interval}
-						min={min}
-						max={max}
-						axisProps={axisProps}
-					/>
-				) : null}
-				{historicPrices ? (
-					<HistoricalPriceChart
-						daySize={daySize}
-						axisProps={axisProps}
-						data={historicPrices}
-						interval={interval}
-						min={min}
-						max={max}
-					/>
-				) : null}
-				{showingCurrentPriceChart ? (
-					<CurrentPriceChart
-						daySize={daySize}
-						axisProps={axisProps}
-						previousDayData={previousDayPrices}
-						currentDayData={intradayPrices}
-						interval={interval}
-						min={min}
-						max={max}
-					/>
-				) : null}
-			</div>
+			<div className="chart__inner">{chartRenderer()}</div>
 		</div>
 	)
 }
 
 const filterOutPreviousDay = (prices) => {
-	const yesterday = prices[prices.length - 1].date
-	return prices.filter((price) => price.date === yesterday)
+	console.log(prices)
+	try {
+		const yesterday = prices[prices.length - 1].date
+		return prices.filter((price) => price.date === yesterday).slice(0, -1)
+	} catch (error) {
+		console.error(
+			"Error filtering previous day in chart from prices array: " + error
+		)
+		console.error("Prices array: ")
+		console.error(prices)
+	}
 }
 
 export default ChartContainer

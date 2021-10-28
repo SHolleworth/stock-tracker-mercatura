@@ -6,30 +6,32 @@ import "./styles.css"
 import { useSymbol } from "../../contexts/SymbolContext"
 
 function NewsFeed() {
-  const [articles, setArticles] = useState(null)
-  const { symbol } = useSymbol()
+	const [articles, setArticles] = useState(null)
+	const { symbol } = useSymbol()
 
-  useEffect(() => {
-    requestNews(symbol).then((news) => {
-      setArticles(news)
-    })
-  }, [symbol])
+	useEffect(() => {
+		requestNews(symbol).then((news) => {
+			setArticles(news)
+		})
+	}, [symbol])
 
 	if (articles) {
 		return (
 			<div className="newsfeed__background">
 				<h2 className="latest-news-text">Latest News</h2>
-				{articles.map((article) => {
-					return (
-						<NewsArticle
-							key={article.headline}
-							link={article.url}
-							content={article.headline}
-							timeSincePublication={article.datetime}
-							source={article.source}
-						/>
-					)
-				})}
+				{articles.length
+					? articles.map((article) => {
+							return (
+								<NewsArticle
+									key={article.headline}
+									link={article.url}
+									content={article.headline}
+									timeSincePublication={600000}
+									source={article.source}
+								/>
+							)
+					  })
+					: "ERROR LOADING NEWS"}
 			</div>
 		)
 	} else {
@@ -45,7 +47,7 @@ function NewsArticle({ link, content, timeSincePublication, source }) {
 			<a href={link}>
 				<h3 className="article__content">{content}</h3>
 			</a>
-			<p className="article__time-source">{`${timeString} ago - ${source}`}</p>
+			<p className="article__time-source">{`${timeString} - ${source}`}</p>
 		</div>
 	)
 }

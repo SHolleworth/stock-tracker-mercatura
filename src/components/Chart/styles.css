@@ -1,5 +1,6 @@
 .chart__container {
 	height: 600px;
+	min-height: 600px;
 	width: 100%;
 	max-width: 1260px;
 	margin-top: 20px;
@@ -38,7 +39,7 @@
 .static-y-axis {
 	position: sticky;
 	left: -1px;
-	z-index: 10;
+	z-index: 5;
 	background-color: #f9fafa;
 }
 
