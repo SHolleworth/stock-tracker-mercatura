@@ -6,14 +6,14 @@ import "./styles.css"
 import { useSymbol } from "../../contexts/SymbolContext"
 
 function NewsFeed() {
-  const [articles, setArticles] = useState(null)
-  const { symbol } = useSymbol()
+	const [articles, setArticles] = useState(null)
+	const { symbol } = useSymbol()
 
-  useEffect(() => {
-    requestNews(symbol).then((news) => {
-      setArticles(news)
-    })
-  }, [symbol])
+	useEffect(() => {
+		requestNews(symbol).then((news) => {
+			setArticles(news)
+		})
+	}, [symbol])
 
 	if (articles) {
 		return (
@@ -45,7 +45,7 @@ function NewsArticle({ link, content, timeSincePublication, source }) {
 			<a href={link}>
 				<h3 className="article__content">{content}</h3>
 			</a>
-			<p className="article__time-source">{`${timeString} ago - ${source}`}</p>
+			<p className="article__time-source">{`${timeString} - ${source}`}</p>
 		</div>
 	)
 }
