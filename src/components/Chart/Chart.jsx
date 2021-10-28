@@ -1,4 +1,4 @@
-import React, { useEffect } from "react"
+import React, { useEffect, useState } from "react"
 import { StaticYAxis } from "./CustomisedYAxis"
 import { colours } from "./colours"
 import "./styles.css"
@@ -17,6 +17,7 @@ const axisProps = {
 }
 
 const ChartContainer = () => {
+	const [isLoading, setIsLoading] = useState(true)
 	const [historicPrices, setHistoricPrices, historicMinMax] =
 		useHistoricalPrices()
 	const [intradayPrices, intradayMinMax] = useIntradayPrices()
@@ -29,7 +30,30 @@ const ChartContainer = () => {
 	useEffect(() => {
 		//scroll to the latest day
 		setScroll(chartContainerRef.current.scrollWidth)
-	}, [chartContainerRef])
+		if (!isLoading) {
+			const temp = [...historicPrices]
+			console.log("Temp before change")
+			console.log(temp)
+			temp[historicPrices.length - 1] = {
+				...temp[historicPrices.length - 1],
+				average: intradayPrices[0].average,
+			}
+			console.log("Temp after change")
+			console.log(temp)
+			setHistoricPrices(temp)
+		}
+	}, [isLoading])
+
+	useEffect(() => {
+		if (
+			intradayPrices &&
+			historicPrices &&
+			intradayPrices.length &&
+			historicPrices.length
+		) {
+			setIsLoading(false)
+		}
+	}, [intradayPrices, historicPrices])
 
 	const chartRenderer = () => {
 		const elements = []
@@ -60,9 +84,6 @@ const ChartContainer = () => {
 					/>
 				)
 				if (intradayPrices && intradayPrices.length) {
-					const temp = [...historicPrices]
-					temp[historicPrices.length - 1] = intradayPrices[0]
-					setHistoricPrices(temp)
 					elements.push(
 						<CurrentPriceChart
 							key={2}

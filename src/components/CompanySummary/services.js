@@ -11,5 +11,6 @@ export const requestCompanyInfo = async (company) => {
 		return checkResponseForError(response)
 	} catch (error) {
 		console.error("Error retrieving company summary: " + error)
+		return "No summary available."
 	}
 }

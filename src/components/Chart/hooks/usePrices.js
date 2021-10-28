@@ -76,7 +76,7 @@ export const useIntradayPrices = () => {
 
 				setMinMax(findMinAndMax(pricesWithoutNulls))
 
-				setPrices([])
+				setPrices(pricesWithoutNulls)
 			} catch (error) {
 				setPrices([])
 			}
