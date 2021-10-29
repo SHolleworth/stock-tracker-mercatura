@@ -31,7 +31,7 @@ const ChartContainer = () => {
 	useEffect(() => {
 		//scroll to the latest day
 		setScroll(chartContainerRef.current.scrollWidth)
-		if (!isLoading) {
+		if (!isLoading && intradayPrices.length) {
 			const temp = [...historicPrices]
 			console.log("Temp before change")
 			console.log(temp)
@@ -46,13 +46,10 @@ const ChartContainer = () => {
 	}, [isLoading])
 
 	useEffect(() => {
-		if (
-			intradayPrices &&
-			historicPrices &&
-			intradayPrices.length &&
-			historicPrices.length
-		) {
+		if (intradayPrices && historicPrices && historicPrices.length) {
 			setIsLoading(false)
+		} else {
+			setIsLoading(true)
 		}
 	}, [intradayPrices, historicPrices])
 
