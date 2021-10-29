@@ -1,6 +1,6 @@
 import React from "react"
 import { Text, XAxis } from "recharts"
-import { colours } from "./colours"
+import { colours } from "../colours"
 
 const CustomisedXAxisTick = ({ x, dx, y, dy, style, payload }) => {
 	return (

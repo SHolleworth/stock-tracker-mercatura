@@ -1,6 +1,6 @@
 import React from "react"
 import { ReferenceLine } from "recharts"
-import { colours } from "./colours"
+import { colours } from "../colours"
 
 export const ReferenceLines = ({ data }) => {
 	const dates = new Set(

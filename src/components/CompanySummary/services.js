@@ -7,10 +7,13 @@ export const requestCompanyInfo = async (company) => {
 		import.meta.env.VITE_IEX_TOKEN
 	}`
 	try {
+		// throw Error()
 		const response = await fetch(COMPANYINFO_URL)
-		return await checkResponseForError(response)
+		const json = await checkResponseForError(response)
+		const obj = { status: "resolved", body: json }
+		return obj
 	} catch (error) {
 		console.error("Error retrieving company summary: " + error)
-		return "No summary available."
+		return { status: "error", body: null }
 	}
 }

@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from "react"
-import { StaticYAxis } from "./CustomisedYAxis"
 import { colours } from "./colours"
 import "./styles.css"
 import { useHistoricalPrices, useIntradayPrices } from "./hooks/usePrices"
 import { useDrag } from "./hooks/useDrag"
-import { HistoricalPriceChart } from "./HistoricalPriceChart"
-import { CurrentPriceChart } from "./CurrentPriceChart"
+import { StaticYAxis } from "./components/CustomisedYAxis"
+import { HistoricalPriceChart } from "./components/HistoricalPriceChart"
+import { CurrentPriceChart } from "./components/CurrentPriceChart"
+import { Placeholder } from "./Placeholder/Placeholder"
+import { useSymbol } from "../../contexts/SymbolContext"
 
 const axisProps = {
 	tickSize: 12,
@@ -18,9 +20,10 @@ const axisProps = {
 
 const ChartContainer = () => {
 	const [isLoading, setIsLoading] = useState(true)
+	const { symbol } = useSymbol()
 	const [historicPrices, setHistoricPrices, historicMinMax] =
-		useHistoricalPrices()
-	const [intradayPrices, intradayMinMax] = useIntradayPrices()
+		useHistoricalPrices(symbol)
+	const [intradayPrices, intradayMinMax] = useIntradayPrices(symbol)
 	// const [intradayPrices, setIntradayPrices] = useState(mockIntraday)
 	const [chartContainerRef, startScroll, setScroll] = useDrag()
 	const interval = 3
@@ -56,7 +59,7 @@ const ChartContainer = () => {
 	const chartRenderer = () => {
 		const elements = []
 		if (!historicPrices && !intradayPrices) {
-			return "LOADING"
+			return <Placeholder />
 		}
 		if (historicPrices) {
 			if (historicPrices.length) {
@@ -98,12 +101,12 @@ const ChartContainer = () => {
 					)
 				}
 			} else {
-				return "NO HISTORIC DATA"
+				return <Placeholder />
 			}
 		}
 		if (historicPrices && intradayPrices) {
 			if (!historicPrices.length && !intradayPrices.length) {
-				return "NO DATA"
+				return <Placeholder />
 			}
 		}
 		return elements

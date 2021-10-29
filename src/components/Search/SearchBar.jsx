@@ -16,7 +16,7 @@ const SearchBar = ({ focused, onFocus, onBlur }) => {
 
 	useEffect(() => {
 		requestCompanyInfo(symbol).then((info) => {
-			setValue(`${info.symbol} - ${info.companyName}`)
+			setValue(`${info.body.symbol} - ${info.body.companyName}`)
 		})
 	}, [symbol])
 

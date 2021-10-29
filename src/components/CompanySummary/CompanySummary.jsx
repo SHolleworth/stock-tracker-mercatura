@@ -2,35 +2,59 @@ import React, { useState, useEffect } from "react"
 import { requestCompanyInfo } from "./services"
 import "./styles.css"
 import { useSymbol } from "../../contexts/SymbolContext"
+import Placeholder from "./Placeholder"
 
 const CompanySummary = () => {
-	const [companyInfo, setCompanyInfo] = useState({})
-	const [message, setMessage] = useState("Loading...")
+	const [companyInfo, setCompanyInfo] = useState({
+		status: "loading",
+		body: null,
+	})
 	const { symbol } = useSymbol()
 
 	useEffect(() => {
 		requestCompanyInfo(symbol).then((res) => {
-			if (typeof res === "string") {
-				setMessage(res)
+			if (res.status === "resolved") {
+				const desc = res.body.description
+					.substring(0, 500)
+					.concat("...")
+				const body = { ...res.body, description: desc }
+				setCompanyInfo({ ...res, body })
 			} else {
-				const newDescription = res.description.substring(0, 500)
-				setCompanyInfo({ ...res, description: newDescription })
+				setCompanyInfo(res)
 			}
 		})
 	}, [symbol])
 
-	return Object.keys(companyInfo).length === 0 ? (
-		message
-	) : (
-		<div className="company__summary">
-			<h2>Company Summary</h2>
-			<div className="company__name">{`${companyInfo.companyName} (${companyInfo.symbol})`}</div>
-			<div className="company__website">{companyInfo.website}</div>
-			<div className="company__description">
-				{companyInfo.description}
+	const summaryRenderer = () => {
+		let content = null
+		if (companyInfo.status === "loading") {
+			content = <Placeholder />
+		}
+		if (companyInfo.status === "error") {
+			content = <Placeholder />
+		}
+		if (companyInfo.status === "resolved") {
+			content = (
+				<>
+					<div className="company__name">{`${companyInfo.body.companyName} (${companyInfo.body.symbol})`}</div>
+					<div className="company__website">
+						{companyInfo.body.website}
+					</div>
+					<div className="company__description">
+						{companyInfo.body.description}
+					</div>
+				</>
+			)
+		}
+		return (
+			<div className="company__summary">
+				<h2>Company Summary</h2>
+				{content}
 			</div>
-		</div>
-	)
+		)
+	}
+
+	return summaryRenderer()
 }
 
 export default CompanySummary

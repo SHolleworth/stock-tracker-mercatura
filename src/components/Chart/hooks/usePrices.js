@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react"
 import { requestHistoricalPrices, requestIntradayPrices } from "../services"
-import { useSymbol } from "../../../contexts/SymbolContext"
 
 const removeNulls = (prices) => {
 	return prices.filter((price) => {
@@ -8,13 +7,12 @@ const removeNulls = (prices) => {
 	})
 }
 
-export const useHistoricalPrices = () => {
+export const useHistoricalPrices = (symbol) => {
 	const [prices, setPrices] = useState(null)
 	const [minMax, setMinMax] = useState({
 		min: Number.POSITIVE_INFINITY,
 		max: Number.NEGATIVE_INFINITY,
 	})
-	const { symbol } = useSymbol()
 
 	useEffect(() => {
 		(async () => {
@@ -50,6 +48,7 @@ export const useHistoricalPrices = () => {
 				setPrices(pricesWithIdentifiableMinutes)
 			} catch (error) {
 				//an empty array will signal the request failed
+				console.error("Error requesting historical prices: " + error)
 				setPrices([])
 			}
 		})()
@@ -58,13 +57,12 @@ export const useHistoricalPrices = () => {
 	return [prices, setPrices, minMax]
 }
 
-export const useIntradayPrices = () => {
+export const useIntradayPrices = (symbol) => {
 	const [prices, setPrices] = useState(null)
 	const [minMax, setMinMax] = useState({
 		min: Number.POSITIVE_INFINITY,
 		max: Number.NEGATIVE_INFINITY,
 	})
-	const { symbol } = useSymbol()
 
 	useEffect(() => {
 		(async () => {
@@ -80,6 +78,7 @@ export const useIntradayPrices = () => {
 
 				setPrices(pricesWithoutNulls)
 			} catch (error) {
+				console.error("Error requesting intraday prices: " + error)
 				setPrices([])
 			}
 		})()

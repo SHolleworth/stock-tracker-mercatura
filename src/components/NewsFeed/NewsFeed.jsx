@@ -4,6 +4,7 @@ import { requestNews } from "./services"
 import convertMillisecondsToNewsFeedTime from "../../utils/convertMillisecondsToNewsFeedTime"
 import "./styles.css"
 import { useSymbol } from "../../contexts/SymbolContext"
+import Placeholder from "./Placeholder/Placeholder"
 
 function NewsFeed() {
 	const [articles, setArticles] = useState(null)
@@ -25,23 +26,25 @@ function NewsFeed() {
 		return (
 			<div className="newsfeed__background">
 				<h2 className="latest-news-text">Latest News</h2>
-				{articles.length
-					? articles.map((article, index) => {
-							return (
-								<NewsArticle
-									key={article.headline}
-									link={article.url}
-									content={article.headline}
-									timeSincePublication={dates[index]}
-									source={article.source}
-								/>
-							)
-					  })
-					: "ERROR LOADING NEWS"}
+				{articles.length ? (
+					articles.map((article, index) => {
+						return (
+							<NewsArticle
+								key={article.headline}
+								link={article.url}
+								content={article.headline}
+								timeSincePublication={dates[index]}
+								source={article.source}
+							/>
+						)
+					})
+				) : (
+					<Placeholder />
+				)}
 			</div>
 		)
 	} else {
-		return null
+		return <Placeholder />
 	}
 }
 

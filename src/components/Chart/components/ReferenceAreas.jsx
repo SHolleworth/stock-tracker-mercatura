@@ -1,5 +1,5 @@
 import React from "react"
-import { getDayFromDate } from "../../utils/getDayFromDate"
+import { getDayFromDate } from "../../../utils/getDayFromDate"
 import { ReferenceArea } from "recharts"
 
 export const ReferenceAreas = (props) => {
