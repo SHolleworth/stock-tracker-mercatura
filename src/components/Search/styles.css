@@ -1,5 +1,4 @@
 .searchbar {
-	width: 100%;
 	display: flex;
 	flex-direction: column;
 	box-sizing: border-box;
@@ -26,9 +25,10 @@
 }
 
 .stock__header {
+	width: 100%;
 	display: flex;
 	justify-content: space-between;
-	width: 100%;
+	max-width: 1260px;
 }
 
 .grayborder {
@@ -68,6 +68,10 @@
 	padding: 16px;
 	margin-bottom: 8px;
 	color: #7f7f7f;
+}
+
+.suggestions__stock {
+	user-select: none;
 }
 
 .suggestions__stock:hover {

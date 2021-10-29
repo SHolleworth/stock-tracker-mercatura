@@ -1,20 +1,15 @@
-import React, { useState } from "react"
+import React from "react"
 import "./styles.css"
 import LivePrice from "../LivePrice"
 import SearchBar from "./SearchBar"
 
-const StockHeader = () => {
-  const [focused, setFocused] = useState(false)
-
-  return (
-    <div className={focused ? "stock__header" : "stock__header grayborder"}>
-      <SearchBar
-        onFocus={() => setFocused(true)}
-        onBlur={() => setFocused(false)}
-      />
-      {!focused ? <LivePrice /> : null}
-    </div>
-  )
+const StockHeader = ({ focused, setFocused }) => {
+	return (
+		<div className={focused ? "stock__header" : "stock__header grayborder"}>
+			<SearchBar focused={focused} onFocus={() => setFocused(true)} />
+			<LivePrice searchFocused={focused} />
+		</div>
+	)
 }
 
 export default StockHeader

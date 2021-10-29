@@ -4,18 +4,23 @@ import "./styles.css"
 import { useSymbol } from "../../contexts/SymbolContext"
 
 const CompanySummary = () => {
-  const [companyInfo, setCompanyInfo] = useState({})
-  const { symbol } = useSymbol()
+	const [companyInfo, setCompanyInfo] = useState({})
+	const [message, setMessage] = useState("Loading...")
+	const { symbol } = useSymbol()
 
-  useEffect(() => {
-    requestCompanyInfo(symbol).then((res) => {
-      const newDescription = res.description.substring(0, 500)
-      setCompanyInfo({ ...res, description: newDescription })
-    })
-  }, [symbol])
+	useEffect(() => {
+		requestCompanyInfo(symbol).then((res) => {
+			if (typeof res === "string") {
+				setMessage(res)
+			} else {
+				const newDescription = res.description.substring(0, 500)
+				setCompanyInfo({ ...res, description: newDescription })
+			}
+		})
+	}, [symbol])
 
 	return Object.keys(companyInfo).length === 0 ? (
-		"Loading..."
+		message
 	) : (
 		<div className="company__summary">
 			<h2>Company Summary</h2>

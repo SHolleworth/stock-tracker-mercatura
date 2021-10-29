@@ -17,17 +17,27 @@ export const useHistoricalPrices = () => {
 	const { symbol } = useSymbol()
 
 	useEffect(() => {
-		requestHistoricalPrices(symbol)
-			.then((prices) => {
+		(async () => {
+			try {
+				const prices = await requestHistoricalPrices(symbol)
+
+				console.log("Historic prices retrieved: ")
+				console.log(prices)
+
 				const pricesWithoutNulls = removeNulls(prices)
-				const averages = pricesWithoutNulls.map((el) => el.average)
-				const min = Math.floor(Math.min(...averages))
-				const max = Math.floor(Math.max(...averages) + 1)
-				setMinMax({ min, max })
-				pricesWithoutNulls.push({
-					...pricesWithoutNulls[pricesWithoutNulls.length - 1],
-					minute: "16:00",
-				})
+
+				setMinMax(findMinAndMax(pricesWithoutNulls))
+
+				//Add a point to the end of the last day to make it's length consistent with the others
+				if (pricesWithoutNulls.length) {
+					pricesWithoutNulls.push({
+						...pricesWithoutNulls[pricesWithoutNulls.length - 1],
+						minute: "16:00",
+					})
+				}
+
+				//Minutes must be unique in order for the reference areas to work
+				//TODO find a less stupid solution
 				const pricesWithIdentifiableMinutes = pricesWithoutNulls.map(
 					(price, index) => {
 						return {
@@ -36,14 +46,16 @@ export const useHistoricalPrices = () => {
 						}
 					}
 				)
+
 				setPrices(pricesWithIdentifiableMinutes)
-			})
-			.catch((err) =>
-				console.error("Error retrieving historical prices: " + err)
-			)
+			} catch (error) {
+				//an empty array will signal the request failed
+				setPrices([])
+			}
+		})()
 	}, [symbol])
 
-	return [prices, minMax]
+	return [prices, setPrices, minMax]
 }
 
 export const useIntradayPrices = () => {
@@ -55,19 +67,30 @@ export const useIntradayPrices = () => {
 	const { symbol } = useSymbol()
 
 	useEffect(() => {
-		requestIntradayPrices(symbol)
-			.then((prices) => {
+		(async () => {
+			try {
+				const prices = await requestIntradayPrices(symbol)
+
+				console.log("Intraday prices retrieved: ")
+				console.log(prices)
+
 				const pricesWithoutNulls = removeNulls(prices)
-				const averages = pricesWithoutNulls.map((el) => el.average)
-				const min = Math.floor(Math.min(...averages))
-				const max = Math.floor(Math.max(...averages) + 1)
-				setMinMax({ min, max })
+
+				setMinMax(findMinAndMax(pricesWithoutNulls))
+
 				setPrices(pricesWithoutNulls)
-			})
-			.catch((err) =>
-				console.error("Error retrieving intraday prices: " + err)
-			)
+			} catch (error) {
+				setPrices([])
+			}
+		})()
 	}, [symbol])
 
 	return [prices, minMax]
+}
+
+const findMinAndMax = (prices) => {
+	const averages = prices.map((el) => el.average)
+	const min = Math.floor(Math.min(...averages))
+	const max = Math.floor(Math.max(...averages) + 1)
+	return { min, max }
 }

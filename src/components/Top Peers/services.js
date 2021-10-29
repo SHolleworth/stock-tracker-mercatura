@@ -15,13 +15,13 @@
  */
 
 export async function getPeers(symbol) {
-  return Promise.resolve([
-    "QCOM",
-    "MSI",
-    "ERIC",
-    "AMAZN",
-    "GOOGL",
-    "MSFT",
-    "DELL",
-  ])
+	return Promise.resolve([
+		"QCOM",
+		"MSI",
+		"ERIC",
+		"AMZN",
+		"GOOGL",
+		"MSFT",
+		"DELL",
+	])
 }

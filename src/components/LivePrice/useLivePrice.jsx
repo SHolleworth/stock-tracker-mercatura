@@ -1,31 +1,43 @@
 import { useEffect, useState } from "react"
+import { requestLatestPrice } from "./services"
 
 const useLivePrice = (symbol) => {
-  const [price, setPrice] = useState()
-  const CURL_URL = `https://sandbox-sse.iexapis.com/stable/stocksUS?symbols=${symbol}&token=${
-    import.meta.env.VITE_IEX_TOKEN
-  }`
+	const [price, setPrice] = useState()
+	const CURL_URL = `https://sandbox-sse.iexapis.com/stable/stocksUS?symbols=${symbol}&token=${
+		import.meta.env.VITE_IEX_TOKEN
+	}`
 
-  useEffect(() => {
-    const sse = new EventSource(CURL_URL)
+	useEffect(() => {
+		const sse = new EventSource(CURL_URL)
 
-    sse.onmessage = (e) => {
-      if (JSON.parse(e.data).length !== 0) {
-        setPrice(JSON.parse(e.data))
-      } else {
-        console.log("Just got an empty message")
-      }
-    }
+		sse.onopen = () => {
+			console.log("SSE connection established")
+		}
 
-    sse.onerror = (error) => {
-      console.log(error)
-      sse.close()
-    }
+		sse.onmessage = (e) => {
+			if (JSON.parse(e.data).length !== 0) {
+				setPrice(JSON.parse(e.data))
+			} else {
+				console.log("Just got an empty message")
+			}
+		}
 
-    return () => sse.close()
-  }, [CURL_URL])
+		sse.onerror = async (error) => {
+			console.log(error)
+			sse.close()
+			try {
+				const latestPrice = await requestLatestPrice(symbol)
+				setPrice([latestPrice])
+			} catch (error) {
+				console.error(error)
+				setPrice([])
+			}
+		}
 
-  return price
+		return () => sse.close()
+	}, [CURL_URL, symbol])
+
+	return price
 }
 
 export default useLivePrice
