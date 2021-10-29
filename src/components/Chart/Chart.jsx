@@ -21,6 +21,7 @@ const ChartContainer = () => {
 	const [historicPrices, setHistoricPrices, historicMinMax] =
 		useHistoricalPrices()
 	const [intradayPrices, intradayMinMax] = useIntradayPrices()
+	// const [intradayPrices, setIntradayPrices] = useState(mockIntraday)
 	const [chartContainerRef, startScroll, setScroll] = useDrag()
 	const interval = 3
 	const daySize = 1200
