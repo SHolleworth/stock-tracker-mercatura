@@ -13,12 +13,13 @@ function NewsFeed() {
 	const { renderFlag } = useRenderFlag()
 
 	useEffect(() => {
-		if (renderFlag > FLAGS.news) {
+		if (renderFlag === FLAGS.newsFeed) {
 			requestNews(symbol)
 				.then((news) => {
 					setArticles({ status: "resolved", body: news })
 				})
 				.catch((error) => {
+					console.error("Error requesting news data: " + error)
 					setArticles({ status: "error", body: null })
 				})
 		}
@@ -33,7 +34,7 @@ function NewsFeed() {
 	const newsRenderer = () => {
 		let content = null
 		if (articles.status === "resolved") {
-			content = articles.map((article, index) => (
+			content = articles.body.map((article, index) => (
 				<NewsArticle
 					key={article.headline}
 					link={article.url}

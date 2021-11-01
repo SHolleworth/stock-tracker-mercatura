@@ -24,7 +24,7 @@ const Stats = () => {
 	}
 
 	useEffect(() => {
-		if (renderFlag > FLAGS.stats) {
+		if (renderFlag === FLAGS.stats) {
 			requestData()
 		}
 	}, [symbol, renderFlag])

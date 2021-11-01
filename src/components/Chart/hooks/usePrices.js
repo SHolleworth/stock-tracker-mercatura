@@ -18,7 +18,7 @@ export const useHistoricalPrices = (symbol) => {
 
 	useEffect(() => {
 		(async () => {
-			if (renderFlag > FLAGS.chart) {
+			if (renderFlag === FLAGS.chart) {
 				try {
 					const prices = await requestHistoricalPrices(symbol)
 
@@ -74,7 +74,7 @@ export const useIntradayPrices = (symbol) => {
 
 	useEffect(() => {
 		(async () => {
-			if (renderFlag > FLAGS.chart) {
+			if (renderFlag === FLAGS.chart) {
 				try {
 					const prices = await requestIntradayPrices(symbol)
 

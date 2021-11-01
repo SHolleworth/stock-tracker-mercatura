@@ -36,14 +36,10 @@ const ChartContainer = () => {
 		setScroll(chartContainerRef.current.scrollWidth)
 		if (!isLoading && intradayPrices.length) {
 			const temp = [...historicPrices]
-			console.log("Temp before change")
-			console.log(temp)
 			temp[historicPrices.length - 1] = {
 				...temp[historicPrices.length - 1],
 				average: intradayPrices[0].average,
 			}
-			console.log("Temp after change")
-			console.log(temp)
 			setHistoricPrices(temp)
 		}
 	}, [isLoading])
@@ -124,7 +120,6 @@ const ChartContainer = () => {
 }
 
 const filterOutPreviousDay = (prices) => {
-	console.log(prices)
 	try {
 		const yesterday = prices[prices.length - 1].date
 		return prices.filter((price) => price.date === yesterday).slice(0, -1)

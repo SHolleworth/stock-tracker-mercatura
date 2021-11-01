@@ -26,7 +26,7 @@ const CompanySummary = () => {
 	}
 
 	useEffect(() => {
-		if (renderFlag > FLAGS.summary) {
+		if (renderFlag === FLAGS.summary) {
 			requestData()
 		}
 	}, [symbol, renderFlag])

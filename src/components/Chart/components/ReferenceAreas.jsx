@@ -5,8 +5,6 @@ import { ReferenceArea } from "recharts"
 export const ReferenceAreas = (props) => {
 	//The amount of reference areas is going to be equal to the amount of data points
 	//divided by the interval between the x-axis's ticks
-	console.log("Reference area props object: ")
-	console.log(props)
 	const referenceAreaArray = new Array(
 		Math.ceil(props.data.length / props.interval)
 	).fill("")

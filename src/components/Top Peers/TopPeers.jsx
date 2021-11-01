@@ -11,7 +11,7 @@ const TopPeers = () => {
 	const { renderFlag } = useRenderFlag()
 
 	useEffect(() => {
-		if (renderFlag > FLAGS.topPeers) {
+		if (renderFlag === FLAGS.topPeers) {
 			getPeers(symbol)
 				.then((peerData) => {
 					setPeers({ status: "resolved", body: peerData })
