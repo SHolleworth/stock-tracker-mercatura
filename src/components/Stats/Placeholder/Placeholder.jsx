@@ -1,8 +1,11 @@
 import React from "react"
+import { usePlaceholderAnimation } from "../../../hooks/usePlaceholderAnimation"
 
 function Placeholder() {
+	const opacity = usePlaceholderAnimation()
+
 	return (
-		<div className="stats__placeholder">
+		<div className="stats__placeholder" style={{ opacity: opacity }}>
 			<div className="stats__placeholder__column">
 				<div className="stats__placeholder__row">
 					<div className="stats__placeholder__row__title" />
