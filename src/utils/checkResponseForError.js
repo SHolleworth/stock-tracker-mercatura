@@ -1,5 +1,6 @@
 export const checkResponseForError = (response) => {
 	return new Promise((resolve, reject) => {
+		// throw Error()
 		if (response.ok) {
 			response.json().then((json) => {
 				return resolve(json)

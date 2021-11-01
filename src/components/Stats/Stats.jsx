@@ -2,9 +2,13 @@ import React, { useState, useEffect } from "react"
 import KeyStatistics from "./KeyStatistics"
 import { getKeyStatistics } from "./services"
 import { useSymbol } from "../../contexts/SymbolContext"
+import Placeholder from "./Placeholder/Placeholder"
 
 const Stats = () => {
-	const [statistics, setStatistics] = useState(null)
+	const [statistics, setStatistics] = useState({
+		status: "loading",
+		body: null,
+	})
 	const { symbol } = useSymbol()
 
 	useEffect(() => {
@@ -17,13 +21,25 @@ const Stats = () => {
 			.catch((err) => console.error(err))
 	}, [symbol])
 
-	if (statistics) {
-		if (statistics.error) {
-			return statistics.body
+	const statsRenderer = () => {
+		let content = null
+		if (statistics.status === "resolved") {
+			content = <KeyStatistics stats={statistics.body} />
+		} else if (
+			statistics.status === "loading" ||
+			statistics.status === "error"
+		) {
+			content = <Placeholder />
 		}
-		return <KeyStatistics stats={statistics.body} />
+		return (
+			<div className="stats">
+				<h2 className="stats__title">Key Statistics</h2>
+				{content}
+			</div>
+		)
 	}
-	return "Loading..."
+
+	return statsRenderer()
 }
 
 export default Stats

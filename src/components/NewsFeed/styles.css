@@ -23,7 +23,6 @@ a {
 	color: #7f7f7f;
 }
 
-
 .news__placeholder {
 	width: 100%;
 	padding: 10px;
@@ -33,7 +32,7 @@ a {
 .news__placeholder__title {
 	width: 100%;
 	height: 10px;
-	background-color: #4d4d4d;
+	background-color: #4d4d4daa;
 	margin-bottom: 15px;
 	border-radius: 5px;
 }
@@ -43,7 +42,7 @@ a {
 }
 
 .news__placeholder__footer {
-	background-color: #7f7f7f;
+	background-color: #7f7f7faa;
 	height: 7px;
 	width: 30%;
 	border-radius: 4px;

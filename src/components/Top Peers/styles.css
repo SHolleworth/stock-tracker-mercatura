@@ -4,6 +4,10 @@
 	flex-wrap: wrap;
 }
 
+.peers__title {
+	padding: 0 10px;
+}
+
 .peer {
 	border-radius: 43px;
 	background-color: #f1f2f2;
@@ -18,4 +22,21 @@
 .peer:hover {
 	background-color: #d8d9d9;
 	cursor: pointer;
+}
+
+.peers__placeholder {
+	display: flex;
+	justify-content: center;
+	flex-wrap: wrap;
+}
+
+.peers__placeholder__button {
+	height: 40px;
+	min-width: 60px;
+	border-radius: 43px;
+	background-color: #d8d9d9;
+	padding: 10px 15px;
+	margin: 0 5px;
+	flex-basis: 18%;
+	margin: 5px;
 }

@@ -36,7 +36,6 @@
 	font-size: 14px;
 }
 
-
 .summary-placeholder {
 	padding: 10px;
 }
@@ -44,7 +43,7 @@
 .summary-placeholder__title {
 	height: 30px;
 	width: 40%;
-	background-color: #4d4d4d;
+	background-color: #4d4d4daa;
 	margin-bottom: 20px;
 	border-radius: 15px;
 }
@@ -52,7 +51,7 @@
 .summary-placeholder__content {
 	height: 10px;
 	width: 100%;
-	background-color: #7f7f7f;
+	background-color: #7f7f7faa;
 	margin-bottom: 15px;
 	border-radius: 5px;
 }

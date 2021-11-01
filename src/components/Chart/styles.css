@@ -1,9 +1,10 @@
 .chart__container {
 	height: 650px;
 	min-height: 600px;
-	width: 1260px;
+	width: 100%;
 	max-width: 1260px;
 	margin-top: 20px;
+	margin-left: 10px;
 	align-self: center;
 	overflow-x: auto;
 	display: flex;

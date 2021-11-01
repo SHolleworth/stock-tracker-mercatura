@@ -11,6 +11,7 @@ export async function getKeyStatistics(symbol) {
 		import.meta.env.VITE_IEX_TOKEN
 	}`
 	try {
+		// throw Error()
 		const quoteResponse = await fetch(QUOTE_URL)
 		const fundamentalsResponse = await fetch(FUNDAMENTALS_URL)
 
@@ -20,11 +21,14 @@ export async function getKeyStatistics(symbol) {
 		const quote = await checkResponseForError(quoteResponse)
 		const fundamentals = await checkResponseForError(fundamentalsResponse)
 
-		const content = { body: { ...quote, ...fundamentals[0] }, error: false }
+		const content = {
+			body: { ...quote, ...fundamentals[0] },
+			status: "resolved",
+		}
 
 		return content
 	} catch (err) {
 		console.error("Error in key statistics request: ", err)
-		return { error: true, body: "ERROR LOADING KEY STATISTICS" }
+		return { status: "error", body: "ERROR LOADING KEY STATISTICS" }
 	}
 }
