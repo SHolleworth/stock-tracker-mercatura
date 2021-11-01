@@ -50,7 +50,7 @@
 	height: 40px;
 	width: 50%;
 	border-radius: 20px;
-	background-color: #383838aa;
+	background-color: #d8d9d9;
 }
 
 .live-price__placeholder__arrow {
@@ -58,12 +58,12 @@
 	width: 20px;
 	border-radius: 10px;
 	margin-right: -10px;
-	background-color: #00e500aa;
+	background-color: #96db96;
 }
 
 .live-price__placeholder__change {
 	height: 20px;
 	width: 30%;
 	border-radius: 10px;
-	background-color: #00e500aa;
+	background-color: #96db96;
 }
