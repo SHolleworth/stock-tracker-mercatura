@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react"
+import { FLAGS, useRenderFlag } from "../../../contexts/RenderFlagContext"
 import { requestHistoricalPrices, requestIntradayPrices } from "../services"
 
 const removeNulls = (prices) => {
@@ -13,46 +14,52 @@ export const useHistoricalPrices = (symbol) => {
 		min: Number.POSITIVE_INFINITY,
 		max: Number.NEGATIVE_INFINITY,
 	})
+	const { renderFlag } = useRenderFlag()
 
 	useEffect(() => {
 		(async () => {
-			try {
-				const prices = await requestHistoricalPrices(symbol)
+			if (renderFlag > FLAGS.chart) {
+				try {
+					const prices = await requestHistoricalPrices(symbol)
 
-				console.log("Historic prices retrieved: ")
-				console.log(prices)
+					console.log("Historic prices retrieved: ")
+					console.log(prices)
 
-				const pricesWithoutNulls = removeNulls(prices)
+					const pricesWithoutNulls = removeNulls(prices)
 
-				setMinMax(findMinAndMax(pricesWithoutNulls))
+					setMinMax(findMinAndMax(pricesWithoutNulls))
 
-				//Add a point to the end of the last day to make it's length consistent with the others
-				if (pricesWithoutNulls.length) {
-					pricesWithoutNulls.push({
-						...pricesWithoutNulls[pricesWithoutNulls.length - 1],
-						minute: "16:00",
-					})
-				}
-
-				//Minutes must be unique in order for the reference areas to work
-				//TODO find a less stupid solution
-				const pricesWithIdentifiableMinutes = pricesWithoutNulls.map(
-					(price, index) => {
-						return {
-							...price,
-							minute: index.toString() + " " + price.minute,
-						}
+					//Add a point to the end of the last day to make it's length consistent with the others
+					if (pricesWithoutNulls.length) {
+						pricesWithoutNulls.push({
+							...pricesWithoutNulls[
+								pricesWithoutNulls.length - 1
+							],
+							minute: "16:00",
+						})
 					}
-				)
 
-				setPrices(pricesWithIdentifiableMinutes)
-			} catch (error) {
-				//an empty array will signal the request failed
-				console.error("Error requesting historical prices: " + error)
-				setPrices([])
+					//Minutes must be unique in order for the reference areas to work
+					//TODO find a less stupid solution
+					const pricesWithIdentifiableMinutes =
+						pricesWithoutNulls.map((price, index) => {
+							return {
+								...price,
+								minute: index.toString() + " " + price.minute,
+							}
+						})
+
+					setPrices(pricesWithIdentifiableMinutes)
+				} catch (error) {
+					//an empty array will signal the request failed
+					console.error(
+						"Error requesting historical prices: " + error
+					)
+					setPrices([])
+				}
 			}
 		})()
-	}, [symbol])
+	}, [symbol, renderFlag])
 
 	return [prices, setPrices, minMax]
 }
@@ -63,26 +70,29 @@ export const useIntradayPrices = (symbol) => {
 		min: Number.POSITIVE_INFINITY,
 		max: Number.NEGATIVE_INFINITY,
 	})
+	const { renderFlag } = useRenderFlag()
 
 	useEffect(() => {
 		(async () => {
-			try {
-				const prices = await requestIntradayPrices(symbol)
+			if (renderFlag > FLAGS.chart) {
+				try {
+					const prices = await requestIntradayPrices(symbol)
 
-				console.log("Intraday prices retrieved: ")
-				console.log(prices)
+					console.log("Intraday prices retrieved: ")
+					console.log(prices)
 
-				const pricesWithoutNulls = removeNulls(prices)
+					const pricesWithoutNulls = removeNulls(prices)
 
-				setMinMax(findMinAndMax(pricesWithoutNulls))
+					setMinMax(findMinAndMax(pricesWithoutNulls))
 
-				setPrices(pricesWithoutNulls)
-			} catch (error) {
-				console.error("Error requesting intraday prices: " + error)
-				setPrices([])
+					setPrices(pricesWithoutNulls)
+				} catch (error) {
+					console.error("Error requesting intraday prices: " + error)
+					setPrices([])
+				}
 			}
 		})()
-	}, [symbol])
+	}, [symbol, renderFlag])
 
 	return [prices, minMax]
 }

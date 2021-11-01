@@ -5,16 +5,24 @@ import convertMillisecondsToNewsFeedTime from "../../utils/convertMillisecondsTo
 import "./styles.css"
 import { useSymbol } from "../../contexts/SymbolContext"
 import Placeholder from "./Placeholder/Placeholder"
+import { FLAGS, useRenderFlag } from "../../contexts/RenderFlagContext"
 
 function NewsFeed() {
-	const [articles, setArticles] = useState(null)
+	const [articles, setArticles] = useState({ status: "loading", body: null })
 	const { symbol } = useSymbol()
+	const { renderFlag } = useRenderFlag()
 
 	useEffect(() => {
-		requestNews(symbol).then((news) => {
-			setArticles(news)
-		})
-	}, [symbol])
+		if (renderFlag > FLAGS.news) {
+			requestNews(symbol)
+				.then((news) => {
+					setArticles({ status: "resolved", body: news })
+				})
+				.catch((error) => {
+					setArticles({ status: "error", body: null })
+				})
+		}
+	}, [symbol, renderFlag])
 
 	const dates = [
 		Date.now() - 100000,
@@ -22,30 +30,31 @@ function NewsFeed() {
 		Date.now() - 8.64e7,
 	]
 
-	if (articles) {
+	const newsRenderer = () => {
+		let content = null
+		if (articles.status === "resolved") {
+			content = articles.map((article, index) => (
+				<NewsArticle
+					key={article.headline}
+					link={article.url}
+					content={article.headline}
+					timeSincePublication={dates[index]}
+					source={article.source}
+				/>
+			))
+		}
+		if (articles.status === "error" || articles.status === "loading") {
+			content = <Placeholder />
+		}
 		return (
 			<div className="newsfeed__background">
 				<h2 className="latest-news-text">Latest News</h2>
-				{articles.length ? (
-					articles.map((article, index) => {
-						return (
-							<NewsArticle
-								key={article.headline}
-								link={article.url}
-								content={article.headline}
-								timeSincePublication={dates[index]}
-								source={article.source}
-							/>
-						)
-					})
-				) : (
-					<Placeholder />
-				)}
+				{content}
 			</div>
 		)
-	} else {
-		return <Placeholder />
 	}
+
+	return newsRenderer()
 }
 
 function NewsArticle({ link, content, timeSincePublication, source }) {

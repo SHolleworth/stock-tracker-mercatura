@@ -57,13 +57,13 @@ const ChartContainer = () => {
 	}, [intradayPrices, historicPrices])
 
 	const chartRenderer = () => {
-		const elements = []
+		const content = []
 		if (!historicPrices && !intradayPrices) {
 			return <Placeholder />
 		}
 		if (historicPrices) {
 			if (historicPrices.length) {
-				elements.push(
+				content.push(
 					<StaticYAxis
 						key={0}
 						data={historicPrices || intradayPrices}
@@ -73,7 +73,7 @@ const ChartContainer = () => {
 						axisProps={axisProps}
 					/>
 				)
-				elements.push(
+				content.push(
 					<HistoricalPriceChart
 						key={1}
 						daySize={daySize}
@@ -85,7 +85,7 @@ const ChartContainer = () => {
 					/>
 				)
 				if (intradayPrices && intradayPrices.length) {
-					elements.push(
+					content.push(
 						<CurrentPriceChart
 							key={2}
 							daySize={daySize}
@@ -109,7 +109,7 @@ const ChartContainer = () => {
 				return <Placeholder />
 			}
 		}
-		return elements
+		return <div className="chart__inner">{content}</div>
 	}
 
 	return (
@@ -118,7 +118,7 @@ const ChartContainer = () => {
 			ref={chartContainerRef}
 			onMouseDown={startScroll}
 		>
-			<div className="chart__inner">{chartRenderer()}</div>
+			{chartRenderer()}
 		</div>
 	)
 }

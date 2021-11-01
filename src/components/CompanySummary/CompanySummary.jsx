@@ -3,6 +3,7 @@ import { requestCompanyInfo } from "./services"
 import "./styles.css"
 import { useSymbol } from "../../contexts/SymbolContext"
 import Placeholder from "./Placeholder"
+import { FLAGS, useRenderFlag } from "../../contexts/RenderFlagContext"
 
 const CompanySummary = () => {
 	const [companyInfo, setCompanyInfo] = useState({
@@ -10,20 +11,25 @@ const CompanySummary = () => {
 		body: null,
 	})
 	const { symbol } = useSymbol()
+	const { renderFlag } = useRenderFlag()
+
+	const requestData = async () => {
+		try {
+			const response = await requestCompanyInfo(symbol)
+			const desc = response.description.substring(0, 500).concat("...")
+			const body = { ...response, description: desc }
+			setCompanyInfo({ status: "resolved", body })
+		} catch (error) {
+			console.error("Error retreiving company summary data: " + error)
+			setCompanyInfo({ status: "error", body: null })
+		}
+	}
 
 	useEffect(() => {
-		requestCompanyInfo(symbol).then((res) => {
-			if (res.status === "resolved") {
-				const desc = res.body.description
-					.substring(0, 500)
-					.concat("...")
-				const body = { ...res.body, description: desc }
-				setCompanyInfo({ ...res, body })
-			} else {
-				setCompanyInfo(res)
-			}
-		})
-	}, [symbol])
+		if (renderFlag > FLAGS.summary) {
+			requestData()
+		}
+	}, [symbol, renderFlag])
 
 	const summaryRenderer = () => {
 		let content = null

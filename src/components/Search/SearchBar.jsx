@@ -15,9 +15,15 @@ const SearchBar = ({ focused, onFocus, onBlur }) => {
 	}
 
 	useEffect(() => {
-		requestCompanyInfo(symbol).then((info) => {
-			setValue(`${info.body.symbol} - ${info.body.companyName}`)
-		})
+		requestCompanyInfo(symbol)
+			.then((info) => {
+				setValue(`${info.symbol} - ${info.companyName}`)
+			})
+			.catch((error) => {
+				console.error(
+					"Error requesting company info for search bar: " + error
+				)
+			})
 	}, [symbol])
 
 	return (

@@ -3,20 +3,25 @@ import "./styles.css"
 import { getPeers } from "./services"
 import { useSymbol } from "../../contexts/SymbolContext"
 import Placeholder from "./Placeholder/Placeholder"
+import { FLAGS, useRenderFlag } from "../../contexts/RenderFlagContext"
 
 const TopPeers = () => {
 	const [peers, setPeers] = useState({ status: "loading", body: null })
 	const { symbol, setSymbol } = useSymbol()
+	const { renderFlag } = useRenderFlag()
 
 	useEffect(() => {
-		getPeers(symbol)
-			.then((peerData) => {
-				setPeers({ status: "resolved", body: peerData })
-			})
-			.catch((error) => {
-				setPeers({ status: "error", body: error })
-			})
-	}, [symbol])
+		if (renderFlag > FLAGS.topPeers) {
+			getPeers(symbol)
+				.then((peerData) => {
+					setPeers({ status: "resolved", body: peerData })
+				})
+				.catch((error) => {
+					console.error("Error retrieving top peers data: " + error)
+					setPeers({ status: "error", body: null })
+				})
+		}
+	}, [symbol, renderFlag])
 
 	const peersRenderer = () => {
 		let content = null
@@ -34,7 +39,7 @@ const TopPeers = () => {
 					))}
 				</div>
 			)
-		} else if (peers.status === ("error" || "loading")) {
+		} else if (peers.status === "error" || peers.status === "loading") {
 			content = <Placeholder />
 		}
 		return (
