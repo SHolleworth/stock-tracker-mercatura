@@ -28,6 +28,8 @@ const CompanySummary = () => {
 	useEffect(() => {
 		if (renderFlag === FLAGS.summary) {
 			requestData()
+		} else if (renderFlag === -1) {
+			setCompanyInfo({ status: "loading", body: null })
 		}
 	}, [symbol, renderFlag])
 

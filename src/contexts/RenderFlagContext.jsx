@@ -7,7 +7,7 @@ export const useRenderFlag = () => {
 }
 
 const RenderFlagContextProvider = ({ children }) => {
-	const [renderFlag, setRenderFlag] = useState(0)
+	const [renderFlag, setRenderFlag] = useState(-1)
 
 	useEffect(() => {
 		console.log(renderFlag)

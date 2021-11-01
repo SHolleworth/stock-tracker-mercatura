@@ -7,7 +7,6 @@ export const usePlaceholderAnimation = () => {
 		let incrementing = false
 		const intervalId = setInterval(() => {
 			setOpacity((prevOpacity) => {
-				console.log(prevOpacity)
 				if (prevOpacity >= 1) {
 					incrementing = false
 				}

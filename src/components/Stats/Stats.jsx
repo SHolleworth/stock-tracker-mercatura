@@ -26,6 +26,8 @@ const Stats = () => {
 	useEffect(() => {
 		if (renderFlag === FLAGS.stats) {
 			requestData()
+		} else if (renderFlag === -1) {
+			setStatistics({ status: "loading", body: null })
 		}
 	}, [symbol, renderFlag])
 

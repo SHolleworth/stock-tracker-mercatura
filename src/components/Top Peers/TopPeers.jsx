@@ -20,6 +20,8 @@ const TopPeers = () => {
 					console.error("Error retrieving top peers data: " + error)
 					setPeers({ status: "error", body: null })
 				})
+		} else if (renderFlag === -1) {
+			setPeers({ status: "loading", body: null })
 		}
 	}, [symbol, renderFlag])
 

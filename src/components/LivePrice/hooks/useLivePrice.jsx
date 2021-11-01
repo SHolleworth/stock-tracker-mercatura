@@ -38,6 +38,8 @@ const useLivePrice = (symbol) => {
 			}
 
 			return () => sse.close()
+		} else if (renderFlag === -1) {
+			setPrice({ status: "loading", body: null })
 		}
 	}, [CURL_URL, symbol, renderFlag])
 

@@ -16,7 +16,7 @@ function App() {
 	const { setRenderFlag } = useRenderFlag()
 
 	useEffect(() => {
-		setRenderFlag(0)
+		setRenderFlag(-1)
 		const intervalId = setInterval(() => {
 			setRenderFlag((prev) => prev + 1)
 		}, [200])

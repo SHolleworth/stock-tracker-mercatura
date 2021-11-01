@@ -9,7 +9,7 @@ const removeNulls = (prices) => {
 }
 
 export const useHistoricalPrices = (symbol) => {
-	const [prices, setPrices] = useState(null)
+	const [prices, setPrices] = useState({ status: "loading", body: null })
 	const [minMax, setMinMax] = useState({
 		min: Number.POSITIVE_INFINITY,
 		max: Number.NEGATIVE_INFINITY,
@@ -49,14 +49,19 @@ export const useHistoricalPrices = (symbol) => {
 							}
 						})
 
-					setPrices(pricesWithIdentifiableMinutes)
+					setPrices({
+						status: "resolved",
+						body: pricesWithIdentifiableMinutes,
+					})
 				} catch (error) {
 					//an empty array will signal the request failed
 					console.error(
 						"Error requesting historical prices: " + error
 					)
-					setPrices([])
+					setPrices({ status: "error", body: null })
 				}
+			} else if (renderFlag === -1) {
+				setPrices({ status: "loading", body: null })
 			}
 		})()
 	}, [symbol, renderFlag])
@@ -65,7 +70,7 @@ export const useHistoricalPrices = (symbol) => {
 }
 
 export const useIntradayPrices = (symbol) => {
-	const [prices, setPrices] = useState(null)
+	const [prices, setPrices] = useState({ status: "loading", body: null })
 	const [minMax, setMinMax] = useState({
 		min: Number.POSITIVE_INFINITY,
 		max: Number.NEGATIVE_INFINITY,
@@ -85,11 +90,13 @@ export const useIntradayPrices = (symbol) => {
 
 					setMinMax(findMinAndMax(pricesWithoutNulls))
 
-					setPrices(pricesWithoutNulls)
+					setPrices({ status: "resolved", body: pricesWithoutNulls })
 				} catch (error) {
 					console.error("Error requesting intraday prices: " + error)
-					setPrices([])
+					setPrices({ status: "error", body: null })
 				}
+			} else if (renderFlag === -1) {
+				setPrices({ status: "loading", body: null })
 			}
 		})()
 	}, [symbol, renderFlag])

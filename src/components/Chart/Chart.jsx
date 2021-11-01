@@ -24,7 +24,6 @@ const ChartContainer = () => {
 	const [historicPrices, setHistoricPrices, historicMinMax] =
 		useHistoricalPrices(symbol)
 	const [intradayPrices, intradayMinMax] = useIntradayPrices(symbol)
-	// const [intradayPrices, setIntradayPrices] = useState(mockIntraday)
 	const [chartContainerRef, startScroll, setScroll] = useDrag()
 	const interval = 3
 	const daySize = 1200
@@ -34,18 +33,21 @@ const ChartContainer = () => {
 	useEffect(() => {
 		//scroll to the latest day
 		setScroll(chartContainerRef.current.scrollWidth)
-		if (!isLoading && intradayPrices.length) {
-			const temp = [...historicPrices]
-			temp[historicPrices.length - 1] = {
-				...temp[historicPrices.length - 1],
-				average: intradayPrices[0].average,
+		if (!isLoading && intradayPrices.status === "resolved") {
+			const body = [...historicPrices.body]
+			body[historicPrices.body.length - 1] = {
+				...body[historicPrices.body.length - 1],
+				average: intradayPrices.body[0].average,
 			}
-			setHistoricPrices(temp)
+			setHistoricPrices({ status: historicPrices.status, body: body })
 		}
 	}, [isLoading])
 
 	useEffect(() => {
-		if (intradayPrices && historicPrices && historicPrices.length) {
+		if (
+			intradayPrices.status !== "loading" &&
+			historicPrices.status === "resolved"
+		) {
 			setIsLoading(false)
 		} else {
 			setIsLoading(true)
@@ -54,55 +56,49 @@ const ChartContainer = () => {
 
 	const chartRenderer = () => {
 		const content = []
-		if (!historicPrices && !intradayPrices) {
+		if (
+			historicPrices.status !== "resolved" &&
+			intradayPrices.status !== "resolved"
+		) {
 			return <Placeholder />
 		}
-		if (historicPrices) {
-			if (historicPrices.length) {
+		if (historicPrices.status === "resolved") {
+			content.push(
+				<StaticYAxis
+					key={0}
+					data={historicPrices.body || intradayPrices.body}
+					interval={interval}
+					min={min}
+					max={max}
+					axisProps={axisProps}
+				/>
+			)
+			content.push(
+				<HistoricalPriceChart
+					key={1}
+					daySize={daySize}
+					axisProps={axisProps}
+					data={historicPrices.body}
+					interval={interval}
+					min={min}
+					max={max}
+				/>
+			)
+			if (intradayPrices.status === "resolved") {
 				content.push(
-					<StaticYAxis
-						key={0}
-						data={historicPrices || intradayPrices}
-						interval={interval}
-						min={min}
-						max={max}
-						axisProps={axisProps}
-					/>
-				)
-				content.push(
-					<HistoricalPriceChart
-						key={1}
+					<CurrentPriceChart
+						key={2}
 						daySize={daySize}
 						axisProps={axisProps}
-						data={historicPrices}
+						previousDayData={filterOutPreviousDay(
+							historicPrices.body
+						)}
+						currentDayData={intradayPrices.body}
 						interval={interval}
 						min={min}
 						max={max}
 					/>
 				)
-				if (intradayPrices && intradayPrices.length) {
-					content.push(
-						<CurrentPriceChart
-							key={2}
-							daySize={daySize}
-							axisProps={axisProps}
-							previousDayData={filterOutPreviousDay(
-								historicPrices
-							)}
-							currentDayData={intradayPrices}
-							interval={interval}
-							min={min}
-							max={max}
-						/>
-					)
-				}
-			} else {
-				return <Placeholder />
-			}
-		}
-		if (historicPrices && intradayPrices) {
-			if (!historicPrices.length && !intradayPrices.length) {
-				return <Placeholder />
 			}
 		}
 		return <div className="chart__inner">{content}</div>

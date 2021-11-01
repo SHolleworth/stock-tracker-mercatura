@@ -22,6 +22,8 @@ function NewsFeed() {
 					console.error("Error requesting news data: " + error)
 					setArticles({ status: "error", body: null })
 				})
+		} else if (renderFlag === -1) {
+			setArticles({ status: "loading", body: null })
 		}
 	}, [symbol, renderFlag])
 
