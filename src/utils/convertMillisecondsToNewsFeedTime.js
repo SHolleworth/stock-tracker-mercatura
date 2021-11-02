@@ -1,16 +1,25 @@
 import getQuotientAndRemainder from "./getQuotientAndRemainder"
 
+export const millisecondTimes = {
+	second: 1000,
+	minute: 60000,
+	hour: 3.6e6,
+	day: 8.64e7,
+	month: 2.628e9,
+	year: 3.154e10,
+}
+
 const convertMillisecondsToNewsFeedTime = (milliseconds) => {
 	let timeString = "Error"
 	const millisecondsSincePost = Date.now() - milliseconds
 	const [yearsSincePost, yearsRemainder] = getQuotientAndRemainder(
 		millisecondsSincePost,
-		3.154e10
+		millisecondTimes.year
 	)
 	if (yearsSincePost > 0) timeString = "Over a year"
 	const [monthsSincePost, monthsRemainder] = getQuotientAndRemainder(
 		yearsRemainder,
-		2.628e9
+		millisecondTimes.month
 	)
 	if (monthsSincePost > 0) {
 		if (monthsSincePost === 1) {
@@ -21,7 +30,7 @@ const convertMillisecondsToNewsFeedTime = (milliseconds) => {
 	}
 	const [daysSincePost, daysRemainder] = getQuotientAndRemainder(
 		monthsRemainder,
-		8.64e7
+		millisecondTimes.day
 	)
 	if (daysSincePost > 0) {
 		if (daysSincePost === 1) {
@@ -32,7 +41,7 @@ const convertMillisecondsToNewsFeedTime = (milliseconds) => {
 	}
 	const [hoursSincePost, hoursRemainder] = getQuotientAndRemainder(
 		daysRemainder,
-		3.6e6
+		millisecondTimes.hour
 	)
 	if (hoursSincePost > 0) {
 		if (hoursSincePost === 1) {
@@ -43,7 +52,7 @@ const convertMillisecondsToNewsFeedTime = (milliseconds) => {
 	}
 	const [minutesSincePost, minutesRemainder] = getQuotientAndRemainder(
 		hoursRemainder,
-		60000
+		millisecondTimes.minute
 	)
 	if (minutesSincePost > 0) {
 		if (minutesSincePost === 1) {
@@ -54,7 +63,7 @@ const convertMillisecondsToNewsFeedTime = (milliseconds) => {
 	}
 	const [secondsSincePost, millisecondsRemainder] = getQuotientAndRemainder(
 		minutesRemainder,
-		1000
+		millisecondTimes.second
 	)
 	if (secondsSincePost > 0) {
 		if (secondsSincePost === 1) {
