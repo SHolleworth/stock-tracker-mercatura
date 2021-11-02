@@ -6,9 +6,13 @@ import "./styles.css"
 import { useSymbol } from "../../contexts/SymbolContext"
 import Placeholder from "./Placeholder/Placeholder"
 import { FLAGS, useRenderFlag } from "../../contexts/RenderFlagContext"
+import STATUS from "../../utils/statusKeys"
 
 function NewsFeed() {
-	const [articles, setArticles] = useState({ status: "loading", body: null })
+	const [articles, setArticles] = useState({
+		status: STATUS.LOADING,
+		body: null,
+	})
 	const { symbol } = useSymbol()
 	const { renderFlag } = useRenderFlag()
 
@@ -16,14 +20,14 @@ function NewsFeed() {
 		if (renderFlag === FLAGS.newsFeed) {
 			requestNews(symbol)
 				.then((news) => {
-					setArticles({ status: "resolved", body: news })
+					setArticles({ status: STATUS.RESOLVED, body: news })
 				})
 				.catch((error) => {
 					console.error("Error requesting news data: " + error)
-					setArticles({ status: "error", body: null })
+					setArticles({ status: STATUS.ERROR, body: null })
 				})
 		} else if (renderFlag === -1) {
-			setArticles({ status: "loading", body: null })
+			setArticles({ status: STATUS.LOADING, body: null })
 		}
 	}, [symbol, renderFlag])
 
@@ -35,11 +39,11 @@ function NewsFeed() {
 
 	const newsRenderer = () => {
 		let content = null
-		if (articles.status === "loading") {
+		if (articles.status === STATUS.LOADING) {
 			content = <Placeholder />
-		} else if (articles.status === "error") {
+		} else if (articles.status === STATUS.ERROR) {
 			content = <Placeholder />
-		} else if (articles.status === "resolved") {
+		} else if (articles.status === STATUS.RESOLVED) {
 			content = articles.body.map((article, index) => (
 				<NewsArticle
 					key={article.headline}

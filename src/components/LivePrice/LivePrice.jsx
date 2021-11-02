@@ -5,17 +5,18 @@ import useLivePrice from "./hooks/useLivePrice"
 import "./styles.css"
 import downArrow from "../../assets/redarrow.svg"
 import normalArrow from "../../assets/normal.svg"
+import STATUS from "../../utils/statusKeys"
 
 const LivePrice = ({ searchFocused }) => {
 	const { symbol } = useSymbol()
 	const price = useLivePrice(symbol)
 
 	const livePriceRenderer = () => {
-		if (price.status === "loading") {
+		if (price.status === STATUS.LOADING) {
 			return <Placeholder />
-		} else if (price.status === "error") {
+		} else if (price.status === STATUS.ERROR) {
 			return <Placeholder />
-		} else if (price.status === "resolved") {
+		} else if (price.status === STATUS.RESOLVED) {
 			return (
 				<PriceDisplay
 					price={price.body}

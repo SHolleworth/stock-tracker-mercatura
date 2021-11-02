@@ -8,6 +8,7 @@ import { HistoricalPriceChart } from "./components/HistoricalPriceChart"
 import { CurrentPriceChart } from "./components/CurrentPriceChart"
 import { Placeholder } from "./Placeholder/Placeholder"
 import { useSymbol } from "../../contexts/SymbolContext"
+import STATUS from "../../utils/statusKeys"
 
 const axisProps = {
 	tickSize: 12,
@@ -33,7 +34,7 @@ const ChartContainer = () => {
 	useEffect(() => {
 		//scroll to the latest day
 		setScroll(chartContainerRef.current.scrollWidth)
-		if (!isLoading && intradayPrices.status === "resolved") {
+		if (!isLoading && intradayPrices.status === STATUS.RESOLVED) {
 			const body = [...historicPrices.body]
 			body[historicPrices.body.length - 1] = {
 				...body[historicPrices.body.length - 1],
@@ -45,8 +46,8 @@ const ChartContainer = () => {
 
 	useEffect(() => {
 		if (
-			intradayPrices.status !== "loading" &&
-			historicPrices.status === "resolved"
+			intradayPrices.status !== STATUS.LOADING &&
+			historicPrices.status === STATUS.RESOLVED
 		) {
 			setIsLoading(false)
 		} else {
@@ -57,36 +58,36 @@ const ChartContainer = () => {
 	const chartRenderer = () => {
 		const content = []
 		if (
-			historicPrices.status === "loading" &&
-			intradayPrices.status === "loading"
+			historicPrices.status === STATUS.LOADING &&
+			intradayPrices.status === STATUS.LOADING
 		) {
 			return <Placeholder />
 		} else if (
-			historicPrices.status === "error" &&
-			intradayPrices.status === "error"
+			historicPrices.status === STATUS.ERROR &&
+			intradayPrices.status === STATUS.ERROR
 		) {
 			return <Placeholder />
 		} else if (
-			historicPrices.status === "loading" &&
-			intradayPrices.status === "error"
+			historicPrices.status === STATUS.LOADING &&
+			intradayPrices.status === STATUS.ERROR
 		) {
 			return <Placeholder />
 		} else if (
-			historicPrices.status === "error" &&
-			intradayPrices.status === "loading"
+			historicPrices.status === STATUS.ERROR &&
+			intradayPrices.status === STATUS.LOADING
 		) {
 			return <Placeholder />
 		} else if (
-			historicPrices.status === "error" &&
-			intradayPrices.status === "resolved"
+			historicPrices.status === STATUS.ERROR &&
+			intradayPrices.status === STATUS.RESOLVED
 		) {
 			return <Placeholder />
 		} else if (
-			historicPrices.status === "loading" &&
-			intradayPrices.status === "resolved"
+			historicPrices.status === STATUS.LOADING &&
+			intradayPrices.status === STATUS.RESOLVED
 		) {
 			return <Placeholder />
-		} else if (historicPrices.status === "resolved") {
+		} else if (historicPrices.status === STATUS.RESOLVED) {
 			content.push(
 				<StaticYAxis
 					key={0}
@@ -108,7 +109,7 @@ const ChartContainer = () => {
 					max={max}
 				/>
 			)
-			if (intradayPrices.status === "resolved") {
+			if (intradayPrices.status === STATUS.RESOLVED) {
 				content.push(
 					<CurrentPriceChart
 						key={2}
