@@ -57,12 +57,26 @@ const ChartContainer = () => {
 	const chartRenderer = () => {
 		const content = []
 		if (
-			historicPrices.status !== "resolved" &&
-			intradayPrices.status !== "resolved"
+			historicPrices.status === "loading" &&
+			intradayPrices.status === "loading"
 		) {
 			return <Placeholder />
-		}
-		if (historicPrices.status === "resolved") {
+		} else if (
+			historicPrices.status === "error" &&
+			intradayPrices.status === "error"
+		) {
+			return <Placeholder />
+		} else if (
+			historicPrices.status === "loading" &&
+			intradayPrices.status === "error"
+		) {
+			return <Placeholder />
+		} else if (
+			historicPrices.status === "error" &&
+			intradayPrices.status === "loading"
+		) {
+			return <Placeholder />
+		} else if (historicPrices.status === "resolved") {
 			content.push(
 				<StaticYAxis
 					key={0}
@@ -100,6 +114,10 @@ const ChartContainer = () => {
 					/>
 				)
 			}
+		} else {
+			throw Error(
+				`Unrecognised state status in Chart component: \nHistorical Prices Status: ${historicPrices.status}\nIntraday Prices Status: ${intradayPrices.status}`
+			)
 		}
 		return <div className="chart__inner">{content}</div>
 	}

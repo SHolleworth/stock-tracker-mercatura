@@ -27,7 +27,11 @@ const TopPeers = () => {
 
 	const peersRenderer = () => {
 		let content = null
-		if (peers.status === "resolved") {
+		if (peers.status === "loading") {
+			content = <Placeholder />
+		} else if (peers.status === "error") {
+			content = <Placeholder />
+		} else if (peers.status === "resolved") {
 			content = (
 				<div className="peers__buttons">
 					{peers.body.map((symbol) => (
@@ -41,8 +45,11 @@ const TopPeers = () => {
 					))}
 				</div>
 			)
-		} else if (peers.status === "error" || peers.status === "loading") {
-			content = <Placeholder />
+		} else {
+			throw Error(
+				"Unrecognised state status in top peers component: " +
+					peers.status
+			)
 		}
 		return (
 			<div className="top_peers">

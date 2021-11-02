@@ -33,13 +33,17 @@ const Stats = () => {
 
 	const statsRenderer = () => {
 		let content = null
-		if (statistics.status === "resolved") {
-			content = <KeyStatistics stats={statistics.body} />
-		} else if (
-			statistics.status === "loading" ||
-			statistics.status === "error"
-		) {
+		if (statistics.status === "loading") {
 			content = <Placeholder />
+		} else if (statistics.status === "error") {
+			content = <Placeholder />
+		} else if (statistics.status === "resolved") {
+			content = <KeyStatistics stats={statistics.body} />
+		} else {
+			throw Error(
+				`Unrecognised state status in stats component: ` +
+					statistics.status
+			)
 		}
 		return (
 			<div className="stats">

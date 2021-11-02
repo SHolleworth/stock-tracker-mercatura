@@ -35,7 +35,11 @@ function NewsFeed() {
 
 	const newsRenderer = () => {
 		let content = null
-		if (articles.status === "resolved") {
+		if (articles.status === "loading") {
+			content = <Placeholder />
+		} else if (articles.status === "error") {
+			content = <Placeholder />
+		} else if (articles.status === "resolved") {
 			content = articles.body.map((article, index) => (
 				<NewsArticle
 					key={article.headline}
@@ -45,9 +49,11 @@ function NewsFeed() {
 					source={article.source}
 				/>
 			))
-		}
-		if (articles.status === "error" || articles.status === "loading") {
-			content = <Placeholder />
+		} else {
+			throw Error(
+				"Unrecognised state status in news feed component: " +
+					articles.status
+			)
 		}
 		return (
 			<div className="newsfeed__background">

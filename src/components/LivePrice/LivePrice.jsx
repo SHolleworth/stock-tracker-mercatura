@@ -11,18 +11,23 @@ const LivePrice = ({ searchFocused }) => {
 	const price = useLivePrice(symbol)
 
 	const livePriceRenderer = () => {
-		if (price.status === "resolved") {
+		if (price.status === "loading") {
+			return <Placeholder />
+		} else if (price.status === "error") {
+			return <Placeholder />
+		} else if (price.status === "resolved") {
 			return (
 				<PriceDisplay
 					price={price.body}
 					searchFocused={searchFocused}
 				/>
 			)
+		} else {
+			throw Error(
+				"Unrecognised state status in live price component: " +
+					price.status
+			)
 		}
-		if (price.status === ("error" || "loading")) {
-			return <Placeholder />
-		}
-		return null
 	}
 
 	return livePriceRenderer()
