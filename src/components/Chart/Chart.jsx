@@ -76,6 +76,16 @@ const ChartContainer = () => {
 			intradayPrices.status === "loading"
 		) {
 			return <Placeholder />
+		} else if (
+			historicPrices.status === "error" &&
+			intradayPrices.status === "resolved"
+		) {
+			return <Placeholder />
+		} else if (
+			historicPrices.status === "loading" &&
+			intradayPrices.status === "resolved"
+		) {
+			return <Placeholder />
 		} else if (historicPrices.status === "resolved") {
 			content.push(
 				<StaticYAxis
