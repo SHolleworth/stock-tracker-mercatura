@@ -1,27 +1,25 @@
 // const BASE_URL = "https://sandbox.iexapis.com/stable/"
 
-/* export async function getPeers(symbol) {
-  const PEERS_URL = `${BASE_URL}stock/${symbol}/relevant?token=${
-    import.meta.env.VITE_IEX_TOKEN
-  }`
-  try {
-    const response = await fetch(PEERS_URL)
-
-    return response.json()
-  } catch (error) {
-    console.log(error)
-  }
-}
- */
+import { checkResponseForError } from "../../utils/checkResponseForError"
 
 export async function getPeers(symbol) {
-	return Promise.resolve([
-		"QCOM",
-		"MSI",
-		"ERIC",
-		"AMZN",
-		"GOOGL",
-		"MSFT",
-		"DELL",
-	])
+	// const PEERS_URL = `${BASE_URL}stock/${symbol}/relevant?token=${
+	//   import.meta.env.VITE_IEX_TOKEN
+	// }`
+	const response = await fetchMock(true)
+	return await checkResponseForError(response)
+}
+
+const fetchMock = (bool) => {
+	const peers = ["QCOM", "MSI", "ERIC", "AMZN", "GOOGL", "MSFT", "DELL"]
+
+	const resolveJson = () => {
+		return Promise.resolve(peers)
+	}
+	const resolveResponse = { ok: true, json: resolveJson }
+	const rejectResponse = { ok: false }
+	if (bool) {
+		return Promise.resolve(resolveResponse)
+	}
+	return Promise.reject(rejectResponse)
 }

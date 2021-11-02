@@ -10,21 +10,11 @@ export async function getKeyStatistics(symbol) {
 	const FUNDAMENTALS_URL = `${BASE_URL}time-series/FUNDAMENTAL_VALUATIONS/${symbol}?token=${
 		import.meta.env.VITE_IEX_TOKEN
 	}`
-	try {
-		const quoteResponse = await fetch(QUOTE_URL)
-		const fundamentalsResponse = await fetch(FUNDAMENTALS_URL)
+	const quoteResponse = await fetch(QUOTE_URL)
+	const fundamentalsResponse = await fetch(FUNDAMENTALS_URL)
 
-		console.log("Quote Response:")
-		console.log(quoteResponse)
+	const quote = await checkResponseForError(quoteResponse)
+	const fundamentals = await checkResponseForError(fundamentalsResponse)
 
-		const quote = await checkResponseForError(quoteResponse)
-		const fundamentals = await checkResponseForError(fundamentalsResponse)
-
-		const content = { body: { ...quote, ...fundamentals[0] }, error: false }
-
-		return content
-	} catch (err) {
-		console.error("Error in key statistics request: ", err)
-		return { error: true, body: "ERROR LOADING KEY STATISTICS" }
-	}
+	return { ...quote, ...fundamentals[0] }
 }

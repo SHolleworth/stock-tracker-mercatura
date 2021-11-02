@@ -4,6 +4,7 @@
 	width: 100%;
 	max-width: 1260px;
 	margin-top: 20px;
+	margin-left: 10px;
 	align-self: center;
 	overflow-x: auto;
 	display: flex;
@@ -66,5 +67,9 @@
 	font-size: 14px;
 }
 
-.custom-tooltip__content span {
+.chart__placeholder {
+	height: 100%;
+	width: 1260px;
+	background-color: #d8d9d9;
+	border-radius: 10px;
 }

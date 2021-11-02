@@ -1,7 +1,7 @@
 import React from "react"
 import { XAxis, Text } from "recharts"
-import { colours } from "./colours"
-import convert24HourTo12Hour from "../../utils/convert24HourTo12Hour"
+import { colours } from "../colours"
+import convert24HourTo12Hour from "../../../utils/convert24HourTo12Hour"
 
 const CustomisedXAxisTick = ({ x, y, payload, style, index }) => {
 	let time = convert24HourTo12Hour(payload.value)

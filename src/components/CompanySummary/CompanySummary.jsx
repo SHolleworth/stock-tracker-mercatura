@@ -2,35 +2,67 @@ import React, { useState, useEffect } from "react"
 import { requestCompanyInfo } from "./services"
 import "./styles.css"
 import { useSymbol } from "../../contexts/SymbolContext"
+import Placeholder from "./Placeholder"
+import { FLAGS, useRenderFlag } from "../../contexts/RenderFlagContext"
 
 const CompanySummary = () => {
-	const [companyInfo, setCompanyInfo] = useState({})
-	const [message, setMessage] = useState("Loading...")
+	const [companyInfo, setCompanyInfo] = useState({
+		status: "loading",
+		body: null,
+	})
 	const { symbol } = useSymbol()
+	const { renderFlag } = useRenderFlag()
+
+	const requestData = async () => {
+		try {
+			const response = await requestCompanyInfo(symbol)
+			const desc = response.description.substring(0, 500).concat("...")
+			const body = { ...response, description: desc }
+			setCompanyInfo({ status: "resolved", body })
+		} catch (error) {
+			console.error("Error retreiving company summary data: " + error)
+			setCompanyInfo({ status: "error", body: null })
+		}
+	}
 
 	useEffect(() => {
-		requestCompanyInfo(symbol).then((res) => {
-			if (typeof res === "string") {
-				setMessage(res)
-			} else {
-				const newDescription = res.description.substring(0, 500)
-				setCompanyInfo({ ...res, description: newDescription })
-			}
-		})
-	}, [symbol])
+		if (renderFlag === FLAGS.summary) {
+			requestData()
+		} else if (renderFlag === -1) {
+			setCompanyInfo({ status: "loading", body: null })
+		}
+	}, [symbol, renderFlag])
 
-	return Object.keys(companyInfo).length === 0 ? (
-		message
-	) : (
-		<div className="company__summary">
-			<h2>Company Summary</h2>
-			<div className="company__name">{`${companyInfo.companyName} (${companyInfo.symbol})`}</div>
-			<div className="company__website">{companyInfo.website}</div>
-			<div className="company__description">
-				{companyInfo.description}
+	const summaryRenderer = () => {
+		let content = null
+		if (companyInfo.status === "loading") {
+			content = <Placeholder />
+		}
+		if (companyInfo.status === "error") {
+			content = <Placeholder />
+		}
+		if (companyInfo.status === "resolved") {
+			content = (
+				<>
+					<div className="company__name">{`${companyInfo.body.companyName} (${companyInfo.body.symbol})`}</div>
+					<div className="company__website">
+						{companyInfo.body.website}
+					</div>
+					<div className="company__description">
+						{companyInfo.body.description}
+					</div>
+				</>
+			)
+		}
+		return (
+			<div className="company__summary">
+				<h2>Company Summary</h2>
+				{content}
 			</div>
-		</div>
-	)
+		)
+	}
+
+	return summaryRenderer()
 }
 
 export default CompanySummary

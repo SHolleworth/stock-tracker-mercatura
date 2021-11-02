@@ -8,7 +8,7 @@ import {
 	ResponsiveContainer,
 	ReferenceLine,
 } from "recharts"
-import { colours } from "./colours"
+import { colours } from "../colours"
 import { ReferenceAreas } from "./ReferenceAreas"
 import { TopXAxis } from "./TopXAxis"
 import { CustomisedToolTip } from "./CustomisedToolTip"

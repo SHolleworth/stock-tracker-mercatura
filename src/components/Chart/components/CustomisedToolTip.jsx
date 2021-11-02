@@ -1,6 +1,6 @@
 import React from "react"
 import { Tooltip } from "recharts"
-import convert24HourTo12Hour from "../../utils/convert24HourTo12Hour"
+import convert24HourTo12Hour from "../../../utils/convert24HourTo12Hour"
 
 export const CustomisedToolTip = ({ style }) => {
 	return (

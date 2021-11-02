@@ -35,3 +35,27 @@
 	padding: 0 10px;
 	font-size: 14px;
 }
+
+.summary-placeholder {
+	padding: 10px;
+}
+
+.summary-placeholder__title {
+	height: 30px;
+	width: 40%;
+	background-color: #d8d9d9;
+	margin-bottom: 20px;
+	border-radius: 15px;
+}
+
+.summary-placeholder__content {
+	height: 10px;
+	width: 100%;
+	background-color: #d8d9d9;
+	margin-bottom: 15px;
+	border-radius: 5px;
+}
+
+.summary-placeholder__content--short {
+	width: 70%;
+}
