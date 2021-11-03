@@ -4,10 +4,11 @@ import { getKeyStatistics } from "./services"
 import { useSymbol } from "../../contexts/SymbolContext"
 import Placeholder from "./Placeholder/Placeholder"
 import { FLAGS, useRenderFlag } from "../../contexts/RenderFlagContext"
+import STATUS from "../../utils/statusKeys"
 
 const Stats = () => {
 	const [statistics, setStatistics] = useState({
-		status: "loading",
+		status: STATUS.LOADING,
 		body: null,
 	})
 	const { symbol } = useSymbol()
@@ -16,10 +17,10 @@ const Stats = () => {
 	const requestData = async () => {
 		try {
 			const response = await getKeyStatistics(symbol)
-			setStatistics({ status: "resolved", body: response })
+			setStatistics({ status: STATUS.RESOLVED, body: response })
 		} catch (error) {
 			console.error("Error requesting key statistic data: " + error)
-			setStatistics({ status: "error", body: null })
+			setStatistics({ status: STATUS.ERROR, body: null })
 		}
 	}
 
@@ -27,19 +28,23 @@ const Stats = () => {
 		if (renderFlag === FLAGS.stats) {
 			requestData()
 		} else if (renderFlag === -1) {
-			setStatistics({ status: "loading", body: null })
+			setStatistics({ status: STATUS.LOADING, body: null })
 		}
 	}, [symbol, renderFlag])
 
 	const statsRenderer = () => {
 		let content = null
-		if (statistics.status === "resolved") {
-			content = <KeyStatistics stats={statistics.body} />
-		} else if (
-			statistics.status === "loading" ||
-			statistics.status === "error"
-		) {
+		if (statistics.status === STATUS.LOADING) {
 			content = <Placeholder />
+		} else if (statistics.status === STATUS.ERROR) {
+			content = <Placeholder />
+		} else if (statistics.status === STATUS.RESOLVED) {
+			content = <KeyStatistics stats={statistics.body} />
+		} else {
+			throw Error(
+				`Unrecognised state status in stats component: ` +
+					statistics.status
+			)
 		}
 		return (
 			<div className="stats">

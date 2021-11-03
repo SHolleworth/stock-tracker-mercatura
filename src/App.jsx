@@ -22,7 +22,7 @@ function App() {
 		}, [200])
 		setTimeout(() => {
 			clearInterval(intervalId)
-		}, [Object.keys(FLAGS).length * 200])
+		}, [Object.keys(FLAGS).length * 300])
 	}, [symbol])
 
 	return (
