@@ -4,16 +4,12 @@ a {
 
 .article {
 	border-bottom: solid 1px var(--ui-element);
-	padding: 0 10px 15px 10px;
-	margin-bottom: 10px;
+	padding: var(--padding);
+	padding-top: calc(var(--padding) * 2);
 }
 
 .article__content {
 	margin-bottom: 10px;
-}
-
-.latest-news-text {
-	margin: 30px 0 10px 10px;
 }
 
 .article__time-source {

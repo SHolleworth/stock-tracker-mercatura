@@ -47,18 +47,17 @@ body {
 	background-color: var(--background-dark);
 	display: flex;
 	justify-content: center;
-	padding-top: 60px;
+	padding-top: calc(var(--padding) * 3);
 }
 
 .main-section {
-	width: 65%;
+	flex: 1;
 	align-self: stretch;
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-	padding: 80px 60px 0 40px;
+	padding-top: calc(var(--padding) * 8);
 	overflow-y: auto;
-	margin-right: 5px;
 }
 
 .news-summary-section {
@@ -68,7 +67,7 @@ body {
 	display: flex;
 	flex-direction: column;
 	background-color: var(--background-dark);
-	padding: 30px;
+	padding: calc(var(--padding) * 3);
 	overflow-y: auto;
 }
 
