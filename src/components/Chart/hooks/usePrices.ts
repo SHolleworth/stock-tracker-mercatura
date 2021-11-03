@@ -21,7 +21,6 @@ export const useHistoricalPrices = (symbol : string): [priceState, Dispatch<SetS
 		max: Number.NEGATIVE_INFINITY,
 	})
 	const { renderFlag } = useRenderFlag()
-
 	useEffect(() => {
 		(async () => {
 			if (renderFlag === FLAGS.chart) {

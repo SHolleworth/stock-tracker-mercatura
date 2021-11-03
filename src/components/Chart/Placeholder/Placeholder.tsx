@@ -6,8 +6,9 @@ export function Placeholder() {
 
 	return (
 		<div
-			className={"chart__placeholder"}
+			className="chart__placeholder"
 			style={{ opacity: opacity }}
+			data-testid="chart-placeholder"
 		></div>
 	)
 }

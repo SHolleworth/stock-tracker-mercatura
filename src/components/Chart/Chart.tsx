@@ -145,6 +145,7 @@ const ChartContainer = () => {
 			className="chart__container"
 			ref={chartContainerRef}
 			onMouseDown={startScroll}
+			data-testid="historic-chart"
 		>
 			{chartRenderer()}
 		</div>
