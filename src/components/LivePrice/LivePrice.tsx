@@ -3,8 +3,8 @@ import Placeholder from "./Placeholder/Placeholder"
 import { useSymbol } from "../../contexts/SymbolContext"
 import useLivePrice from "./hooks/useLivePrice"
 import "./styles.css"
-import downArrow from "../../assets/redarrow.svg"
-import normalArrow from "../../assets/normal.svg"
+import downArrow from "../../assets/red-arrow.svg"
+import normalArrow from "../../assets/green-arrow.svg"
 import STATUS from "../../utils/statusKeys"
 
 const LivePrice = ({ searchFocused } : {searchFocused : boolean}) => {

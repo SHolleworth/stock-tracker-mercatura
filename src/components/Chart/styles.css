@@ -17,7 +17,7 @@
 }
 
 .chart__container::-webkit-scrollbar-thumb {
-	background-color: #bfc0c0;
+	background-color: var(--background-dark);
 	border-radius: 5px;
 }
 
@@ -33,7 +33,6 @@
 }
 
 .axis__text {
-	color: #000;
 	font-family: Roboto;
 }
 
@@ -41,21 +40,21 @@
 	position: sticky;
 	left: -1px;
 	z-index: 5;
-	background-color: #f9fafa;
+	background-color: var(--background-light);
 }
 
 .custom-tooltip {
-	background-color: #f9fafa;
+	background-color: var(--background-light);
 	height: 80px;
 	width: 100px;
-	border: solid 1px #aaabd1;
+	border: solid 1px var(--accent-primary);
 	display: flex;
 	flex-direction: column;
 	justify-content: space-evenly;
 	align-items: center;
 	font-family: Roboto;
 	font-weight: 500;
-	color: #7f7f7f;
+	color: var(--light-text);
 }
 
 .custom-tooltip__label {
@@ -63,13 +62,13 @@
 }
 
 .custom-tooltip__content {
-	color: #2b2b2b;
+	color: var(--dark-text);
 	font-size: 14px;
 }
 
 .chart__placeholder {
 	height: 100%;
 	width: 1260px;
-	background-color: #d8d9d9;
+	background-color: var(--ui-element);
 	border-radius: 10px;
 }

@@ -40,7 +40,7 @@
 	font-size: 16px;
 	display: flex;
 	justify-content: space-between;
-	border-bottom: 1px solid #eaebeb;
+	border-bottom: 1px solid var(--ui-element-light);
 	padding: 7.5px 0;
 }
 
@@ -49,7 +49,7 @@
 }
 
 .stats li span {
-	color: #7f7f7f;
+	color: var(--light-text);
 	font-weight: normal;
 }
 
@@ -79,6 +79,6 @@
 .stats__placeholder__row__content {
 	flex: 1;
 	height: 20px;
-	background-color: #d8d9d9;
+	background-color: var(--ui-element);
 	border-radius: 15px;
 }

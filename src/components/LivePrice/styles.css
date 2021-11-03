@@ -26,11 +26,11 @@
 }
 
 .positive {
-	color: #00e500;
+	color: var(--positive);
 }
 
 .negative {
-	color: #ff3542;
+	color: var(--negative);
 }
 
 .arrow {
@@ -50,7 +50,7 @@
 	height: 40px;
 	width: 50%;
 	border-radius: 20px;
-	background-color: #d8d9d9;
+	background-color: var(--ui-element);
 }
 
 .live-price__placeholder__arrow {

@@ -21,7 +21,7 @@
 
 .field input:focus-visible {
 	outline: none;
-	border-bottom: 2px solid #aaabd1;
+	border-bottom: 2px solid var(--accent-primary);
 }
 
 .stock__header {
@@ -32,7 +32,7 @@
 }
 
 .grayborder {
-	border-bottom: 2px solid #eaebeb;
+	border-bottom: 2px solid var(--ui-element-light);
 }
 
 .suggestions {
@@ -61,7 +61,7 @@
 }
 
 .suggestions__title {
-	border-bottom: 1px solid #eaebeb;
+	border-bottom: 1px solid var(--ui-element-light);
 	width: 100%;
 	font-size: 18px;
 	font-weight: 500;
@@ -75,7 +75,7 @@
 }
 
 .suggestions__stock:hover {
-	background-color: #f1f2f2;
+	background-color: var(--background-dark);
 	color: black;
 	border-radius: 28px;
 	font-weight: 400;

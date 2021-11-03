@@ -4,7 +4,7 @@ import "./styles.css"
 import { useSymbol } from "../../contexts/SymbolContext"
 import Placeholder from "./Placeholder"
 import { FLAGS, useRenderFlag } from "../../contexts/RenderFlagContext"
-import { StatusStringType } from "../../utils/statusKeys"
+import statusKeys, { StatusStringType } from "../../utils/statusKeys"
 
 interface Summary {
 	symbol : string
@@ -30,10 +30,10 @@ const CompanySummary = () => {
 			const response = await requestCompanyInfo(symbol)
 			const desc = response.description.substring(0, 500).concat("...")
 			const body = { ...response, description: desc }
-			setCompanyInfo({ status: "resolved", body })
+			setCompanyInfo({ status: statusKeys.RESOLVED, body })
 		} catch (error) {
 			console.error("Error retreiving company summary data: " + error)
-			setCompanyInfo({ status: "error"})
+			setCompanyInfo({ status: statusKeys.ERROR, body: null })
 		}
 	}
 
@@ -41,20 +41,20 @@ const CompanySummary = () => {
 		if (renderFlag === FLAGS.summary) {
 			requestData()
 		} else if (renderFlag === -1) {
-			setCompanyInfo({ status: "loading" })
+			setCompanyInfo({ status: statusKeys.LOADING, body: null })
 		}
 	}, [symbol, renderFlag])
 
 	const summaryRenderer = () => {
 		let content = null
-		if (companyInfo.status === "loading") {
+		if (companyInfo.status === statusKeys.LOADING) {
 			content = <Placeholder />
 		}
-		if (companyInfo.status === "error") {
+		if (companyInfo.status === statusKeys.ERROR) {
 			content = <Placeholder />
 		}
-		if (companyInfo.status === "resolved") {
-			content = companyInfo.body ? (
+		if (companyInfo.status === statusKeys.RESOLVED) {
+			content = (
 				<>
 					<div className="company__name">{`${companyInfo.body.companyName} (${companyInfo.body.symbol})`}</div>
 					<div className="company__website">
@@ -68,7 +68,7 @@ const CompanySummary = () => {
 		}
 		return (
 			<div className="company__summary">
-				<h2>Company Summary</h2>
+				<h2 className={"section-heading"}>Company Summary</h2>
 				{content}
 			</div>
 		)

@@ -103,7 +103,6 @@ export const CurrentPriceChart = ({
 				<ReferenceLine
 					y={previousDayData[previousDayData.length - 1].average}
 					strokeDasharray={"8 5"}
-					strokeWidth={1}
 					stroke={colours.accentPrimary}
 				/>
 				<ReferenceLine

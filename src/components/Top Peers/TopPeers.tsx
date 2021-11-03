@@ -59,7 +59,7 @@ const TopPeers = () => {
 		}
 		return (
 			<div className="top_peers">
-				<h2 className="peers__title">Top Peers</h2>
+				<h2 className="peers__title section-heading">Top Peers</h2>
 				{content}
 			</div>
 		)
