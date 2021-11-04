@@ -58,8 +58,8 @@ const TopPeers = () => {
 			)
 		}
 		return (
-			<div className="top_peers">
-				<h2 className="peers__title section-heading">Top Peers</h2>
+			<div className="top-peers">
+				<div className="peers__heading section-heading">Top Peers</div>
 				{content}
 			</div>
 		)

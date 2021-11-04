@@ -2,14 +2,21 @@ a {
 	text-decoration: none;
 }
 
+.newsfeed__heading {
+	padding: var(--padding);
+	padding-top: calc(var(--padding) * 3);
+	padding-bottom: 0;
+}
+
 .article {
 	border-bottom: solid 1px var(--ui-element);
-	padding: var(--padding);
-	padding-top: calc(var(--padding) * 2);
+	padding: calc(var(--padding) * 1.5);
+	padding-left: var(--padding);
+	padding-right: var(--padding);
 }
 
 .article__content {
-	margin-bottom: 10px;
+	padding-top: var(--padding)
 }
 
 .article__time-source {
@@ -17,6 +24,8 @@ a {
 	font-style: italic;
 	font-size: 12px;
 	color: var(--light-text);
+	padding-top: var(--padding);
+	padding-bottom: var(--padding);
 }
 
 .news__placeholder {

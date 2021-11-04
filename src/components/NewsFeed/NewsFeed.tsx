@@ -67,9 +67,9 @@ function NewsFeed() {
 		}
 		return (
 			<div className="newsfeed__background">
-				<h2 className="latest-news-text section-heading">
+				<div className="newsfeed__heading section-heading">
 					Latest News
-				</h2>
+				</div>
 				{content}
 			</div>
 		)
@@ -91,9 +91,9 @@ function NewsArticle ({ link, content, timeSincePublication, source } : NewsProp
 	return (
 		<div className="article">
 			<a href={link}>
-				<h3 className="article__content headlines">{content}</h3>
+				<div className="article__content headlines">{content}</div>
 			</a>
-			<p className="article__time-source">{`${timeString} - ${source}`}</p>
+			<div className="article__time-source">{`${timeString} - ${source}`}</div>
 		</div>
 	)
 }

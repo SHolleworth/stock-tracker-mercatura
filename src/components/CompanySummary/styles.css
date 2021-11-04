@@ -3,6 +3,11 @@
 	flex-direction: column;
 	border-bottom: solid 1px var(--ui-element);
 	padding: var(--padding);
+	padding-top: calc(var(--padding) * 3);
+	padding-bottom: calc(var(--padding) * 2);
+}
+
+.company-summary__heading {
 	padding-bottom: calc(var(--padding) * 2);
 }
 
@@ -33,7 +38,6 @@
 	display: flex;
 	flex-direction: column;
 	justify-content: space-between;
-	padding: var(--padding);
 }
 
 .summary-placeholder__title {

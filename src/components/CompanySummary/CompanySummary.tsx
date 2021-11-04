@@ -68,7 +68,9 @@ const CompanySummary = () => {
 		}
 		return (
 			<div className="company__summary">
-				<h2 className={"section-heading"}>Company Summary</h2>
+				<div className={"section-heading company-summary__heading"}>
+					Company Summary
+				</div>
 				{content}
 			</div>
 		)
