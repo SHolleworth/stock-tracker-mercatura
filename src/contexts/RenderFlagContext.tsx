@@ -1,12 +1,17 @@
 import React, { createContext, useContext, useEffect, useState } from "react"
 
-const RenderFlagContext = createContext(0)
+type RenderFlagContextType = {
+	renderFlag: number;
+	setRenderFlag?: (renderFlag: number) => void;
+}
+
+const RenderFlagContext = createContext<RenderFlagContextType>({ renderFlag: 0 })
 
 export const useRenderFlag = () => {
 	return useContext(RenderFlagContext)
 }
 
-const RenderFlagContextProvider = ({ children }) => {
+const RenderFlagContextProvider : React.FC = ({ children }) => {
 	const [renderFlag, setRenderFlag] = useState(-1)
 
 	useEffect(() => {

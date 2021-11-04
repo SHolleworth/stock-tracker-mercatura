@@ -2,7 +2,7 @@
 
 import { checkResponseForError } from "../../utils/checkResponseForError"
 
-export async function getPeers(symbol) {
+export async function getPeers(symbol : string) {
 	// const PEERS_URL = `${BASE_URL}stock/${symbol}/relevant?token=${
 	//   import.meta.env.VITE_IEX_TOKEN
 	// }`
@@ -10,7 +10,7 @@ export async function getPeers(symbol) {
 	return await checkResponseForError(response)
 }
 
-const fetchMock = (bool) => {
+const fetchMock = (bool : boolean) => {
 	const peers = ["QCOM", "MSI", "ERIC", "AMZN", "GOOGL", "MSFT", "DELL"]
 
 	const resolveJson = () => {

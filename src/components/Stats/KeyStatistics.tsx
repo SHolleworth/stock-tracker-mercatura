@@ -2,6 +2,21 @@ import React from "react"
 import { abbreviateNumber, addDollarSign } from "./utils"
 import "./styles.css"
 
+type StatsType = {
+		open: number
+		high: number
+		low: number
+		previousClose: number
+		week52High: number
+		week52Low: number
+		marketCap: number
+		peRatio: number
+		dividendYield: number
+		incomeNetPerWabsoSplitAdjusted: number
+		volume: number
+		avgTotalVolume: number
+}
+
 const KeyStatistics = ({
 	stats: {
 		open,
@@ -17,7 +32,7 @@ const KeyStatistics = ({
 		volume,
 		avgTotalVolume,
 	},
-}) => {
+} : { stats: StatsType } ) => {
 	return (
 		<div className="stats-container">
 			<ul className="stats__list">

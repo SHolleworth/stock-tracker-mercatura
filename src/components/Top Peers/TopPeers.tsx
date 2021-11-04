@@ -6,8 +6,13 @@ import Placeholder from "./Placeholder/Placeholder"
 import { FLAGS, useRenderFlag } from "../../contexts/RenderFlagContext"
 import STATUS from "../../utils/statusKeys"
 
+type PeersType = {
+	status: "loading" | "error" | "resolved" | string;
+	body: [];
+}
+
 const TopPeers = () => {
-	const [peers, setPeers] = useState({ status: STATUS.LOADING, body: null })
+	const [peers, setPeers] = useState<PeersType>({ status: STATUS.LOADING, body: null })
 	const { symbol, setSymbol } = useSymbol()
 	const { renderFlag } = useRenderFlag()
 

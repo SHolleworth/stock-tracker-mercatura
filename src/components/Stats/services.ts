@@ -2,7 +2,7 @@ import { checkResponseForError } from "../../utils/checkResponseForError"
 
 const BASE_URL = "https://sandbox.iexapis.com/stable/"
 
-export async function getKeyStatistics(symbol) {
+export async function getKeyStatistics(symbol : string) {
 	const QUOTE_URL = `${BASE_URL}stock/${symbol}/quote?token=${
 		import.meta.env.VITE_IEX_TOKEN
 	}`
