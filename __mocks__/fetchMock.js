@@ -26,8 +26,10 @@ const fetchMock = (data, status) => {
 	})
 }
 
-const cleanup = () => {
-	global.fetch = savedFetch
+const cleanFetch = () => {
+	return savedFetch
 }
 
-export default { fetchMock, cleanup, STATUS }
+const exports = { fetchMock, cleanFetch, STATUS }
+
+export default exports
