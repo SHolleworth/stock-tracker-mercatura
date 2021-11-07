@@ -10,7 +10,7 @@
 	--negative: #f23441;
 	--positive: #01c38d;
 	--padding: 10px;
-}	
+}
 
 body {
 	background-color: #f9fafa;
@@ -22,7 +22,7 @@ body {
 	font-family: "Merriweather";
 	font-weight: 700;
 	color: var(--medium-text);
-	padding-bottom: var(--padding)
+	padding-bottom: var(--padding);
 }
 
 .section-heading {

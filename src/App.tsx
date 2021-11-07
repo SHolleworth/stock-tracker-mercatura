@@ -9,6 +9,7 @@ import StockHeader from "./components/Search/StockHeader"
 import logo from "./assets/ra-logo.svg"
 import { FLAGS, useRenderFlag } from "./contexts/RenderFlagContext"
 import { useSymbol } from "./contexts/SymbolContext"
+import Indices from "./components/Indices/Indices"
 
 function App() {
 	const [focused, setFocused] = useState(false)
@@ -40,6 +41,7 @@ function App() {
 				<StockHeader focused={focused} setFocused={setFocused} />
 				<Chart />
 				<Stats />
+				<Indices />
 			</div>
 			<div className="news-summary-section">
 				<NewsFeed />

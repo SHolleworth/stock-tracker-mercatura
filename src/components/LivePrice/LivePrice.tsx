@@ -21,6 +21,7 @@ const LivePrice = ({ searchFocused } : {searchFocused : boolean}) => {
 				<PriceDisplay
 					price={price.body}
 					searchFocused={searchFocused}
+					className={"price"}
 				/>
 			)
 		} else {
@@ -43,34 +44,34 @@ interface Price {
 type PriceProps = {
 	price : Price[];	
 	searchFocused: boolean;
+	className: string;
 }
 
-const PriceDisplay : React.FC<PriceProps> = ({ price, searchFocused }) => {
+const PriceDisplay : React.FC<PriceProps> = ({ price, searchFocused, className }) => {
 	return price.length > 0 ? (
 		<div
-			className={`price__display ${
-				searchFocused ? "price__display--hidden" : null
-			}`}
+			className={`${className}__display 
+			${searchFocused ? `{className}__display--hidden` : null}`}
 		>
-			<span className="price">{`$${price[0].latestPrice.toFixed(
+			<span className={className}>{`$${price.latestPrice.toFixed(
 				2
 			)}`}</span>
-			<img
-				className="arrow"
-				src={price[0].change > 0 ? normalArrow : downArrow}
-				alt="down arrow"
-			/>
-			<span
-				className={
-					price[0].change > 0
-						? "change positive"
-						: "change negative"
-				}
-			>
-				{`${price[0].change} | ${price[0].changePercent.toFixed(
-					2
-				)}%`}
-			</span>
+			<div style={{ display: "flex", justifyContent: "center" }}>
+				<img
+					className="arrow"
+					src={price.change > 0 ? normalArrow : downArrow}
+					alt="down arrow"
+				/>
+				<span
+					className={
+						price.change > 0
+							? `${className} change positive`
+							: `${className} change negative`
+					}
+				>
+					{`${price.change} | ${price.changePercent.toFixed(2)}%`}
+				</span>
+			</div>
 		</div>
 	) : null
 }

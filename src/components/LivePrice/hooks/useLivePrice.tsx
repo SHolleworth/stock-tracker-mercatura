@@ -29,7 +29,7 @@ const useLivePrice = (symbol : string) => {
 				if (data.length !== 0) {
 					setPrice({
 						status: STATUS.RESOLVED,
-						body: [...data],
+						body: JSON.parse(e.data)[0],
 					})
 				} else {
 					console.log("Just got an empty message")
@@ -41,7 +41,7 @@ const useLivePrice = (symbol : string) => {
 				sse.close()
 				try {
 					const latestPrice = await requestLatestPrice(symbol)
-					setPrice({ status: STATUS.RESOLVED, body: [latestPrice] })
+					setPrice({ status: STATUS.RESOLVED, body: latestPrice })
 				} catch (error) {
 					console.error(error)
 					setPrice({ status: STATUS.ERROR, body: [] })
