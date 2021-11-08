@@ -2,10 +2,10 @@ import React, { createContext, useContext, useEffect, useState } from "react"
 
 type RenderFlagContextType = {
 	renderFlag: number;
-	setRenderFlag?: (renderFlag: number) => void;
+	setRenderFlag: React.Dispatch<React.SetStateAction<number>>;
 }
 
-const RenderFlagContext = createContext<RenderFlagContextType>({ renderFlag: 0 })
+const RenderFlagContext = createContext<RenderFlagContextType>({ renderFlag: 0, setRenderFlag: () => {}})
 
 export const useRenderFlag = () => {
 	return useContext(RenderFlagContext)

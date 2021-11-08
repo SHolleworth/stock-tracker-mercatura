@@ -12,8 +12,19 @@ import { colours } from "../colours"
 import { ReferenceAreas } from "./ReferenceAreas"
 import { TopXAxis } from "./TopXAxis"
 import { CustomisedToolTip } from "./CustomisedToolTip"
+import { axisPropsType, price } from "../types"
 
-const removePrependedIndex = (stringWithIndex) => {
+interface CurrentPriceChartPropsType {
+	axisProps : axisPropsType
+	previousDayData : price[],
+	currentDayData : price[],
+	interval : number
+	min : number
+	max : number
+	daySize : number
+}
+
+const removePrependedIndex = (stringWithIndex : string) => {
 	const spaceIndex = stringWithIndex.indexOf(" ")
 	return stringWithIndex.slice(spaceIndex + 1)
 }
@@ -26,7 +37,7 @@ export const CurrentPriceChart = ({
 	min,
 	max,
 	daySize,
-}) => {
+} : CurrentPriceChartPropsType) => {
 	const cleanPreviousDayData = previousDayData.map((price) => {
 		return { ...price, minute: removePrependedIndex(price.minute) }
 	})
@@ -69,7 +80,7 @@ export const CurrentPriceChart = ({
 			<LineChart
 				data={currentDayData}
 				margin={{ right: 0, bottom: 10 }}
-				padding={{ left: 10 }}
+				// padding={{ left: 10 }}
 			>
 				{ReferenceAreas({
 					data: cleanPreviousDayData,
@@ -87,6 +98,7 @@ export const CurrentPriceChart = ({
 					data: currentDayData,
 					daySize,
 					style: axisProps.style,
+					isHidden: false
 				})}
 				<ReferenceLine
 					y={previousDayData[previousDayData.length - 1].average}

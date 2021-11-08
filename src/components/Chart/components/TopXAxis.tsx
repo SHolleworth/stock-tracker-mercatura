@@ -1,8 +1,27 @@
 import React from "react"
 import { Text, XAxis } from "recharts"
 import { colours } from "../colours"
+import { price } from "../types"
 
-const CustomisedXAxisTick = ({ x, dx, y, dy, style, payload }) => {
+
+interface TopXAxisType {
+	data: price[]
+	daySize?: number
+	style: React.CSSProperties
+	isHidden: boolean
+}
+
+interface CustomisedXAxisPropsType {
+	x : number
+	dx : number
+	y : number
+	dy : number
+	style : React.CSSProperties 
+	payload : {
+		value: number
+	}
+}
+const CustomisedXAxisTick: React.FC<CustomisedXAxisPropsType> = ({ x, dx, y, dy, style, payload }): React.ReactElement => {
 	return (
 		<Text x={x + dx} y={y + dy} fontSize={16} style={style}>
 			{payload.value}
@@ -10,7 +29,7 @@ const CustomisedXAxisTick = ({ x, dx, y, dy, style, payload }) => {
 	)
 }
 
-export const TopXAxis = ({ data, daySize, style, isHidden }) => {
+export const TopXAxis : React.FC<TopXAxisType> = ({ data, daySize, style, isHidden }) => {
 	const dates = new Set(
 		data.map((price) => {
 			return price.date
@@ -23,17 +42,24 @@ export const TopXAxis = ({ data, daySize, style, isHidden }) => {
 			xAxisId="top"
 			type="category"
 			dataKey="date"
-			tick={<CustomisedXAxisTick />}
+			tick={({x, y, dx, dy, payload} : CustomisedXAxisPropsType) => (
+				<CustomisedXAxisTick 
+					x={x}
+					y={y}
+					dx={dx}
+					dy={dy}
+					payload={payload} 
+					style={{...style, margin: 10 }}
+				/>
+			)}
 			stroke={colours.daySeparator}
 			tickLine={!isHidden}
 			interval={dateInterval - 1}
 			allowDuplicatedCategory={true}
 			orientation={"top"}
-			style={style}
 			axisLine={false}
-			dx={daySize / 2 - 70}
+			dx={daySize ? daySize / 2 - 70: 0}
 			dy={-10}
-			margin={{ bottom: 50 }}
 		/>
 	)
 }

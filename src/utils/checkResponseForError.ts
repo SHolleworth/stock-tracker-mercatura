@@ -1,4 +1,4 @@
-export const checkResponseForError = (response) => {
+export const checkResponseForError = (response : Response) => {
 	return new Promise((resolve, reject) => {
 		// throw Error()
 		if (response.ok) {

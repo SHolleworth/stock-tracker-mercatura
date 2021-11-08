@@ -1,28 +1,21 @@
-import { useState, useEffect } from "react"
+import { useState, useEffect, Dispatch, SetStateAction } from "react"
 import { FLAGS, useRenderFlag } from "../../../contexts/RenderFlagContext"
-import { StatusStringType } from "../../../utils/statusKeys";
 import { requestHistoricalPrices, requestIntradayPrices } from "../services"
+import { priceState, price } from '../types';
 
-interface Price { 
-	average : number
-	minute: string
+interface minMaxState {
+	min: number
+	max: number
 }
 
-type Prices = Price[];
-
-interface PriceState {
-	status: StatusStringType
-	body?: Prices
-}
-
-const removeNulls = (prices : Prices) => {
+const removeNulls = (prices : price[]): price[] => {
 	return prices.filter((price) => {
 		return price.average !== null
 	})
 }
 
-export const useHistoricalPrices = (symbol : string) => {
-	const [prices, setPrices] = useState<PriceState>({ status: "loading", body: [] })
+export const useHistoricalPrices = (symbol : string): [priceState, Dispatch<SetStateAction<priceState>>,  minMaxState] => {
+	const [prices, setPrices] = useState<priceState>({ status: "loading", body: [] })
 	const [minMax, setMinMax] = useState({
 		min: Number.POSITIVE_INFINITY,
 		max: Number.NEGATIVE_INFINITY,
@@ -33,7 +26,7 @@ export const useHistoricalPrices = (symbol : string) => {
 		(async () => {
 			if (renderFlag === FLAGS.chart) {
 				try {
-					const prices = await requestHistoricalPrices(symbol)
+					const prices = (await requestHistoricalPrices(symbol)) as []
 
 					console.log("Historic prices retrieved: ")
 					console.log(prices)
@@ -82,8 +75,8 @@ export const useHistoricalPrices = (symbol : string) => {
 	return [prices, setPrices, minMax]
 }
 
-export const useIntradayPrices = (symbol : string) => {
-	const [prices, setPrices] = useState({ status: "loading" })
+export const useIntradayPrices = (symbol : string) : [priceState, minMaxState] => {
+	const [prices, setPrices] = useState<priceState>({ status: "loading" })
 	const [minMax, setMinMax] = useState({
 		min: Number.POSITIVE_INFINITY,
 		max: Number.NEGATIVE_INFINITY,
@@ -94,7 +87,7 @@ export const useIntradayPrices = (symbol : string) => {
 		(async () => {
 			if (renderFlag === FLAGS.chart) {
 				try {
-					const prices = await requestIntradayPrices(symbol)
+					const prices  = (await requestIntradayPrices(symbol)) as []
 
 					console.log("Intraday prices retrieved: ")
 					console.log(prices)
@@ -117,7 +110,7 @@ export const useIntradayPrices = (symbol : string) => {
 	return [prices, minMax]
 }
 
-const findMinAndMax = (prices : Prices) => {
+const findMinAndMax = (prices : price[]) => {
 	const averages = prices.map((el) => el.average)
 	const min = Math.floor(Math.min(...averages))
 	const max = Math.floor(Math.max(...averages) + 1)

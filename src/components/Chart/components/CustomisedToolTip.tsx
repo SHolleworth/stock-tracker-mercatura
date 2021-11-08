@@ -2,18 +2,26 @@ import React from "react"
 import { Tooltip } from "recharts"
 import convert24HourTo12Hour from "../../../utils/convert24HourTo12Hour"
 
-export const CustomisedToolTip = ({ style }) => {
+interface CustomTooltipContentPropsType {
+	label: string
+	payload: {payload: { average: number }}[]
+	active: boolean
+}
+
+export const CustomisedToolTip = ({ style } : { style: React.CSSProperties}) => {
 	return (
 		<Tooltip
 			isAnimationActive={false}
 			itemStyle={style}
 			labelStyle={style}
-			content={<CustomTooltipContent />}
+			content={({ label, payload, active } : CustomTooltipContentPropsType) => (
+			<CustomTooltipContent label={label} payload={payload} active={active}/>
+			)}
 		/>
 	)
 }
 
-function CustomTooltipContent({ label, payload, active }) {
+function CustomTooltipContent({ label, payload, active } : CustomTooltipContentPropsType) {
 	if (active && payload && payload.length) {
 		const hour12Label = convert24HourTo12Hour(label)
 		return (
