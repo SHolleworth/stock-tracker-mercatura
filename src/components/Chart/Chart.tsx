@@ -11,13 +11,19 @@ import { useSymbol } from "../../contexts/SymbolContext"
 import STATUS from "../../utils/statusKeys"
 import { price } from "./types"
 
+const style: React.CSSProperties = {
+	fontFamily: "Roboto",
+	userSelect: "none",
+	fill: colours.keys,
+}
+
 const axisProps = {
 	tickSize: 12,
 	tickMargin: 10,
 	tickLine: { stroke: colours.coreSecondary3 },
 	stroke: colours.coreSecondary3,
 	strokeWidth: 0.5,
-	style: { fontFamily: "Roboto", userSelect: "none", fill: colours.keys },
+	style: style,
 }
 
 const Chart = () => {
@@ -96,7 +102,10 @@ const Chart = () => {
 			content.push(
 				<StaticYAxis
 					key={0}
-					data={historicPrices.body || intradayPrices.body}
+					data={
+						(historicPrices.body as price[]) ||
+						(intradayPrices.body as price[])
+					}
 					min={min}
 					max={max}
 					axisProps={axisProps}
@@ -107,7 +116,7 @@ const Chart = () => {
 					key={1}
 					daySize={daySize}
 					axisProps={axisProps}
-					data={historicPrices.body}
+					data={historicPrices.body as price[]}
 					interval={interval}
 					min={min}
 					max={max}
@@ -122,10 +131,10 @@ const Chart = () => {
 						key={2}
 						daySize={daySize}
 						axisProps={axisProps}
-						previousDayData={filterOutPreviousDay(
-							historicPrices.body
-						)}
-						currentDayData={intradayPrices.body}
+						previousDayData={
+							filterOutPreviousDay(historicPrices.body) as price[]
+						}
+						currentDayData={intradayPrices.body as price[]}
 						interval={interval}
 						min={min}
 						max={max}
@@ -152,7 +161,7 @@ const Chart = () => {
 	)
 }
 
-const filterOutPreviousDay = (prices : price[]) => {
+const filterOutPreviousDay = (prices: price[]) => {
 	try {
 		const yesterday = prices[prices.length - 1].date
 		return prices.filter((price) => price.date === yesterday).slice(0, -1)

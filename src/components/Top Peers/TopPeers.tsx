@@ -2,17 +2,20 @@ import React, { useState, useEffect } from "react"
 import "./styles.css"
 import { getPeers } from "./services"
 import { useSymbol } from "../../contexts/SymbolContext"
-import Placeholder from "./Placeholder/Placeholder"
+import Placeholder from "./Placeholders/Placeholder"
 import { FLAGS, useRenderFlag } from "../../contexts/RenderFlagContext"
 import STATUS from "../../utils/statusKeys"
 
 type PeersType = {
-	status: "loading" | "error" | "resolved";
-	body: [];
+	status: "loading" | "error" | "resolved"
+	body: []
 }
 
 const TopPeers = () => {
-	const [peers, setPeers] = useState<PeersType>({ status: STATUS.LOADING, body: [] })
+	const [peers, setPeers] = useState<PeersType>({
+		status: STATUS.LOADING,
+		body: [],
+	})
 	const { symbol, setSymbol } = useSymbol()
 	const { renderFlag } = useRenderFlag()
 

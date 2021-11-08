@@ -1,6 +1,6 @@
 import React from "react"
 import statusKeys from "../../utils/statusKeys"
-import Placeholder from "./Placeholder/Placeholder"
+import Placeholder from "./Placeholders/Placeholder"
 import useLivePrice from "../LivePrice/hooks/useLivePrice"
 import { PriceDisplay } from "../LivePrice/LivePrice"
 import "./styles.css"
@@ -15,15 +15,27 @@ function Indices() {
 	)
 }
 
-const Index = ({ symbol, className }) => {
-	const price = useLivePrice(symbol)
+interface IndexPropsType {
+	symbol: string
+	className: string
+}
 
-	let content = (
-		<>
-			<div className="index__symbol">{symbol}</div>
-			<PriceDisplay price={price.body} className="index-price" />
-		</>
-	)
+const Index = ({ symbol, className }: IndexPropsType) => {
+	const price = useLivePrice(symbol)
+	let content
+
+	if (price.body) {
+		content = (
+			<>
+				<div className="index__symbol">{symbol}</div>
+				<PriceDisplay
+					price={price.body}
+					className="index-price"
+					searchFocused={false}
+				/>
+			</>
+		)
+	}
 
 	if (price.status !== statusKeys.RESOLVED) {
 		content = <Placeholder />

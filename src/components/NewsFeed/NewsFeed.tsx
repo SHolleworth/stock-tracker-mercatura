@@ -4,18 +4,21 @@ import { requestNews } from "./services"
 import convertMillisecondsToNewsFeedTime from "../../utils/convertMillisecondsToNewsFeedTime"
 import "./styles.css"
 import { useSymbol } from "../../contexts/SymbolContext"
-import Placeholder from "./Placeholder/Placeholder"
+import Placeholder from "./Placeholders/Placeholder"
 import { FLAGS, useRenderFlag } from "../../contexts/RenderFlagContext"
 import STATUS, { StatusStringType } from "../../utils/statusKeys"
 
 type Article = {
-	headline : string
+	headline: string
 	url: string
 	source: string
 }
 
 function NewsFeed() {
-	const [articles, setArticles] = useState<{status: StatusStringType, body: Article[]}>({
+	const [articles, setArticles] = useState<{
+		status: StatusStringType
+		body: Article[]
+	}>({
 		status: STATUS.LOADING,
 		body: [],
 	})
@@ -79,13 +82,18 @@ function NewsFeed() {
 }
 
 type NewsProps = {
-	link : string;
-	content : string;
-	timeSincePublication : number;
-	source: string;
+	link: string
+	content: string
+	timeSincePublication: number
+	source: string
 }
 
-function NewsArticle ({ link, content, timeSincePublication, source } : NewsProps) {
+function NewsArticle({
+	link,
+	content,
+	timeSincePublication,
+	source,
+}: NewsProps) {
 	const timeString = convertMillisecondsToNewsFeedTime(timeSincePublication)
 
 	return (

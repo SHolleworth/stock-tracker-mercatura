@@ -2,15 +2,15 @@ import React, { useState, useEffect } from "react"
 import { requestCompanyInfo } from "./services"
 import "./styles.css"
 import { useSymbol } from "../../contexts/SymbolContext"
-import Placeholder from "./Placeholder"
+import Placeholder from "./Placeholders/Placeholder"
 import { FLAGS, useRenderFlag } from "../../contexts/RenderFlagContext"
 import statusKeys, { StatusStringType } from "../../utils/statusKeys"
 
 interface Summary {
-	symbol : string
-	companyName : string
-	website : string
-	description : string	
+	symbol: string
+	companyName: string
+	website: string
+	description: string
 }
 
 interface SummaryState {
@@ -20,7 +20,7 @@ interface SummaryState {
 
 const CompanySummary = () => {
 	const [companyInfo, setCompanyInfo] = useState<SummaryState>({
-		status: "loading"
+		status: "loading",
 	})
 	const { symbol } = useSymbol()
 	const { renderFlag } = useRenderFlag()
@@ -33,7 +33,7 @@ const CompanySummary = () => {
 			setCompanyInfo({ status: statusKeys.RESOLVED, body })
 		} catch (error) {
 			console.error("Error retreiving company summary data: " + error)
-			setCompanyInfo({ status: statusKeys.ERROR, body: null })
+			setCompanyInfo({ status: statusKeys.ERROR })
 		}
 	}
 
@@ -41,7 +41,7 @@ const CompanySummary = () => {
 		if (renderFlag === FLAGS.summary) {
 			requestData()
 		} else if (renderFlag === -1) {
-			setCompanyInfo({ status: statusKeys.LOADING, body: null })
+			setCompanyInfo({ status: statusKeys.LOADING })
 		}
 	}, [symbol, renderFlag])
 
@@ -54,17 +54,19 @@ const CompanySummary = () => {
 			content = <Placeholder />
 		}
 		if (companyInfo.status === statusKeys.RESOLVED) {
-			content = (
-				<>
-					<div className="company__name">{`${companyInfo.body.companyName} (${companyInfo.body.symbol})`}</div>
-					<div className="company__website">
-						{companyInfo.body.website}
-					</div>
-					<div className="company__description">
-						{companyInfo.body.description}
-					</div>
-				</>
-			) : null;
+			if (companyInfo.body) {
+				content = (
+					<>
+						<div className="company__name">{`${companyInfo.body.companyName} (${companyInfo.body.symbol})`}</div>
+						<div className="company__website">
+							{companyInfo.body.website}
+						</div>
+						<div className="company__description">
+							{companyInfo.body.description}
+						</div>
+					</>
+				)
+			}
 		}
 		return (
 			<div className="company__summary">

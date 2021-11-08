@@ -1,13 +1,14 @@
 import React from "react"
-import Placeholder from "./Placeholder/Placeholder"
+import Placeholder from "./Placeholders/Placeholder"
 import { useSymbol } from "../../contexts/SymbolContext"
 import useLivePrice from "./hooks/useLivePrice"
 import "./styles.css"
 import downArrow from "../../assets/red-arrow.svg"
 import normalArrow from "../../assets/green-arrow.svg"
 import STATUS from "../../utils/statusKeys"
+import { Price } from "./types"
 
-const LivePrice = ({ searchFocused } : {searchFocused : boolean}) => {
+const LivePrice = ({ searchFocused }: { searchFocused: boolean }) => {
 	const { symbol } = useSymbol()
 	const price = useLivePrice(symbol)
 
@@ -19,7 +20,7 @@ const LivePrice = ({ searchFocused } : {searchFocused : boolean}) => {
 		} else if (price.status === STATUS.RESOLVED) {
 			return (
 				<PriceDisplay
-					price={price.body}
+					price={price.body as Price}
 					searchFocused={searchFocused}
 					className={"price"}
 				/>
@@ -35,20 +36,18 @@ const LivePrice = ({ searchFocused } : {searchFocused : boolean}) => {
 	return livePriceRenderer()
 }
 
-interface Price {
-	change: number
-	latestPrice: number
-	changePercent: number
-}
-
 type PriceProps = {
-	price : Price[]	
+	price: Price
 	searchFocused: boolean
 	className: string
 }
 
-const PriceDisplay : React.FC<PriceProps> = ({ price, searchFocused, className }) => {
-	return price.length > 0 ? (
+export const PriceDisplay: React.FC<PriceProps> = ({
+	price,
+	searchFocused,
+	className,
+}) => {
+	return (
 		<div
 			className={`${className}__display 
 			${searchFocused ? `{className}__display--hidden` : null}`}
@@ -73,7 +72,7 @@ const PriceDisplay : React.FC<PriceProps> = ({ price, searchFocused, className }
 				</span>
 			</div>
 		</div>
-	) : null
+	)
 }
 
 export default LivePrice

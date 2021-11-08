@@ -2,15 +2,16 @@ import { useEffect, useState } from "react"
 import { FLAGS, useRenderFlag } from "../../../contexts/RenderFlagContext"
 import { requestLatestPrice } from "../services"
 import STATUS from "../../../utils/statusKeys"
+import { Price } from "../types"
 
 //Map whole body response object for the type
-type Price = {
-	status: string;
-	body: any[];
+type PriceState = {
+	status: string
+	body?: Price
 }
 
-const useLivePrice = (symbol : string) => {
-	const [price, setPrice] = useState<Price>({ status: STATUS.LOADING, body: [] })
+const useLivePrice = (symbol: string) => {
+	const [price, setPrice] = useState<PriceState>({ status: STATUS.LOADING })
 	const CURL_URL = `https://sandbox-sse.iexapis.com/stable/stocksUS?symbols=${symbol}&token=${
 		import.meta.env.VITE_IEX_TOKEN
 	}`
@@ -44,13 +45,13 @@ const useLivePrice = (symbol : string) => {
 					setPrice({ status: STATUS.RESOLVED, body: latestPrice })
 				} catch (error) {
 					console.error(error)
-					setPrice({ status: STATUS.ERROR, body: [] })
+					setPrice({ status: STATUS.ERROR })
 				}
 			}
 
 			return () => sse.close()
 		} else if (renderFlag === -1) {
-			setPrice({ status: STATUS.LOADING, body: [] })
+			setPrice({ status: STATUS.LOADING })
 		}
 	}, [CURL_URL, symbol, renderFlag])
 

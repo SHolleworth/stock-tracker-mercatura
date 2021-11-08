@@ -1,14 +1,14 @@
 import React from "react"
 import { abbreviateNumber, addDollarSign } from "./utils"
 import "./styles.css"
-import { KeyStatistics } from "./stats"
+import { KeyStatistics } from "./stats.d"
 
 //Probably change name to StatsTable or smth
 interface KeyStatisticsProps {
 	stats: KeyStatistics
 }
 
-const KeyStatisticsTable : React.FC<KeyStatisticsProps> = ({
+const KeyStatisticsTable: React.FC<KeyStatisticsProps> = ({
 	stats: {
 		open,
 		high,
