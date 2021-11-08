@@ -7,6 +7,16 @@ import { ReferenceAreas } from "./ReferenceAreas"
 import { TopXAxis } from "./TopXAxis"
 import { CustomisedToolTip } from "./CustomisedToolTip"
 import { ReferenceLines } from "./ReferenceLines"
+import { axisPropsType, price } from "../types"
+
+interface HistoricalPriceChartPropsType {
+	axisProps: axisPropsType
+	data: price[]
+	interval : number
+	min: number
+	max: number
+	daySize: number
+}
 
 export const HistoricalPriceChart = ({
 	axisProps,
@@ -15,7 +25,7 @@ export const HistoricalPriceChart = ({
 	min,
 	max,
 	daySize,
-}) => {
+} : HistoricalPriceChartPropsType) => {
 	const line = (
 		<Line
 			isAnimationActive={false}
@@ -34,7 +44,6 @@ export const HistoricalPriceChart = ({
 	return (
 		<ResponsiveContainer height={"100%"} width={daySize * 5}>
 			<LineChart
-				isAnimationActive={false}
 				data={data}
 				margin={{ right: 0, bottom: 10 }}
 			>

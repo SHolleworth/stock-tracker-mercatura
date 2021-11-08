@@ -19,10 +19,10 @@ function App() {
 		setRenderFlag(-1)
 		const intervalId = setInterval(() => {
 			setRenderFlag((prev) => prev + 1)
-		}, [200])
+		}, 200)
 		setTimeout(() => {
 			clearInterval(intervalId)
-		}, [Object.keys(FLAGS).length * 300])
+		}, Object.keys(FLAGS).length * 300)
 	}, [symbol])
 
 	return (

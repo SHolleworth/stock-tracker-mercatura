@@ -9,6 +9,7 @@ import { CurrentPriceChart } from "./components/CurrentPriceChart"
 import { Placeholder } from "./Placeholder/Placeholder"
 import { useSymbol } from "../../contexts/SymbolContext"
 import STATUS from "../../utils/statusKeys"
+import { price } from "./types"
 
 const axisProps = {
 	tickSize: 12,
@@ -17,16 +18,6 @@ const axisProps = {
 	stroke: colours.coreSecondary3,
 	strokeWidth: 0.5,
 	style: { fontFamily: "Roboto", userSelect: "none", fill: colours.keys },
-}
-
-interface Intraday {
-	min: number
-	max: number
-}
-
-interface Historic {
-	min: number
-	max: number
 }
 
 const ChartContainer = () => {
@@ -43,14 +34,18 @@ const ChartContainer = () => {
 
 	useEffect(() => {
 		//scroll to the latest day
-		setScroll(chartContainerRef.current.scrollWidth)
+		if (chartContainerRef.current) {
+			setScroll(chartContainerRef.current.scrollWidth)
+		}
 		if (!isLoading && intradayPrices.status === STATUS.RESOLVED) {
-			const body = [...historicPrices.body]
-			body[historicPrices.body.length - 1] = {
-				...body[historicPrices.body.length - 1],
-				average: intradayPrices.body[0].average,
+			if (historicPrices.body && intradayPrices.body) {
+				const body = [...historicPrices.body]
+				body[historicPrices.body.length - 1] = {
+					...body[historicPrices.body.length - 1],
+					average: intradayPrices.body[0].average,
+				}
+				setHistoricPrices({ status: historicPrices.status, body: body })
 			}
-			setHistoricPrices({ status: historicPrices.status, body: body })
 		}
 	}, [isLoading])
 
@@ -102,7 +97,6 @@ const ChartContainer = () => {
 				<StaticYAxis
 					key={0}
 					data={historicPrices.body || intradayPrices.body}
-					interval={interval}
 					min={min}
 					max={max}
 					axisProps={axisProps}
@@ -120,6 +114,9 @@ const ChartContainer = () => {
 				/>
 			)
 			if (intradayPrices.status === STATUS.RESOLVED) {
+				if (!historicPrices.body) {
+					return
+				}
 				content.push(
 					<CurrentPriceChart
 						key={2}
@@ -154,7 +151,7 @@ const ChartContainer = () => {
 	)
 }
 
-const filterOutPreviousDay = (prices) => {
+const filterOutPreviousDay = (prices : price[]) => {
 	try {
 		const yesterday = prices[prices.length - 1].date
 		return prices.filter((price) => price.date === yesterday).slice(0, -1)
