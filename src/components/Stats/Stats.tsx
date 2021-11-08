@@ -1,16 +1,21 @@
 import React, { useState, useEffect } from "react"
-import KeyStatistics from "./KeyStatistics"
+import KeyStatisticsTable from "./KeyStatistics"
 import { getKeyStatistics } from "./services"
 import { useSymbol } from "../../contexts/SymbolContext"
 import Placeholder from "./Placeholder/Placeholder"
 import { FLAGS, useRenderFlag } from "../../contexts/RenderFlagContext"
 import STATUS from "../../utils/statusKeys"
+import { StatusStringType } from "../../utils/statusKeys"
+import { KeyStatistics } from "./stats"
+
+interface StatisticsState {
+	status: StatusStringType;
+	body?: KeyStatistics
+}
+
 
 const Stats = () => {
-	const [statistics, setStatistics] = useState({
-		status: STATUS.LOADING,
-		body: null,
-	})
+	const [statistics, setStatistics] = useState<StatisticsState>({	status: STATUS.LOADING })
 	const { symbol } = useSymbol()
 	const { renderFlag } = useRenderFlag()
 
@@ -20,7 +25,7 @@ const Stats = () => {
 			setStatistics({ status: STATUS.RESOLVED, body: response })
 		} catch (error) {
 			console.error("Error requesting key statistic data: " + error)
-			setStatistics({ status: STATUS.ERROR, body: null })
+			setStatistics({ status: STATUS.ERROR })
 		}
 	}
 
@@ -28,7 +33,7 @@ const Stats = () => {
 		if (renderFlag === FLAGS.stats) {
 			requestData()
 		} else if (renderFlag === -1) {
-			setStatistics({ status: STATUS.LOADING, body: null })
+			setStatistics({ status: STATUS.LOADING })
 		}
 	}, [symbol, renderFlag])
 
@@ -39,7 +44,8 @@ const Stats = () => {
 		} else if (statistics.status === STATUS.ERROR) {
 			content = <Placeholder />
 		} else if (statistics.status === STATUS.RESOLVED) {
-			content = <KeyStatistics stats={statistics.body} />
+			// is this really neccesary?
+			content = statistics.body ? <KeyStatisticsTable stats={statistics.body} /> : null;
 		} else {
 			throw Error(
 				`Unrecognised state status in stats component: ` +

@@ -7,12 +7,12 @@ import { FLAGS, useRenderFlag } from "../../contexts/RenderFlagContext"
 import STATUS from "../../utils/statusKeys"
 
 type PeersType = {
-	status: "loading" | "error" | "resolved" | string;
+	status: "loading" | "error" | "resolved";
 	body: [];
 }
 
 const TopPeers = () => {
-	const [peers, setPeers] = useState<PeersType>({ status: STATUS.LOADING, body: null })
+	const [peers, setPeers] = useState<PeersType>({ status: STATUS.LOADING, body: [] })
 	const { symbol, setSymbol } = useSymbol()
 	const { renderFlag } = useRenderFlag()
 
@@ -24,10 +24,10 @@ const TopPeers = () => {
 				})
 				.catch((error) => {
 					console.error("Error retrieving top peers data: " + error)
-					setPeers({ status: STATUS.ERROR, body: null })
+					setPeers({ status: STATUS.ERROR, body: [] })
 				})
 		} else if (renderFlag === -1) {
-			setPeers({ status: STATUS.LOADING, body: null })
+			setPeers({ status: STATUS.LOADING, body: [] })
 		}
 	}, [symbol, renderFlag])
 

@@ -1,9 +1,12 @@
 import React from "react"
 import { useSymbol } from "../../contexts/SymbolContext"
 import "./styles.css"
+import useSearch from "./hooks/useSearch"
 
-const Suggestions = ({ suggestions }) => {
+const Suggestions : React.FC<{value: string}> = ({ value }) => {
 	const { setSymbol } = useSymbol()
+	const suggestions = useSearch(value)
+
 	return (
 		<div className="suggestions">
 			<ul className="suggestions__list">

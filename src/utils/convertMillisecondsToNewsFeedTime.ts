@@ -9,7 +9,7 @@ export const millisecondTimes = {
 	year: 3.154e10,
 }
 
-const convertMillisecondsToNewsFeedTime = (milliseconds) => {
+const convertMillisecondsToNewsFeedTime = (milliseconds : number) => {
 	let timeString = "Error"
 	const millisecondsSincePost = Date.now() - milliseconds
 	const [yearsSincePost, yearsRemainder] = getQuotientAndRemainder(

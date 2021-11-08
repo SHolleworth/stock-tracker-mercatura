@@ -1,23 +1,14 @@
 import React from "react"
 import { abbreviateNumber, addDollarSign } from "./utils"
 import "./styles.css"
+import { KeyStatistics } from "./stats"
 
-type StatsType = {
-		open: number
-		high: number
-		low: number
-		previousClose: number
-		week52High: number
-		week52Low: number
-		marketCap: number
-		peRatio: number
-		dividendYield: number
-		incomeNetPerWabsoSplitAdjusted: number
-		volume: number
-		avgTotalVolume: number
+//Probably change name to StatsTable or smth
+interface KeyStatisticsProps {
+	stats: KeyStatistics
 }
 
-const KeyStatistics = ({
+const KeyStatisticsTable : React.FC<KeyStatisticsProps> = ({
 	stats: {
 		open,
 		high,
@@ -32,7 +23,7 @@ const KeyStatistics = ({
 		volume,
 		avgTotalVolume,
 	},
-} : { stats: StatsType } ) => {
+}) => {
 	return (
 		<div className="stats-container">
 			<ul className="stats__list">
@@ -92,4 +83,4 @@ const KeyStatistics = ({
 	)
 }
 
-export default KeyStatistics
+export default KeyStatisticsTable
