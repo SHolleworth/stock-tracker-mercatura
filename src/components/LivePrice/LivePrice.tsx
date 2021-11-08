@@ -42,9 +42,9 @@ interface Price {
 }
 
 type PriceProps = {
-	price : Price[];	
-	searchFocused: boolean;
-	className: string;
+	price : Price[]	
+	searchFocused: boolean
+	className: string
 }
 
 const PriceDisplay : React.FC<PriceProps> = ({ price, searchFocused, className }) => {

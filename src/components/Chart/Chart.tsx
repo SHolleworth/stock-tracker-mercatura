@@ -6,7 +6,7 @@ import { useDrag } from "./hooks/useDrag"
 import { StaticYAxis } from "./components/CustomisedYAxis"
 import { HistoricalPriceChart } from "./components/HistoricalPriceChart"
 import { CurrentPriceChart } from "./components/CurrentPriceChart"
-import { Placeholder } from "./Placeholder/Placeholder"
+import { Placeholder } from "./Placeholders/Placeholder"
 import { useSymbol } from "../../contexts/SymbolContext"
 import STATUS from "../../utils/statusKeys"
 import { price } from "./types"
@@ -20,7 +20,7 @@ const axisProps = {
 	style: { fontFamily: "Roboto", userSelect: "none", fill: colours.keys },
 }
 
-const ChartContainer = () => {
+const Chart = () => {
 	const [isLoading, setIsLoading] = useState(true)
 	const { symbol } = useSymbol()
 	const [historicPrices, setHistoricPrices, historicMinMax] =
@@ -165,4 +165,4 @@ const filterOutPreviousDay = (prices : price[]) => {
 	}
 }
 
-export default ChartContainer
+export default Chart
