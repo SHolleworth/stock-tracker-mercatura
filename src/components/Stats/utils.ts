@@ -1,8 +1,8 @@
-export const addDollarSign = (str) => {
+export const addDollarSign = (str : string | number) => {
 	return "$" + str
 }
 
-export const abbreviateNumber = (numberToAbbreviate) => {
+export const abbreviateNumber = (numberToAbbreviate : number) => {
 	const strNumber = numberToAbbreviate.toString()
 	if (strNumber.length <= 3) {
 		return strNumber

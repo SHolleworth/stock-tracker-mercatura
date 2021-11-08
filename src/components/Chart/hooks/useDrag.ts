@@ -1,10 +1,10 @@
-import { useRef } from "react"
+import React, { useRef } from "react"
 
 export const useDrag = () => {
-	const ref = useRef(null)
+	const ref = useRef<HTMLInputElement>(null)
 
 	let pos = { left: 0, x: 0 }
-	const startScroll = (e) => {
+	const startScroll = (e : MouseEvent) => {
 		pos = { left: ref.current.scrollLeft, x: e.clientX }
 
 		document.addEventListener("mousemove", handleScroll)

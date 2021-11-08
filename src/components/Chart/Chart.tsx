@@ -19,6 +19,16 @@ const axisProps = {
 	style: { fontFamily: "Roboto", userSelect: "none", fill: colours.keys },
 }
 
+interface Intraday {
+	min: number
+	max: number
+}
+
+interface Historic {
+	min: number
+	max: number
+}
+
 const ChartContainer = () => {
 	const [isLoading, setIsLoading] = useState(true)
 	const { symbol } = useSymbol()

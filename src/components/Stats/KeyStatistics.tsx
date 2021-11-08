@@ -1,8 +1,14 @@
 import React from "react"
 import { abbreviateNumber, addDollarSign } from "./utils"
 import "./styles.css"
+import { KeyStatistics } from "./stats"
 
-const KeyStatistics = ({
+//Probably change name to StatsTable or smth
+interface KeyStatisticsProps {
+	stats: KeyStatistics
+}
+
+const KeyStatisticsTable : React.FC<KeyStatisticsProps> = ({
 	stats: {
 		open,
 		high,
@@ -77,4 +83,4 @@ const KeyStatistics = ({
 	)
 }
 
-export default KeyStatistics
+export default KeyStatisticsTable

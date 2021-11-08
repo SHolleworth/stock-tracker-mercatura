@@ -3,8 +3,14 @@ import { FLAGS, useRenderFlag } from "../../../contexts/RenderFlagContext"
 import { requestLatestPrice } from "../services"
 import STATUS from "../../../utils/statusKeys"
 
-const useLivePrice = (symbol) => {
-	const [price, setPrice] = useState({ status: STATUS.LOADING, body: null })
+//Map whole body response object for the type
+type Price = {
+	status: string;
+	body: any[];
+}
+
+const useLivePrice = (symbol : string) => {
+	const [price, setPrice] = useState<Price>({ status: STATUS.LOADING, body: [] })
 	const CURL_URL = `https://sandbox-sse.iexapis.com/stable/stocksUS?symbols=${symbol}&token=${
 		import.meta.env.VITE_IEX_TOKEN
 	}`
@@ -19,10 +25,11 @@ const useLivePrice = (symbol) => {
 			}
 
 			sse.onmessage = (e) => {
-				if (JSON.parse(e.data).length !== 0) {
+				const data = JSON.parse(e.data)
+				if (data.length !== 0) {
 					setPrice({
 						status: STATUS.RESOLVED,
-						body: JSON.parse(e.data),
+						body: [...data],
 					})
 				} else {
 					console.log("Just got an empty message")
@@ -37,13 +44,13 @@ const useLivePrice = (symbol) => {
 					setPrice({ status: STATUS.RESOLVED, body: [latestPrice] })
 				} catch (error) {
 					console.error(error)
-					setPrice({ status: STATUS.ERROR, body: error })
+					setPrice({ status: STATUS.ERROR, body: [] })
 				}
 			}
 
 			return () => sse.close()
 		} else if (renderFlag === -1) {
-			setPrice({ status: STATUS.LOADING, body: null })
+			setPrice({ status: STATUS.LOADING, body: [] })
 		}
 	}, [CURL_URL, symbol, renderFlag])
 

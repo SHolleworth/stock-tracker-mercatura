@@ -1,15 +1,28 @@
 import { useState, useEffect } from "react"
 import { FLAGS, useRenderFlag } from "../../../contexts/RenderFlagContext"
+import { StatusStringType } from "../../../utils/statusKeys";
 import { requestHistoricalPrices, requestIntradayPrices } from "../services"
 
-const removeNulls = (prices) => {
+interface Price { 
+	average : number
+	minute: string
+}
+
+type Prices = Price[];
+
+interface PriceState {
+	status: StatusStringType
+	body?: Prices
+}
+
+const removeNulls = (prices : Prices) => {
 	return prices.filter((price) => {
 		return price.average !== null
 	})
 }
 
-export const useHistoricalPrices = (symbol) => {
-	const [prices, setPrices] = useState({ status: "loading", body: null })
+export const useHistoricalPrices = (symbol : string) => {
+	const [prices, setPrices] = useState<PriceState>({ status: "loading", body: [] })
 	const [minMax, setMinMax] = useState({
 		min: Number.POSITIVE_INFINITY,
 		max: Number.NEGATIVE_INFINITY,
@@ -58,10 +71,10 @@ export const useHistoricalPrices = (symbol) => {
 					console.error(
 						"Error requesting historical prices: " + error
 					)
-					setPrices({ status: "error", body: null })
+					setPrices({ status: "error" })
 				}
 			} else if (renderFlag === -1) {
-				setPrices({ status: "loading", body: null })
+				setPrices({ status: "loading" })
 			}
 		})()
 	}, [symbol, renderFlag])
@@ -69,8 +82,8 @@ export const useHistoricalPrices = (symbol) => {
 	return [prices, setPrices, minMax]
 }
 
-export const useIntradayPrices = (symbol) => {
-	const [prices, setPrices] = useState({ status: "loading", body: null })
+export const useIntradayPrices = (symbol : string) => {
+	const [prices, setPrices] = useState({ status: "loading" })
 	const [minMax, setMinMax] = useState({
 		min: Number.POSITIVE_INFINITY,
 		max: Number.NEGATIVE_INFINITY,
@@ -93,10 +106,10 @@ export const useIntradayPrices = (symbol) => {
 					setPrices({ status: "resolved", body: pricesWithoutNulls })
 				} catch (error) {
 					console.error("Error requesting intraday prices: " + error)
-					setPrices({ status: "error", body: null })
+					setPrices({ status: "error" })
 				}
 			} else if (renderFlag === -1) {
-				setPrices({ status: "loading", body: null })
+				setPrices({ status: "loading" })
 			}
 		})()
 	}, [symbol, renderFlag])
@@ -104,7 +117,7 @@ export const useIntradayPrices = (symbol) => {
 	return [prices, minMax]
 }
 
-const findMinAndMax = (prices) => {
+const findMinAndMax = (prices : Prices) => {
 	const averages = prices.map((el) => el.average)
 	const min = Math.floor(Math.min(...averages))
 	const max = Math.floor(Math.max(...averages) + 1)

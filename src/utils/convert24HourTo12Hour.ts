@@ -1,4 +1,4 @@
-const convert24HourTo12Hour = (timeString) => {
+const convert24HourTo12Hour = (timeString : string) => {
 	const cleanTimeString = removePrependedIndex(timeString)
 	if (
 		typeof cleanTimeString !== "string" ||
@@ -17,7 +17,7 @@ const convert24HourTo12Hour = (timeString) => {
 	}
 }
 
-const removePrependedIndex = (stringWithIndex) => {
+const removePrependedIndex = (stringWithIndex : string) => {
 	if (typeof stringWithIndex === "string") {
 		const spaceIndex = stringWithIndex.indexOf(" ")
 		return stringWithIndex.slice(spaceIndex + 1)

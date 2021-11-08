@@ -1,8 +1,14 @@
 import { useState, useEffect } from "react"
 import { getSuggestions } from "../services"
 
-const useSearch = (value) => {
-	const [suggestions, setSuggestions] = useState()
+type Suggestion = {
+	[key: string] : string
+}
+
+type Suggestions = Suggestion[];
+
+const useSearch = (value : string) => {
+	const [suggestions, setSuggestions] = useState<Suggestions>([])
 
 	useEffect(() => {
 		if (value) {
@@ -11,7 +17,7 @@ const useSearch = (value) => {
 			})
 		}
 
-		return () => setSuggestions(null)
+		return () => setSuggestions([])
 	}, [value])
 
 	return suggestions ?? null

@@ -1,16 +1,19 @@
 import React, { useEffect, useState } from "react"
 import Suggestions from "./Suggestions"
-import useSearch from "./hooks/useSearch"
 import "./styles.css"
 import { useSymbol } from "../../contexts/SymbolContext"
 import { requestCompanyInfo } from "../CompanySummary/services"
 
-const SearchBar = ({ focused, onFocus, onBlur }) => {
+type Props = {
+	focused: boolean;
+	onFocus: () => void;
+}
+
+const SearchBar : React.FC<Props> = ({ focused, onFocus }) => {
 	const [value, setValue] = useState("")
-	const suggestions = useSearch(value)
 	const { symbol } = useSymbol()
 
-	const handleChange = ({ target }) => {
+	const handleChange = ({ target } : React.ChangeEvent<HTMLInputElement>) => {
 		setValue(target.value)
 	}
 
@@ -36,10 +39,9 @@ const SearchBar = ({ focused, onFocus, onBlur }) => {
 					placeholder="Enter a stock, symbol or currency"
 					onChange={handleChange}
 					onFocus={onFocus}
-					onBlur={onBlur}
 				/>
 			</div>
-			{focused ? <Suggestions suggestions={suggestions} /> : null}
+			{focused ? <Suggestions value={value} /> : null}
 		</div>
 	)
 }

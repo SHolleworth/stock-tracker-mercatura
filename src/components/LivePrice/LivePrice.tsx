@@ -7,7 +7,7 @@ import downArrow from "../../assets/redarrow.svg"
 import normalArrow from "../../assets/normal.svg"
 import STATUS from "../../utils/statusKeys"
 
-const LivePrice = ({ searchFocused }) => {
+const LivePrice = ({ searchFocused } : {searchFocused : boolean}) => {
 	const { symbol } = useSymbol()
 	const price = useLivePrice(symbol)
 
@@ -34,34 +34,45 @@ const LivePrice = ({ searchFocused }) => {
 	return livePriceRenderer()
 }
 
-const PriceDisplay = ({ price, searchFocused }) => {
-	return (
+interface Price {
+	change: number
+	latestPrice: number
+	changePercent: number
+}
+
+type PriceProps = {
+	price : Price[];	
+	searchFocused: boolean;
+}
+
+const PriceDisplay : React.FC<PriceProps> = ({ price, searchFocused }) => {
+	return price.length > 0 ? (
 		<div
 			className={`price__display ${
 				searchFocused ? "price__display--hidden" : null
 			}`}
 		>
-			<span className="price">{`$${price?.[0].latestPrice.toFixed(
+			<span className="price">{`$${price[0].latestPrice.toFixed(
 				2
 			)}`}</span>
 			<img
 				className="arrow"
-				src={price?.[0].change > 0 ? normalArrow : downArrow}
+				src={price[0].change > 0 ? normalArrow : downArrow}
 				alt="down arrow"
 			/>
 			<span
 				className={
-					price?.[0].change > 0
+					price[0].change > 0
 						? "change positive"
 						: "change negative"
 				}
 			>
-				{`${price?.[0].change} | ${price?.[0].changePercent.toFixed(
+				{`${price[0].change} | ${price[0].changePercent.toFixed(
 					2
 				)}%`}
 			</span>
 		</div>
-	)
+	) : null
 }
 
 export default LivePrice

@@ -6,12 +6,18 @@ import "./styles.css"
 import { useSymbol } from "../../contexts/SymbolContext"
 import Placeholder from "./Placeholder/Placeholder"
 import { FLAGS, useRenderFlag } from "../../contexts/RenderFlagContext"
-import STATUS from "../../utils/statusKeys"
+import STATUS, { StatusStringType } from "../../utils/statusKeys"
+
+type Article = {
+	headline : string
+	url: string
+	source: string
+}
 
 function NewsFeed() {
-	const [articles, setArticles] = useState({
+	const [articles, setArticles] = useState<{status: StatusStringType, body: Article[]}>({
 		status: STATUS.LOADING,
-		body: null,
+		body: [],
 	})
 	const { symbol } = useSymbol()
 	const { renderFlag } = useRenderFlag()
@@ -24,10 +30,10 @@ function NewsFeed() {
 				})
 				.catch((error) => {
 					console.error("Error requesting news data: " + error)
-					setArticles({ status: STATUS.ERROR, body: null })
+					setArticles({ status: STATUS.ERROR, body: [] })
 				})
 		} else if (renderFlag === -1) {
-			setArticles({ status: STATUS.LOADING, body: null })
+			setArticles({ status: STATUS.LOADING, body: [] })
 		}
 	}, [symbol, renderFlag])
 
@@ -70,7 +76,14 @@ function NewsFeed() {
 	return newsRenderer()
 }
 
-function NewsArticle({ link, content, timeSincePublication, source }) {
+type NewsProps = {
+	link : string;
+	content : string;
+	timeSincePublication : number;
+	source: string;
+}
+
+function NewsArticle ({ link, content, timeSincePublication, source } : NewsProps) {
 	const timeString = convertMillisecondsToNewsFeedTime(timeSincePublication)
 
 	return (
