@@ -9,6 +9,8 @@
 	font-weight: 500;
 	width: 100%;
 	max-width: 1260px;
+	padding-left: var(--padding);
+	padding-right: var(--padding);
 	justify-content: space-between;
 	color: #2b2b2b;
 }
@@ -20,13 +22,13 @@
 }
 
 .middle-section {
-	margin-left: 100px;
-	margin-right: 100px;
+	margin-left: calc(var(--padding) * 10);
+	margin-right: calc(var(--padding) * 10);
 }
 
 .stats__title {
 	flex-basis: 100%;
-	margin-bottom: 25px;
+	padding-bottom: calc(var(--padding) * 2);
 }
 
 .stats__list {
@@ -66,14 +68,16 @@
 }
 
 .stats__placeholder__column__center {
-	margin: 0 30px;
+	margin-left: calc(var(--padding) * 3);
+	margin-right: calc(var(--padding) * 3);
 }
 
 .stats__placeholder__row {
 	flex: 1;
 	display: flex;
 	justify-content: space-between;
-	margin: 10px 0;
+	margin-top: var(--padding);
+	margin-bottom: var(--padding);
 }
 
 .stats__placeholder__row__content {
