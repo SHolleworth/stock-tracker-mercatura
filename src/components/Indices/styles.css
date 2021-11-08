@@ -36,3 +36,10 @@
 	border-left: 1px solid var(--ui-element-light);
 	border-right: 1px solid var(--ui-element-light);
 }
+
+.index__placeholder {
+	width: 200px;
+	height: 20px;
+	background-color: var(--ui-element-light);
+	border-radius: 10px;
+}
