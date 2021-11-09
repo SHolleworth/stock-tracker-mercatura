@@ -50,7 +50,7 @@ export const PriceDisplay: React.FC<PriceProps> = ({
 	return (
 		<div
 			className={`${className}__display 
-			${searchFocused ? `{className}__display--hidden` : null}`}
+			${searchFocused ? `${className}__display--hidden` : null}`}
 		>
 			<span className={className}>{`$${price.latestPrice.toFixed(
 				2
