@@ -1,13 +1,12 @@
 import { checkResponseForError } from "../../utils/checkResponseForError"
+import { base } from "../../utils/baseUrl"
 
-const BASE_URL = "https://sandbox.iexapis.com/stable/"
-
-export async function getKeyStatistics(symbol : string) {
-	const QUOTE_URL = `${BASE_URL}stock/${symbol}/quote?token=${
+export async function getKeyStatistics(symbol: string) {
+	const QUOTE_URL = `${base}stock/${symbol}/quote?token=${
 		import.meta.env.VITE_IEX_TOKEN
 	}`
 
-	const FUNDAMENTALS_URL = `${BASE_URL}time-series/FUNDAMENTAL_VALUATIONS/${symbol}?token=${
+	const FUNDAMENTALS_URL = `${base}time-series/FUNDAMENTAL_VALUATIONS/${symbol}?token=${
 		import.meta.env.VITE_IEX_TOKEN
 	}`
 	const quoteResponse = await fetch(QUOTE_URL)

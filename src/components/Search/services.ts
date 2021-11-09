@@ -1,9 +1,8 @@
 import { checkResponseForError } from "../../utils/checkResponseForError"
-
-const BASE_URL = "https://sandbox.iexapis.com/stable/"
+import { base } from "../../utils/baseUrl"
 
 export const getSuggestions = async (value: string) => {
-	const SEARCH_URL = `${BASE_URL}search/${value}?token=${
+	const SEARCH_URL = `${base}search/${value}?token=${
 		import.meta.env.VITE_IEX_TOKEN
 	}`
 	try {

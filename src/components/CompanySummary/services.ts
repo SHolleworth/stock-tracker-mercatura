@@ -1,9 +1,8 @@
 import { checkResponseForError } from "../../utils/checkResponseForError"
+import { base } from "../../utils/baseUrl"
 
-const BASE_URL = `https://sandbox.iexapis.com/stable`
-
-export const requestCompanyInfo = async (company : string) => {
-	const COMPANYINFO_URL = `${BASE_URL}/stock/${company}/company?token=${
+export const requestCompanyInfo = async (company: string) => {
+	const COMPANYINFO_URL = `${base}/stock/${company}/company?token=${
 		import.meta.env.VITE_IEX_TOKEN
 	}`
 	// throw Error()
