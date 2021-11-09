@@ -1,39 +1,32 @@
 import React from "react"
 import Chart from "./Chart"
-import { useHistoricalPrices, useIntradayPrices } from "./hooks/usePrices"
+import { requestHistoricalPrices, requestIntradayPrices } from "./services"
 import { screen, render } from "@testing-library/react"
 import statusKeys from "../../utils/statusKeys"
 
-jest.mock("./hooks/usePrices")
+jest.mock("./services")
+
+const mockHistoricalPrices = requestHistoricalPrices as jest.MockedFunction<
+	typeof requestHistoricalPrices
+>
+const mockIntradayPrices = requestIntradayPrices as jest.MockedFunction<
+	typeof requestIntradayPrices
+>
 
 it("should show placeholder while loading", () => {
-	useHistoricalPrices.mockReturnValue([
-		{ status: statusKeys.LOADING, body: null },
-		() => {
-			return
-		},
-		{ min: 0, max: 20 },
-	])
-	useIntradayPrices.mockReturnValue([
-		{ status: statusKeys.LOADING, body: null },
-		{ min: 0, max: 20 },
-	])
+	mockHistoricalPrices.mockImplementation(async () => {
+		await new Promise(() => {})
+	})
+	mockIntradayPrices.mockImplementation(async () => {
+		await new Promise(() => {})
+	})
 	render(<Chart />)
 	return expect(screen.getByTestId("chart-placeholder")).toBeVisible()
 })
 
 it("should show placeholder after an error", () => {
-	useHistoricalPrices.mockReturnValue([
-		{ status: statusKeys.ERROR, body: null },
-		() => {
-			return
-		},
-		{ min: 0, max: 20 },
-	])
-	useIntradayPrices.mockReturnValue([
-		{ status: statusKeys.LOADING, body: null },
-		{ min: 0, max: 20 },
-	])
+	mockHistoricalPrices.mockRejectedValue("Historical test error")
+	mockIntradayPrices.mockRejectedValue("Intraday test error")
 	render(<Chart />)
 	return expect(screen.getByTestId("chart-placeholder")).toBeVisible()
 })
@@ -54,15 +47,15 @@ const mockData = [
 ]
 
 it("should show the chart when data is present", async () => {
-	useHistoricalPrices.mockReturnValue([
+	mockHistoricalPrices.mockResolvedValue([
 		{ status: statusKeys.RESOLVED, body: mockData },
 		() => {
 			return
 		},
 		{ min: 0, max: 20 },
 	])
-	useIntradayPrices.mockReturnValue([
-		{ status: statusKeys.LOADING, body: null },
+	mockIntradayPrices.mockResolvedValue([
+		{ status: statusKeys.LOADING },
 		{ min: 0, max: 20 },
 	])
 	render(<Chart />)

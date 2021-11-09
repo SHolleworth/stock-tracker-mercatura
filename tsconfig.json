@@ -15,7 +15,7 @@
     "isolatedModules": true,
     "noEmit": true,
     "jsx": "react-jsx",
-    "outDir": "comp"
+    "outDir": "./comp"
   },
-  "include": ["./src"]
+  "include": ["./src", "@types/**/*"]
 }
