@@ -5,15 +5,15 @@ import { useSymbol } from "../../contexts/SymbolContext"
 import { requestCompanyInfo } from "../CompanySummary/services"
 
 type Props = {
-	focused: boolean;
-	onFocus: () => void;
+	focused: boolean
+	onFocus: () => void
 }
 
-const SearchBar : React.FC<Props> = ({ focused, onFocus }) => {
+const SearchBar: React.FC<Props> = ({ focused, onFocus }) => {
 	const [value, setValue] = useState("")
 	const { symbol } = useSymbol()
 
-	const handleChange = ({ target } : React.ChangeEvent<HTMLInputElement>) => {
+	const handleChange = ({ target }: React.ChangeEvent<HTMLInputElement>) => {
 		setValue(target.value)
 	}
 
@@ -37,6 +37,7 @@ const SearchBar : React.FC<Props> = ({ focused, onFocus }) => {
 					id="search"
 					value={value}
 					placeholder="Enter a stock, symbol or currency"
+					autoComplete="off"
 					onChange={handleChange}
 					onFocus={onFocus}
 				/>

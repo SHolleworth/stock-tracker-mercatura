@@ -12,8 +12,8 @@ type PriceState = {
 
 const useLivePrice = (symbol: string) => {
 	const [price, setPrice] = useState<PriceState>({ status: STATUS.LOADING })
-	const CURL_URL = `https://cloud-sse.iexapis.com/stable/stocksUS?symbols=${symbol}&token=${
-		import.meta.env.VITE_IEX_TOKEN_ACTUAL
+	const CURL_URL = `https://sandbox-sse.iexapis.com/stable/stocksUS?symbols=${symbol}&token=${
+		import.meta.env.VITE_IEX_TOKEN
 	}`
 	const { renderFlag } = useRenderFlag()
 
