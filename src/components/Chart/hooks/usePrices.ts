@@ -1,5 +1,6 @@
 import { useState, useEffect, Dispatch, SetStateAction } from "react"
 import { FLAGS, useRenderFlag } from "../../../contexts/RenderFlagContext"
+import STATUS from "../../../utils/statusKeys"
 import { requestHistoricalPrices, requestIntradayPrices } from "../services"
 import { priceState, price } from "../types"
 
@@ -22,7 +23,7 @@ type HistoricalPrices = [
 
 export const useHistoricalPrices = (symbol: string): HistoricalPrices => {
 	const [prices, setPrices] = useState<priceState>({
-		status: "loading",
+		status: STATUS.LOADING,
 		body: [],
 	})
 	const [minMax, setMinMax] = useState({
@@ -40,6 +41,12 @@ export const useHistoricalPrices = (symbol: string): HistoricalPrices => {
 					console.log(prices)
 
 					const pricesWithoutNulls = removeNulls(prices)
+
+					if (pricesWithoutNulls.length <= 0) {
+						throw Error(
+							"Error requesting historical prices, all values were null."
+						)
+					}
 
 					setMinMax(findMinAndMax(pricesWithoutNulls))
 
@@ -64,7 +71,7 @@ export const useHistoricalPrices = (symbol: string): HistoricalPrices => {
 						})
 
 					setPrices({
-						status: "resolved",
+						status: STATUS.RESOLVED,
 						body: pricesWithIdentifiableMinutes,
 					})
 				} catch (error) {
@@ -72,10 +79,10 @@ export const useHistoricalPrices = (symbol: string): HistoricalPrices => {
 					console.error(
 						"Error requesting historical prices: " + error
 					)
-					setPrices({ status: "error" })
+					setPrices({ status: STATUS.ERROR })
 				}
 			} else if (renderFlag === -1) {
-				setPrices({ status: "loading" })
+				setPrices({ status: STATUS.LOADING })
 			}
 		})()
 	}, [symbol, renderFlag])
@@ -86,7 +93,7 @@ export const useHistoricalPrices = (symbol: string): HistoricalPrices => {
 export const useIntradayPrices = (
 	symbol: string
 ): [priceState, minMaxState] => {
-	const [prices, setPrices] = useState<priceState>({ status: "loading" })
+	const [prices, setPrices] = useState<priceState>({ status: STATUS.LOADING })
 	const [minMax, setMinMax] = useState({
 		min: Number.POSITIVE_INFINITY,
 		max: Number.NEGATIVE_INFINITY,
@@ -104,15 +111,24 @@ export const useIntradayPrices = (
 
 					const pricesWithoutNulls = removeNulls(prices)
 
+					if (pricesWithoutNulls.length <= 0) {
+						throw Error(
+							"Error requesting intraday prices, all values were null."
+						)
+					}
+
 					setMinMax(findMinAndMax(pricesWithoutNulls))
 
-					setPrices({ status: "resolved", body: pricesWithoutNulls })
+					setPrices({
+						status: STATUS.RESOLVED,
+						body: pricesWithoutNulls,
+					})
 				} catch (error) {
 					console.error("Error requesting intraday prices: " + error)
-					setPrices({ status: "error" })
+					setPrices({ status: STATUS.ERROR })
 				}
 			} else if (renderFlag === -1) {
-				setPrices({ status: "loading" })
+				setPrices({ status: STATUS.LOADING })
 			}
 		})()
 	}, [symbol, renderFlag])

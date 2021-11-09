@@ -3,6 +3,7 @@ import { FLAGS, useRenderFlag } from "../../../contexts/RenderFlagContext"
 import { requestLatestPrice } from "../services"
 import STATUS from "../../../utils/statusKeys"
 import { Price } from "../types"
+import { base_sse as base } from "../../../utils/baseUrl"
 
 //Map whole body response object for the type
 type PriceState = {
@@ -12,13 +13,13 @@ type PriceState = {
 
 const useLivePrice = (symbol: string) => {
 	const [price, setPrice] = useState<PriceState>({ status: STATUS.LOADING })
-	const CURL_URL = `https://cloud-sse.iexapis.com/stable/stocksUS?symbols=${symbol}&token=${
-		import.meta.env.VITE_IEX_TOKEN_ACTUAL
+	const CURL_URL = `${base}stocksUS?symbols=${symbol}&token=${
+		import.meta.env.VITE_IEX_TOKEN
 	}`
 	const { renderFlag } = useRenderFlag()
 
 	useEffect(() => {
-		if (renderFlag > FLAGS.livePrice) {
+		if (renderFlag === FLAGS.livePrice) {
 			const sse = new EventSource(CURL_URL)
 
 			sse.onopen = () => {

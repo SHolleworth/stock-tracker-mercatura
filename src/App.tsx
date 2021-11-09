@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react"
+import React, { useEffect } from "react"
 import Stats from "./components/Stats"
 import Chart from "./components/Chart"
 import "./App.css"
@@ -12,7 +12,6 @@ import { useSymbol } from "./contexts/SymbolContext"
 import Indices from "./components/Indices/Indices"
 
 function App() {
-	const [focused, setFocused] = useState(false)
 	const { symbol } = useSymbol()
 	const { setRenderFlag } = useRenderFlag()
 
@@ -28,7 +27,7 @@ function App() {
 
 	return (
 		<div className="App">
-			<div className="logo-section" onClick={() => setFocused(false)}>
+			<div className="logo-section">
 				<img
 					src={logo}
 					height={120}
@@ -38,7 +37,7 @@ function App() {
 			</div>
 
 			<div className="main-section">
-				<StockHeader focused={focused} setFocused={setFocused} />
+				<StockHeader />
 				<Chart />
 				<Stats />
 				<Indices />
