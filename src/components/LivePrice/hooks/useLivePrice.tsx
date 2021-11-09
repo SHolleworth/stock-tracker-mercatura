@@ -2,17 +2,18 @@ import { useEffect, useState } from "react"
 import { FLAGS, useRenderFlag } from "../../../contexts/RenderFlagContext"
 import { requestLatestPrice } from "../services"
 import STATUS from "../../../utils/statusKeys"
+import { Price } from "../types"
 
 //Map whole body response object for the type
-type Price = {
-	status: string;
-	body: any[];
+type PriceState = {
+	status: string
+	body?: Price
 }
 
-const useLivePrice = (symbol : string) => {
-	const [price, setPrice] = useState<Price>({ status: STATUS.LOADING, body: [] })
-	const CURL_URL = `https://sandbox-sse.iexapis.com/stable/stocksUS?symbols=${symbol}&token=${
-		import.meta.env.VITE_IEX_TOKEN
+const useLivePrice = (symbol: string) => {
+	const [price, setPrice] = useState<PriceState>({ status: STATUS.LOADING })
+	const CURL_URL = `https://cloud-sse.iexapis.com/stable/stocksUS?symbols=${symbol}&token=${
+		import.meta.env.VITE_IEX_TOKEN_ACTUAL
 	}`
 	const { renderFlag } = useRenderFlag()
 
@@ -29,7 +30,7 @@ const useLivePrice = (symbol : string) => {
 				if (data.length !== 0) {
 					setPrice({
 						status: STATUS.RESOLVED,
-						body: [...data],
+						body: JSON.parse(e.data)[0],
 					})
 				} else {
 					console.log("Just got an empty message")
@@ -41,16 +42,16 @@ const useLivePrice = (symbol : string) => {
 				sse.close()
 				try {
 					const latestPrice = await requestLatestPrice(symbol)
-					setPrice({ status: STATUS.RESOLVED, body: [latestPrice] })
+					setPrice({ status: STATUS.RESOLVED, body: latestPrice })
 				} catch (error) {
 					console.error(error)
-					setPrice({ status: STATUS.ERROR, body: [] })
+					setPrice({ status: STATUS.ERROR })
 				}
 			}
 
 			return () => sse.close()
 		} else if (renderFlag === -1) {
-			setPrice({ status: STATUS.LOADING, body: [] })
+			setPrice({ status: STATUS.LOADING })
 		}
 	}, [CURL_URL, symbol, renderFlag])
 

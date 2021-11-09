@@ -2,15 +2,15 @@ import React, { useState, useEffect } from "react"
 import { requestCompanyInfo } from "./services"
 import "./styles.css"
 import { useSymbol } from "../../contexts/SymbolContext"
-import Placeholder from "./Placeholder"
+import Placeholder from "./Placeholders/Placeholder"
 import { FLAGS, useRenderFlag } from "../../contexts/RenderFlagContext"
-import { StatusStringType } from "../../utils/statusKeys"
+import statusKeys, { StatusStringType } from "../../utils/statusKeys"
 
 interface Summary {
-	symbol : string
-	companyName : string
-	website : string
-	description : string	
+	symbol: string
+	companyName: string
+	website: string
+	description: string
 }
 
 interface SummaryState {
@@ -20,7 +20,7 @@ interface SummaryState {
 
 const CompanySummary = () => {
 	const [companyInfo, setCompanyInfo] = useState<SummaryState>({
-		status: "loading"
+		status: "loading",
 	})
 	const { symbol } = useSymbol()
 	const { renderFlag } = useRenderFlag()
@@ -30,10 +30,10 @@ const CompanySummary = () => {
 			const response = await requestCompanyInfo(symbol)
 			const desc = response.description.substring(0, 500).concat("...")
 			const body = { ...response, description: desc }
-			setCompanyInfo({ status: "resolved", body })
+			setCompanyInfo({ status: statusKeys.RESOLVED, body })
 		} catch (error) {
 			console.error("Error retreiving company summary data: " + error)
-			setCompanyInfo({ status: "error"})
+			setCompanyInfo({ status: statusKeys.ERROR })
 		}
 	}
 
@@ -41,34 +41,38 @@ const CompanySummary = () => {
 		if (renderFlag === FLAGS.summary) {
 			requestData()
 		} else if (renderFlag === -1) {
-			setCompanyInfo({ status: "loading" })
+			setCompanyInfo({ status: statusKeys.LOADING })
 		}
 	}, [symbol, renderFlag])
 
 	const summaryRenderer = () => {
 		let content = null
-		if (companyInfo.status === "loading") {
+		if (companyInfo.status === statusKeys.LOADING) {
 			content = <Placeholder />
 		}
-		if (companyInfo.status === "error") {
+		if (companyInfo.status === statusKeys.ERROR) {
 			content = <Placeholder />
 		}
-		if (companyInfo.status === "resolved") {
-			content = companyInfo.body ? (
-				<>
-					<div className="company__name">{`${companyInfo.body.companyName} (${companyInfo.body.symbol})`}</div>
-					<div className="company__website">
-						{companyInfo.body.website}
-					</div>
-					<div className="company__description">
-						{companyInfo.body.description}
-					</div>
-				</>
-			) : null;
+		if (companyInfo.status === statusKeys.RESOLVED) {
+			if (companyInfo.body) {
+				content = (
+					<>
+						<div className="company__name">{`${companyInfo.body.companyName} (${companyInfo.body.symbol})`}</div>
+						<div className="company__website">
+							{companyInfo.body.website}
+						</div>
+						<div className="company__description">
+							{companyInfo.body.description}
+						</div>
+					</>
+				)
+			}
 		}
 		return (
 			<div className="company__summary">
-				<h2>Company Summary</h2>
+				<div className={"section-heading company-summary__heading"}>
+					Company Summary
+				</div>
 				{content}
 			</div>
 		)

@@ -1,23 +1,32 @@
+:root {
+	--light-text: #7f7f7f;
+	--medium-text: #4d4d4d;
+	--dark-text: #2b2b2b;
+	--accent-primary: #aaabd1;
+	--background-light: #f9fafa;
+	--background-dark: #f1f2f2;
+	--ui-element: #d8d9d9;
+	--ui-element-light: #eaebeb;
+	--negative: #f23441;
+	--positive: #01c38d;
+	--padding: 10px;
+}
+
 body {
 	background-color: #f9fafa;
 	margin: 0;
 }
 
-h1,
-h2,
-h3 {
+.section-heading,
+.headlines {
 	font-family: "Merriweather";
 	font-weight: 700;
-	color: #4d4d4d;
+	color: var(--medium-text);
+	padding-bottom: var(--padding);
 }
 
-h2 {
+.section-heading {
 	font-size: 20px;
-}
-
-h3 {
-	font-size: 16px;
-	line-height: 1.8;
 }
 
 .App {
@@ -27,39 +36,34 @@ h3 {
 }
 
 .logo-section {
-	height: 100%;
+	align-self: stretch;
 	max-width: 200px;
 	min-width: 150px;
 	flex: 1;
-	background-color: #f1f2f2;
+	background-color: var(--background-dark);
 	display: flex;
 	justify-content: center;
-	padding-top: 60px;
-}
-
-.logo {
-	fill: blue;
+	padding-top: calc(var(--padding) * 3);
 }
 
 .main-section {
-	height: 100%;
-	width: 65%;
+	flex: 1;
+	align-self: stretch;
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-	padding: 80px 60px 0 40px;
+	padding-top: calc(var(--padding) * 8);
 	overflow-y: auto;
-	margin-right: 5px;
 }
 
 .news-summary-section {
-	height: 100%;
 	flex: 2;
 	max-width: 450px;
+	align-self: stretch;
 	display: flex;
 	flex-direction: column;
-	background-color: #f1f2f2;
-	padding: 30px;
+	background-color: var(--background-dark);
+	padding: calc(var(--padding) * 3);
 	overflow-y: auto;
 }
 

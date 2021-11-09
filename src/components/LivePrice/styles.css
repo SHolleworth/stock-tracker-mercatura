@@ -1,8 +1,7 @@
 .price__display {
+	flex: 1;
 	display: flex;
 	align-items: center;
-	width: 100%;
-	flex: 1;
 	justify-content: end;
 }
 
@@ -14,32 +13,32 @@
 	font-family: "Roboto", sans-serif;
 	font-weight: 400;
 	font-size: 32px;
-	margin-right: 10px;
+	padding-right: var(--padding);
 }
 
 .change {
 	font-family: "Roboto", sans-serif;
-	padding-left: 5px;
+	padding-right: calc(var(--padding) * -2);
 	font-weight: 500;
 	font-size: 16px;
 	align-self: center;
 }
 
 .positive {
-	color: #00e500;
+	color: var(--positive);
 }
 
 .negative {
-	color: #ff3542;
+	color: var(--negative);
 }
 
 .arrow {
 	width: 35px;
+	margin-right: -5px;
 }
 
 .live-price__placeholder {
-	height: 100%;
-	width: 30%;
+	flex: 0.8;
 	display: flex;
 	flex-direction: row;
 	justify-content: space-around;
@@ -50,14 +49,14 @@
 	height: 40px;
 	width: 50%;
 	border-radius: 20px;
-	background-color: #d8d9d9;
+	background-color: var(--ui-element);
 }
 
 .live-price__placeholder__arrow {
 	height: 20px;
 	width: 20px;
 	border-radius: 10px;
-	margin-right: -10px;
+	margin-right: calc(var(--padding) * -1);
 	background-color: #96db96;
 }
 

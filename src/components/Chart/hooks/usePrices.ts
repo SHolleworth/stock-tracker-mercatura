@@ -1,27 +1,35 @@
 import { useState, useEffect, Dispatch, SetStateAction } from "react"
 import { FLAGS, useRenderFlag } from "../../../contexts/RenderFlagContext"
 import { requestHistoricalPrices, requestIntradayPrices } from "../services"
-import { priceState, price } from '../types';
+import { priceState, price } from "../types"
 
 interface minMaxState {
 	min: number
 	max: number
 }
 
-const removeNulls = (prices : price[]): price[] => {
+const removeNulls = (prices: price[]): price[] => {
 	return prices.filter((price) => {
 		return price.average !== null
 	})
 }
 
-export const useHistoricalPrices = (symbol : string): [priceState, Dispatch<SetStateAction<priceState>>,  minMaxState] => {
-	const [prices, setPrices] = useState<priceState>({ status: "loading", body: [] })
+type HistoricalPrices = [
+	priceState,
+	Dispatch<SetStateAction<priceState>>,
+	minMaxState
+]
+
+export const useHistoricalPrices = (symbol: string): HistoricalPrices => {
+	const [prices, setPrices] = useState<priceState>({
+		status: "loading",
+		body: [],
+	})
 	const [minMax, setMinMax] = useState({
 		min: Number.POSITIVE_INFINITY,
 		max: Number.NEGATIVE_INFINITY,
 	})
 	const { renderFlag } = useRenderFlag()
-
 	useEffect(() => {
 		(async () => {
 			if (renderFlag === FLAGS.chart) {
@@ -75,7 +83,9 @@ export const useHistoricalPrices = (symbol : string): [priceState, Dispatch<SetS
 	return [prices, setPrices, minMax]
 }
 
-export const useIntradayPrices = (symbol : string) : [priceState, minMaxState] => {
+export const useIntradayPrices = (
+	symbol: string
+): [priceState, minMaxState] => {
 	const [prices, setPrices] = useState<priceState>({ status: "loading" })
 	const [minMax, setMinMax] = useState({
 		min: Number.POSITIVE_INFINITY,
@@ -87,7 +97,7 @@ export const useIntradayPrices = (symbol : string) : [priceState, minMaxState] =
 		(async () => {
 			if (renderFlag === FLAGS.chart) {
 				try {
-					const prices  = (await requestIntradayPrices(symbol)) as []
+					const prices = (await requestIntradayPrices(symbol)) as []
 
 					console.log("Intraday prices retrieved: ")
 					console.log(prices)
@@ -110,7 +120,7 @@ export const useIntradayPrices = (symbol : string) : [priceState, minMaxState] =
 	return [prices, minMax]
 }
 
-const findMinAndMax = (prices : price[]) => {
+const findMinAndMax = (prices: price[]) => {
 	const averages = prices.map((el) => el.average)
 	const min = Math.floor(Math.min(...averages))
 	const max = Math.floor(Math.max(...averages) + 1)

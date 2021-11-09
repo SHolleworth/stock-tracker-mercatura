@@ -6,10 +6,16 @@ import { useDrag } from "./hooks/useDrag"
 import { StaticYAxis } from "./components/CustomisedYAxis"
 import { HistoricalPriceChart } from "./components/HistoricalPriceChart"
 import { CurrentPriceChart } from "./components/CurrentPriceChart"
-import { Placeholder } from "./Placeholder/Placeholder"
+import { Placeholder } from "./Placeholders/Placeholder"
 import { useSymbol } from "../../contexts/SymbolContext"
 import STATUS from "../../utils/statusKeys"
 import { price } from "./types"
+
+const style: React.CSSProperties = {
+	fontFamily: "Roboto",
+	userSelect: "none",
+	fill: colours.keys,
+}
 
 const axisProps = {
 	tickSize: 12,
@@ -17,10 +23,10 @@ const axisProps = {
 	tickLine: { stroke: colours.coreSecondary3 },
 	stroke: colours.coreSecondary3,
 	strokeWidth: 0.5,
-	style: { fontFamily: "Roboto", userSelect: "none", fill: colours.keys },
+	style: style,
 }
 
-const ChartContainer = () => {
+const Chart = () => {
 	const [isLoading, setIsLoading] = useState(true)
 	const { symbol } = useSymbol()
 	const [historicPrices, setHistoricPrices, historicMinMax] =
@@ -96,7 +102,10 @@ const ChartContainer = () => {
 			content.push(
 				<StaticYAxis
 					key={0}
-					data={historicPrices.body || intradayPrices.body}
+					data={
+						(historicPrices.body as price[]) ||
+						(intradayPrices.body as price[])
+					}
 					min={min}
 					max={max}
 					axisProps={axisProps}
@@ -107,7 +116,7 @@ const ChartContainer = () => {
 					key={1}
 					daySize={daySize}
 					axisProps={axisProps}
-					data={historicPrices.body}
+					data={historicPrices.body as price[]}
 					interval={interval}
 					min={min}
 					max={max}
@@ -122,10 +131,10 @@ const ChartContainer = () => {
 						key={2}
 						daySize={daySize}
 						axisProps={axisProps}
-						previousDayData={filterOutPreviousDay(
-							historicPrices.body
-						)}
-						currentDayData={intradayPrices.body}
+						previousDayData={
+							filterOutPreviousDay(historicPrices.body) as price[]
+						}
+						currentDayData={intradayPrices.body as price[]}
 						interval={interval}
 						min={min}
 						max={max}
@@ -145,13 +154,14 @@ const ChartContainer = () => {
 			className="chart__container"
 			ref={chartContainerRef}
 			onMouseDown={startScroll}
+			data-testid="historic-chart"
 		>
 			{chartRenderer()}
 		</div>
 	)
 }
 
-const filterOutPreviousDay = (prices : price[]) => {
+const filterOutPreviousDay = (prices: price[]) => {
 	try {
 		const yesterday = prices[prices.length - 1].date
 		return prices.filter((price) => price.date === yesterday).slice(0, -1)
@@ -164,4 +174,4 @@ const filterOutPreviousDay = (prices : price[]) => {
 	}
 }
 
-export default ChartContainer
+export default Chart

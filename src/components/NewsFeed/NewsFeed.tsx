@@ -4,18 +4,21 @@ import { requestNews } from "./services"
 import convertMillisecondsToNewsFeedTime from "../../utils/convertMillisecondsToNewsFeedTime"
 import "./styles.css"
 import { useSymbol } from "../../contexts/SymbolContext"
-import Placeholder from "./Placeholder/Placeholder"
+import Placeholder from "./Placeholders/Placeholder"
 import { FLAGS, useRenderFlag } from "../../contexts/RenderFlagContext"
 import STATUS, { StatusStringType } from "../../utils/statusKeys"
 
 type Article = {
-	headline : string
+	headline: string
 	url: string
 	source: string
 }
 
 function NewsFeed() {
-	const [articles, setArticles] = useState<{status: StatusStringType, body: Article[]}>({
+	const [articles, setArticles] = useState<{
+		status: StatusStringType
+		body: Article[]
+	}>({
 		status: STATUS.LOADING,
 		body: [],
 	})
@@ -67,7 +70,9 @@ function NewsFeed() {
 		}
 		return (
 			<div className="newsfeed__background">
-				<h2 className="latest-news-text">Latest News</h2>
+				<div className="newsfeed__heading section-heading">
+					Latest News
+				</div>
 				{content}
 			</div>
 		)
@@ -77,21 +82,26 @@ function NewsFeed() {
 }
 
 type NewsProps = {
-	link : string;
-	content : string;
-	timeSincePublication : number;
-	source: string;
+	link: string
+	content: string
+	timeSincePublication: number
+	source: string
 }
 
-function NewsArticle ({ link, content, timeSincePublication, source } : NewsProps) {
+function NewsArticle({
+	link,
+	content,
+	timeSincePublication,
+	source,
+}: NewsProps) {
 	const timeString = convertMillisecondsToNewsFeedTime(timeSincePublication)
 
 	return (
 		<div className="article">
 			<a href={link}>
-				<h3 className="article__content">{content}</h3>
+				<div className="article__content headlines">{content}</div>
 			</a>
-			<p className="article__time-source">{`${timeString} - ${source}`}</p>
+			<div className="article__time-source">{`${timeString} - ${source}`}</div>
 		</div>
 	)
 }

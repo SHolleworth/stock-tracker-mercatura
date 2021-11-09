@@ -28,7 +28,7 @@ const RenderFlagContextProvider : React.FC = ({ children }) => {
 export default RenderFlagContextProvider
 
 export const FLAGS = {
-	chart: 0,
+	chart: 2,
 	summary: 1,
 	livePrice: 2,
 	newsFeed: 3,

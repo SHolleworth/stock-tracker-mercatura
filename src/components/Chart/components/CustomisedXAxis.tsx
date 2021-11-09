@@ -7,18 +7,23 @@ import { axisPropsType } from "../types"
 interface CustomisedXAxisPropsType {
 	axisProps: axisPropsType
 	interval: number
-} 
+}
 
 interface XAxisTickPropsType {
-	x : number
-	y : number	
+	x: number
+	y: number
 	payload: {
 		value: string
 	}
 	style?: React.CSSProperties
 }
 
-const CustomisedXAxisTick = ({ x, y, payload, style }: XAxisTickPropsType) => {
+export const CustomisedXAxisTick = ({
+	x,
+	y,
+	payload,
+	style,
+}: XAxisTickPropsType) => {
 	let time = convert24HourTo12Hour(payload.value)
 	if (time === "4:00 PM") {
 		time = ""
@@ -38,21 +43,21 @@ const CustomisedXAxisTick = ({ x, y, payload, style }: XAxisTickPropsType) => {
 	)
 }
 
-function CustomisedXAxis({ axisProps, interval } : CustomisedXAxisPropsType) {
-	const { tickSize, tickMargin, tickLine, stroke, style } =
-		axisProps
+function CustomisedXAxis({ axisProps, interval }: CustomisedXAxisPropsType) {
+	const { tickSize, tickMargin, tickLine, stroke, style } = axisProps
 
 	return (
 		<XAxis
 			type="category"
 			dataKey="minute"
-			tick={({x, y, payload} : XAxisTickPropsType) => (
-				<CustomisedXAxisTick 
+			tick={({ x, y, payload }: XAxisTickPropsType) => (
+				<CustomisedXAxisTick
 					x={x}
 					y={y}
-					payload={payload} 
-					style={{...style}}
-				/>)}
+					payload={payload}
+					style={{ ...style }}
+				/>
+			)}
 			axisLine={false}
 			interval={interval - 1}
 			tickSize={tickSize}

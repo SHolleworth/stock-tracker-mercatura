@@ -2,20 +2,21 @@ import React, { useState, useEffect } from "react"
 import KeyStatisticsTable from "./KeyStatistics"
 import { getKeyStatistics } from "./services"
 import { useSymbol } from "../../contexts/SymbolContext"
-import Placeholder from "./Placeholder/Placeholder"
+import Placeholder from "./Placeholders/Placeholder"
 import { FLAGS, useRenderFlag } from "../../contexts/RenderFlagContext"
 import STATUS from "../../utils/statusKeys"
 import { StatusStringType } from "../../utils/statusKeys"
-import { KeyStatistics } from "./stats"
+import { KeyStatistics } from "./stats.d"
 
 interface StatisticsState {
-	status: StatusStringType;
+	status: StatusStringType
 	body?: KeyStatistics
 }
 
-
 const Stats = () => {
-	const [statistics, setStatistics] = useState<StatisticsState>({	status: STATUS.LOADING })
+	const [statistics, setStatistics] = useState<StatisticsState>({
+		status: STATUS.LOADING,
+	})
 	const { symbol } = useSymbol()
 	const { renderFlag } = useRenderFlag()
 
@@ -45,7 +46,9 @@ const Stats = () => {
 			content = <Placeholder />
 		} else if (statistics.status === STATUS.RESOLVED) {
 			// is this really neccesary?
-			content = statistics.body ? <KeyStatisticsTable stats={statistics.body} /> : null;
+			content = statistics.body ? (
+				<KeyStatisticsTable stats={statistics.body} />
+			) : null
 		} else {
 			throw Error(
 				`Unrecognised state status in stats component: ` +
@@ -54,7 +57,7 @@ const Stats = () => {
 		}
 		return (
 			<div className="stats">
-				<h2 className="stats__title">Key Statistics</h2>
+				<h2 className="stats__title section-heading">Key Statistics</h2>
 				{content}
 			</div>
 		)

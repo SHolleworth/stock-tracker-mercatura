@@ -1,5 +1,5 @@
 import React from "react"
-import { usePlaceholderAnimation } from "../../hooks/usePlaceholderAnimation"
+import { usePlaceholderAnimation } from "../../../hooks/usePlaceholderAnimation"
 
 function Placeholder() {
 	const opacity = usePlaceholderAnimation()

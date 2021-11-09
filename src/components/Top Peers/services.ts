@@ -2,15 +2,15 @@
 
 import { checkResponseForError } from "../../utils/checkResponseForError"
 
-export async function getPeers(symbol : string) {
+export async function getPeers(symbol: string) {
 	// const PEERS_URL = `${BASE_URL}stock/${symbol}/relevant?token=${
 	//   import.meta.env.VITE_IEX_TOKEN
 	// }`
 	const response = await fetchMock(true)
-	return await checkResponseForError(response)
+	return await checkResponseForError(response as Response)
 }
 
-const fetchMock = (bool : boolean) => {
+const fetchMock = (bool: boolean) => {
 	const peers = ["QCOM", "MSI", "ERIC", "AMZN", "GOOGL", "MSFT", "DELL"]
 
 	const resolveJson = () => {

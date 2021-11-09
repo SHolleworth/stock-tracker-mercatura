@@ -1,58 +1,58 @@
 .company__summary {
 	display: flex;
 	flex-direction: column;
-	border-bottom: solid 1px #d8d9d9;
-	padding-bottom: 20px;
-	margin-bottom: 20px;
+	border-bottom: solid 1px var(--ui-element);
+	padding: var(--padding);
+	padding-top: calc(var(--padding) * 3);
+	padding-bottom: calc(var(--padding) * 2);
 }
 
-.company__summary h2 {
-	padding: 0 10px;
+.company-summary__heading {
+	padding-bottom: calc(var(--padding) * 2);
 }
 
 .company__name {
 	font-family: "Roboto", sans-serif;
-	color: #4d4d4d;
+	color: var(--medium-text);
 	font-weight: 500;
-	margin-bottom: 8px;
-	padding: 0 10px;
+	padding-bottom: var(--padding);
 }
 
 .company__website {
 	font-family: "Roboto", sans-serif;
-	color: #aaabd1;
+	color: var(--accent-primary);
 	font-style: italic;
-	margin-bottom: 8px;
+	padding-bottom: var(--padding);
 	font-size: 13px;
-	padding: 0 10px;
 }
 
 .company__description {
-	color: #4d4d4d;
+	color: var(--medium-text);
 	font-family: "Roboto", sans-serif;
 	line-height: 1.67;
 	letter-spacing: 0.09px;
-	padding: 0 10px;
 	font-size: 14px;
 }
 
 .summary-placeholder {
-	padding: 10px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
 }
 
 .summary-placeholder__title {
 	height: 30px;
 	width: 40%;
-	background-color: #d8d9d9;
-	margin-bottom: 20px;
+	background-color: var(--ui-element);
+	margin-bottom: calc(var(--padding) * 2);
 	border-radius: 15px;
 }
 
 .summary-placeholder__content {
 	height: 10px;
 	width: 100%;
-	background-color: #d8d9d9;
-	margin-bottom: 15px;
+	background-color: var(--ui-element);
+	margin-bottom: calc(var(--padding) * 2);
 	border-radius: 5px;
 }
 
