@@ -19,7 +19,7 @@ const useLivePrice = (symbol: string) => {
 	const { renderFlag } = useRenderFlag()
 
 	useEffect(() => {
-		if (renderFlag > FLAGS.livePrice) {
+		if (renderFlag === FLAGS.livePrice) {
 			const sse = new EventSource(CURL_URL)
 
 			sse.onopen = () => {
