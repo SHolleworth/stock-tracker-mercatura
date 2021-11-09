@@ -4,6 +4,7 @@ import "./styles.css"
 import { useSymbol } from "../../contexts/SymbolContext"
 import { requestCompanyInfo } from "../CompanySummary/services"
 
+<<<<<<< HEAD
 type Props = {
 	focused: boolean
 	setFocused: React.Dispatch<SetStateAction<boolean>>
@@ -11,6 +12,14 @@ type Props = {
 }
 
 const SearchBar: React.FC<Props> = ({ focused, setFocused, onFocus }) => {
+=======
+interface Props {
+	focused: boolean
+	onFocus: () => void
+}
+
+const SearchBar: React.FC<Props> = ({ focused, onFocus }) => {
+>>>>>>> feat: added first loading screen
 	const [value, setValue] = useState("")
 	const { symbol } = useSymbol()
 
