@@ -1,4 +1,4 @@
-import { checkResponseForError } from "../../utils/checkResponseForError"
+import { fetchhAndCheckResponseForError } from "../../utils/fetchAndCheckResponseForError"
 import { base } from "../../utils/baseUrl"
 
 export const requestCompanyInfo = async (company: string) => {
@@ -6,6 +6,5 @@ export const requestCompanyInfo = async (company: string) => {
 		import.meta.env.VITE_IEX_TOKEN
 	}`
 	// throw Error()
-	const response = await fetch(COMPANYINFO_URL)
-	return await checkResponseForError(response)
+	return await fetchhAndCheckResponseForError(COMPANYINFO_URL)
 }

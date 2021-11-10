@@ -3,36 +3,30 @@ import "./styles.css"
 import { getPeers } from "./services"
 import { useSymbol } from "../../contexts/SymbolContext"
 import Placeholder from "./Placeholders/Placeholder"
-import { FLAGS, useRenderFlag } from "../../contexts/RenderFlagContext"
 import STATUS from "../../utils/statusKeys"
 
 type PeersType = {
 	status: "loading" | "error" | "resolved"
-	body: []
+	body?: string[]
 }
 
 const TopPeers = () => {
 	const [peers, setPeers] = useState<PeersType>({
 		status: STATUS.LOADING,
-		body: [],
 	})
 	const { symbol, setSymbol } = useSymbol()
-	const { renderFlag } = useRenderFlag()
 
 	useEffect(() => {
-		if (renderFlag === FLAGS.topPeers) {
-			getPeers(symbol)
-				.then((peerData) => {
-					setPeers({ status: STATUS.RESOLVED, body: peerData })
-				})
-				.catch((error) => {
-					console.error("Error retrieving top peers data: " + error)
-					setPeers({ status: STATUS.ERROR, body: [] })
-				})
-		} else if (renderFlag === -1) {
-			setPeers({ status: STATUS.LOADING, body: [] })
-		}
-	}, [symbol, renderFlag])
+		setPeers({ status: STATUS.LOADING })
+		getPeers(symbol)
+			.then((peerData) => {
+				setPeers({ status: STATUS.RESOLVED, body: peerData })
+			})
+			.catch((error) => {
+				console.error("Error retrieving top peers data: " + error)
+				setPeers({ status: STATUS.ERROR })
+			})
+	}, [symbol])
 
 	const peersRenderer = () => {
 		let content = null
@@ -43,15 +37,17 @@ const TopPeers = () => {
 		} else if (peers.status === STATUS.RESOLVED) {
 			content = (
 				<div className="peers__buttons">
-					{peers.body.map((symbol) => (
-						<button
-							className="peer"
-							key={symbol}
-							onClick={() => setSymbol(symbol)}
-						>
-							{symbol}
-						</button>
-					))}
+					{peers.body
+						? peers.body.map((symbol) => (
+								<button
+									className="peer"
+									key={symbol}
+									onClick={() => setSymbol(symbol)}
+								>
+									{symbol}
+								</button>
+						  ))
+						: null}
 				</div>
 			)
 		} else {

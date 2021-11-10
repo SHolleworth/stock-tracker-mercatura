@@ -1,8 +1,7 @@
 import React from "react"
 import Chart from "./Chart"
 import { requestHistoricalPrices, requestIntradayPrices } from "./services"
-import { screen, render } from "@testing-library/react"
-import statusKeys from "../../utils/statusKeys"
+import { componentTest } from "../componentTest"
 
 jest.mock("./services")
 
@@ -12,24 +11,6 @@ const mockHistoricalPrices = requestHistoricalPrices as jest.MockedFunction<
 const mockIntradayPrices = requestIntradayPrices as jest.MockedFunction<
 	typeof requestIntradayPrices
 >
-
-it("should show placeholder while loading", () => {
-	mockHistoricalPrices.mockImplementation(async () => {
-		await new Promise(() => {})
-	})
-	mockIntradayPrices.mockImplementation(async () => {
-		await new Promise(() => {})
-	})
-	render(<Chart />)
-	return expect(screen.getByTestId("chart-placeholder")).toBeVisible()
-})
-
-it("should show placeholder after an error", () => {
-	mockHistoricalPrices.mockRejectedValue("Historical test error")
-	mockIntradayPrices.mockRejectedValue("Intraday test error")
-	render(<Chart />)
-	return expect(screen.getByTestId("chart-placeholder")).toBeVisible()
-})
 
 const mockData = [
 	{ average: 100, date: "date", minute: "09:30" },
@@ -46,18 +27,18 @@ const mockData = [
 	{ average: 100, date: "date", minute: "11:10" },
 ]
 
-it("should show the chart when data is present", async () => {
-	mockHistoricalPrices.mockResolvedValue([
-		{ status: statusKeys.RESOLVED, body: mockData },
-		() => {
-			return
-		},
-		{ min: 0, max: 20 },
-	])
-	mockIntradayPrices.mockResolvedValue([
-		{ status: statusKeys.LOADING },
-		{ min: 0, max: 20 },
-	])
-	render(<Chart />)
-	return expect(screen.getByTestId("historic-chart")).toBeVisible()
+componentTest({
+	component: <Chart />,
+	mockFunctions: [mockHistoricalPrices, mockIntradayPrices],
+	rejectedValues: [
+		"Test error historical prices",
+		"Test error intraday prices",
+	],
+	resolvedValues: [mockData, mockData],
+	testids: {
+		loading: "chart-placeholder",
+		error: "chart-placeholder",
+		resolved: "historic-chart",
+	},
+	matches: [],
 })

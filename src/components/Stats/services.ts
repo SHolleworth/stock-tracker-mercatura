@@ -1,4 +1,4 @@
-import { checkResponseForError } from "../../utils/checkResponseForError"
+import { fetchhAndCheckResponseForError } from "../../utils/fetchAndCheckResponseForError"
 import { base } from "../../utils/baseUrl"
 
 export async function getKeyStatistics(symbol: string) {
@@ -6,14 +6,12 @@ export async function getKeyStatistics(symbol: string) {
 		import.meta.env.VITE_IEX_TOKEN
 	}`
 
-	const FUNDAMENTALS_URL = `${base}time-series/FUNDAMENTAL_VALUATIONS/${symbol}?token=${
+	const FUNDAMENTALS_URL = `${base}stock/${symbol}/stats?token=${
 		import.meta.env.VITE_IEX_TOKEN
 	}`
-	const quoteResponse = await fetch(QUOTE_URL)
-	const fundamentalsResponse = await fetch(FUNDAMENTALS_URL)
 
-	const quote = await checkResponseForError(quoteResponse)
-	const fundamentals = await checkResponseForError(fundamentalsResponse)
+	const quote = await fetchhAndCheckResponseForError(QUOTE_URL)
+	const fundamentals = await fetchhAndCheckResponseForError(FUNDAMENTALS_URL)
 
 	return { ...quote, ...fundamentals[0] }
 }

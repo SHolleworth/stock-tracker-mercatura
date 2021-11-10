@@ -5,46 +5,36 @@ import convertMillisecondsToNewsFeedTime from "../../utils/convertMillisecondsTo
 import "./styles.css"
 import { useSymbol } from "../../contexts/SymbolContext"
 import Placeholder from "./Placeholders/Placeholder"
-import { FLAGS, useRenderFlag } from "../../contexts/RenderFlagContext"
 import STATUS, { StatusStringType } from "../../utils/statusKeys"
 
 type Article = {
 	headline: string
 	url: string
 	source: string
+	timeSincePublication: number
 }
 
 function NewsFeed() {
 	const [articles, setArticles] = useState<{
 		status: StatusStringType
-		body: Article[]
+		body?: Article[]
 	}>({
 		status: STATUS.LOADING,
-		body: [],
 	})
 	const { symbol } = useSymbol()
-	const { renderFlag } = useRenderFlag()
 
 	useEffect(() => {
-		if (renderFlag === FLAGS.newsFeed) {
-			requestNews(symbol)
-				.then((news) => {
-					setArticles({ status: STATUS.RESOLVED, body: news })
-				})
-				.catch((error) => {
-					console.error("Error requesting news data: " + error)
-					setArticles({ status: STATUS.ERROR, body: [] })
-				})
-		} else if (renderFlag === -1) {
-			setArticles({ status: STATUS.LOADING, body: [] })
-		}
-	}, [symbol, renderFlag])
-
-	const dates = [
-		Date.now() - 100000,
-		Date.now() - 3.6e6 * 2,
-		Date.now() - 8.64e7,
-	]
+		setArticles({ status: STATUS.LOADING })
+		requestNews(symbol)
+			.then((news) => {
+				console.log("HERE")
+				setArticles({ status: STATUS.RESOLVED, body: news })
+			})
+			.catch((error) => {
+				console.error("Error requesting news data: " + error)
+				setArticles({ status: STATUS.ERROR })
+			})
+	}, [symbol])
 
 	const newsRenderer = () => {
 		let content = null
@@ -53,15 +43,17 @@ function NewsFeed() {
 		} else if (articles.status === STATUS.ERROR) {
 			content = <Placeholder />
 		} else if (articles.status === STATUS.RESOLVED) {
-			content = articles.body.map((article, index) => (
-				<NewsArticle
-					key={article.headline}
-					link={article.url}
-					content={article.headline}
-					timeSincePublication={dates[index]}
-					source={article.source}
-				/>
-			))
+			content = articles.body
+				? articles.body.map((article, index) => (
+						<NewsArticle
+							key={article.headline}
+							link={article.url}
+							content={article.headline}
+							timeSincePublication={article.timeSincePublication}
+							source={article.source}
+						/>
+				  ))
+				: null
 		} else {
 			throw Error(
 				"Unrecognised state status in news feed component: " +

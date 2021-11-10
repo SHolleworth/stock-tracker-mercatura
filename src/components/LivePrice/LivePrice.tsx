@@ -10,7 +10,7 @@ import { Price } from "./types"
 
 const LivePrice = ({ searchFocused }: { searchFocused: boolean }) => {
 	const { symbol } = useSymbol()
-	const price = useLivePrice(symbol)
+	const price = useLivePrice(symbol, 1)
 
 	const livePriceRenderer = () => {
 		if (price.status === STATUS.LOADING) {
