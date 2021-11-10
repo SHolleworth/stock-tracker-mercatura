@@ -32,7 +32,6 @@ body {
 .App {
 	height: 100vh;
 	display: flex;
-	/* justify-content: space-between; */
 }
 
 .logo-section {
@@ -44,6 +43,7 @@ body {
 	justify-content: center;
 	padding-top: calc(var(--padding) * 3);
 	height: 100%;
+	transition: align-items 1s ease-in-out;
 }
 
 .main-section {
@@ -69,4 +69,32 @@ body {
 
 ::-webkit-scrollbar {
 	width: 8px;
+}
+
+@keyframes animation-to-stretch {
+	from {
+		align-self: center;
+	}
+
+	to {
+		align-self: stretch;
+	}
+}
+
+@keyframes animation-to-center {
+	from {
+		align-self: stretch;
+	}
+
+	to {
+		align-self: center;
+	}
+}
+
+.logo-center {
+	align-self: center;
+}
+
+.logo-stretch {
+	animation: animation-to-stretch 2 ease-in-out;
 }

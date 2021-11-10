@@ -14,6 +14,7 @@ const SplashScreen: React.FC<FocusProps> = ({ focused, setFocused }) => {
 	const [progress, setProgress] = useState(0)
 
 	useEffect(() => {
+		localStorage.clear()
 		if (progress < 100) {
 			const progressIntervalId = setInterval(() => {
 				setProgress((prev) => prev + 1)
@@ -31,7 +32,7 @@ const SplashScreen: React.FC<FocusProps> = ({ focused, setFocused }) => {
 				</div>
 			) : (
 				<>
-					<LogoColumn setFocused={setFocused} alignment={"center"} />
+					<LogoColumn setFocused={setFocused} alignment="center" />
 					<div className="searchbar__container">
 						<div className="grayborder" style={{ width: "100%" }}>
 							<SearchBar

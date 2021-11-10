@@ -15,9 +15,8 @@ const LogoColumn: React.FC<LogoColumnPropsType> = ({
 			<img
 				src={logo}
 				height={120}
-				className={"logo"}
+				className={`logo logo-${alignment}`}
 				alt={"Reactive Analystics Logo"}
-				style={{ alignSelf: alignment }}
 			/>
 		</div>
 	)

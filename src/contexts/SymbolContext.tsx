@@ -14,8 +14,12 @@ export const useSymbol = () => {
 	return useContext(SymbolContext)
 }
 
+const getSymbol = () => {
+	return localStorage.getItem("currentSymbol") ?? ""
+}
+
 const SymbolContextProvider: React.FC = ({ children }) => {
-	const [symbol, setSymbol] = useState("")
+	const [symbol, setSymbol] = useState(getSymbol)
 
 	return (
 		<SymbolContext.Provider value={{ symbol, setSymbol }}>
