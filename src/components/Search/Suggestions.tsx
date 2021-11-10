@@ -10,6 +10,7 @@ const Suggestions: React.FC<{ value: string }> = ({ value }) => {
 	const suggestions = useSearch(value)
 
 	const symbolSetter = (symbol: string) => {
+		console.log(symbol)
 		setSymbol(symbol)
 		localStorage.setItem("currentSymbol", symbol)
 		history.push("/stock")

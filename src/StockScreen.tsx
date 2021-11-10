@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react"
+import React, { useEffect } from "react"
 import Stats from "./components/Stats"
 import Chart from "./components/Chart"
 import "./App.css"
@@ -12,7 +12,6 @@ import { useHistory } from "react-router-dom"
 import { useSymbol } from "./contexts/SymbolContext"
 
 const StockScreen = () => {
-	const [focused, setFocused] = useState(false)
 	const { symbol } = useSymbol()
 	const history = useHistory()
 
@@ -24,9 +23,9 @@ const StockScreen = () => {
 
 	return (
 		<>
-			<LogoColumn alignment="stretch" setFocused={setFocused} />
+			<LogoColumn alignment="stretch" />
 			<div className="main-section">
-				<StockHeader focused={focused} setFocused={setFocused} />
+				<StockHeader />
 				<Chart />
 				<Stats />
 				<Indices />

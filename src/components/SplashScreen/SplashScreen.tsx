@@ -6,13 +6,9 @@ import SearchBar from "../Search/SearchBar"
 import LogoColumn from "../Logo/LogoColumn"
 import { useSymbol } from "../../contexts/SymbolContext"
 
-interface FocusProps {
-	focused: boolean
-	setFocused: (focused: boolean) => void
-}
-
-const SplashScreen: React.FC<FocusProps> = ({ focused, setFocused }) => {
+const SplashScreen = () => {
 	const [progress, setProgress] = useState(0)
+	const [focused, setFocused] = useState(false)
 	const { setSymbol } = useSymbol()
 
 	useEffect(() => {
@@ -35,7 +31,7 @@ const SplashScreen: React.FC<FocusProps> = ({ focused, setFocused }) => {
 				</div>
 			) : (
 				<>
-					<LogoColumn setFocused={setFocused} alignment="center" />
+					<LogoColumn alignment="center" />
 					<div className="searchbar__container">
 						<div className="grayborder" style={{ width: "100%" }}>
 							<SearchBar

@@ -71,26 +71,6 @@ body {
 	width: 8px;
 }
 
-@keyframes animation-to-stretch {
-	from {
-		align-self: center;
-	}
-
-	to {
-		align-self: stretch;
-	}
-}
-
-@keyframes animation-to-center {
-	from {
-		align-self: stretch;
-	}
-
-	to {
-		align-self: center;
-	}
-}
-
 .logo-center {
 	align-self: center;
 }

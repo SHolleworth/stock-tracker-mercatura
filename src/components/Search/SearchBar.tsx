@@ -45,12 +45,6 @@ const SearchBar: React.FC<Props> = ({ focused, setFocused }) => {
 				</div>
 				{focused ? <Suggestions value={value} /> : null}
 			</div>
-			{focused ? (
-				<div
-					className="clickableArea"
-					onClick={() => setFocused(false)}
-				/>
-			) : null}
 		</>
 	)
 }
