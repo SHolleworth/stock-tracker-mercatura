@@ -32,11 +32,10 @@ body {
 .App {
 	height: 100vh;
 	display: flex;
-	justify-content: space-between;
+	/* justify-content: space-between; */
 }
 
 .logo-section {
-	align-self: stretch;
 	max-width: 200px;
 	min-width: 150px;
 	flex: 1;
@@ -44,6 +43,7 @@ body {
 	display: flex;
 	justify-content: center;
 	padding-top: calc(var(--padding) * 3);
+	height: 100%;
 }
 
 .main-section {

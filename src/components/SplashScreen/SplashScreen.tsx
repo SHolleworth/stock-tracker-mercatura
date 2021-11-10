@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react"
 // import { CSSTransition } from 'react-transition-group';
 import "./styles.css"
-import logo from "../../assets/ra-logo.svg"
 import ProgressBar from "./ProgressBar"
 import SearchBar from "../Search/SearchBar"
+import LogoColumn from "../Logo/LogoColumn"
 
 interface FocusProps {
 	focused: boolean
@@ -24,14 +24,25 @@ const SplashScreen: React.FC<FocusProps> = ({ focused, setFocused }) => {
 	}, [progress])
 
 	return (
-		<div className="splashscreen">
-			<img src={logo} height="120" alt="Reactive Analytics Logo" />
+		<>
 			{progress < 100 ? (
-				<ProgressBar completed={progress} />
+				<div className="splashscreen">
+					<ProgressBar completed={progress} />
+				</div>
 			) : (
-				<SearchBar focused={focused} onFocus={() => setFocused(true)} />
+				<>
+					<LogoColumn setFocused={setFocused} alignment={"center"} />
+					<div className="searchbar__container">
+						<div className="grayborder" style={{ width: "100%" }}>
+							<SearchBar
+								focused={focused}
+								onFocus={() => setFocused(true)}
+							/>
+						</div>
+					</div>
+				</>
 			)}
-		</div>
+		</>
 	)
 }
 

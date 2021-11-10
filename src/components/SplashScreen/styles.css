@@ -23,10 +23,10 @@
 	transition: width 10ms ease-in-out;
 }
 
-.searchbaranimation-enter {
-	opacity: 0.1%;
-}
-
-.searchbaranimation-enter-active {
-	opacity: 100%;
+.searchbar__container {
+	width: 100%;
+	display: flex;
+	align-items: center;
+	padding: 0 35px;
+	margin-top: 50px;
 }

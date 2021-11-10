@@ -1,25 +1,15 @@
-import React, { SetStateAction, useEffect, useState } from "react"
+import React, { useEffect, useState } from "react"
 import Suggestions from "./Suggestions"
 import "./styles.css"
 import { useSymbol } from "../../contexts/SymbolContext"
 import { requestCompanyInfo } from "../CompanySummary/services"
 
-<<<<<<< HEAD
-type Props = {
-	focused: boolean
-	setFocused: React.Dispatch<SetStateAction<boolean>>
-	onFocus: () => void
-}
-
-const SearchBar: React.FC<Props> = ({ focused, setFocused, onFocus }) => {
-=======
 interface Props {
 	focused: boolean
-	onFocus: () => void
+	setFocused: (focused: boolean) => void
 }
 
-const SearchBar: React.FC<Props> = ({ focused, onFocus }) => {
->>>>>>> feat: added first loading screen
+const SearchBar: React.FC<Props> = ({ focused, setFocused }) => {
 	const [value, setValue] = useState("")
 	const { symbol } = useSymbol()
 
@@ -50,7 +40,7 @@ const SearchBar: React.FC<Props> = ({ focused, onFocus }) => {
 						placeholder="Enter a stock, symbol or currency"
 						autoComplete="off"
 						onChange={handleChange}
-						onFocus={onFocus}
+						onFocus={() => setFocused(true)}
 					/>
 				</div>
 				{focused ? <Suggestions value={value} /> : null}
