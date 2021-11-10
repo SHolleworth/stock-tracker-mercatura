@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react"
-import { FLAGS, useRenderFlag } from "../../../contexts/RenderFlagContext"
 import { requestLatestPrice } from "../services"
 import STATUS from "../../../utils/statusKeys"
 import { Price } from "../types"
@@ -11,50 +10,47 @@ type PriceState = {
 	body?: Price
 }
 
-const useLivePrice = (symbol: string) => {
+const useLivePrice = (symbol: string, updateInterval: 1 | 5) => {
 	const [price, setPrice] = useState<PriceState>({ status: STATUS.LOADING })
-	const CURL_URL = `${base}stocksUS?symbols=${symbol}&token=${
+	const CURL_URL = `${base}stocksUS${updateInterval}Second?symbols=${symbol}&token=${
 		import.meta.env.VITE_IEX_TOKEN
 	}`
-	const { renderFlag } = useRenderFlag()
 
 	useEffect(() => {
-		if (renderFlag === FLAGS.livePrice) {
-			const sse = new EventSource(CURL_URL)
+		setPrice({ status: STATUS.LOADING })
 
-			sse.onopen = () => {
-				console.log("SSE connection established")
-			}
+		const sse = new EventSource(CURL_URL)
 
-			sse.onmessage = (e) => {
-				const data = JSON.parse(e.data)
-				if (data.length !== 0) {
-					setPrice({
-						status: STATUS.RESOLVED,
-						body: JSON.parse(e.data)[0],
-					})
-				} else {
-					console.log("Just got an empty message")
-				}
-			}
-
-			sse.onerror = async (error) => {
-				console.log(error)
-				sse.close()
-				try {
-					const latestPrice = await requestLatestPrice(symbol)
-					setPrice({ status: STATUS.RESOLVED, body: latestPrice })
-				} catch (error) {
-					console.error(error)
-					setPrice({ status: STATUS.ERROR })
-				}
-			}
-
-			return () => sse.close()
-		} else if (renderFlag === -1) {
-			setPrice({ status: STATUS.LOADING })
+		sse.onopen = () => {
+			console.log("SSE connection established")
 		}
-	}, [CURL_URL, symbol, renderFlag])
+
+		sse.onmessage = (e) => {
+			const data = JSON.parse(e.data)
+			if (data.length !== 0) {
+				setPrice({
+					status: STATUS.RESOLVED,
+					body: JSON.parse(e.data)[0],
+				})
+			} else {
+				console.log("Just got an empty message")
+			}
+		}
+
+		sse.onerror = async (error) => {
+			console.log(error)
+			sse.close()
+			try {
+				const latestPrice = await requestLatestPrice(symbol)
+				setPrice({ status: STATUS.RESOLVED, body: latestPrice })
+			} catch (error) {
+				console.error(error)
+				setPrice({ status: STATUS.ERROR })
+			}
+		}
+
+		return () => sse.close()
+	}, [CURL_URL, symbol])
 
 	return price
 }

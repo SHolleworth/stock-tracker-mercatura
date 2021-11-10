@@ -1,16 +1,11 @@
-import { checkResponseForError } from "../../utils/checkResponseForError"
+import { fetchhAndCheckResponseForError } from "../../utils/fetchAndCheckResponseForError"
 import { base } from "../../utils/baseUrl"
 
 export const getSuggestions = async (value: string) => {
 	const SEARCH_URL = `${base}search/${value}?token=${
 		import.meta.env.VITE_IEX_TOKEN
 	}`
-	try {
-		const response = await fetch(SEARCH_URL)
-		return await checkResponseForError(response)
-	} catch (error) {
-		console.log(error)
-	}
+	return await fetchhAndCheckResponseForError(SEARCH_URL)
 }
 
 // const url = "https://cloud.iexapis.com/stable/ref-data/symbols?token=pk_74a58d88b01646379d9096c2ae0713e4"

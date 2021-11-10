@@ -5,7 +5,7 @@ function Placeholder() {
 	const opacity = usePlaceholderAnimation()
 
 	return (
-		<div style={{ opacity: opacity }}>
+		<div style={{ opacity: opacity }} data-testid="news-placeholder">
 			<div className="news__placeholder">
 				<div className="news__placeholder__title"></div>
 				<div className="news__placeholder__title news__placeholder__title--short"></div>

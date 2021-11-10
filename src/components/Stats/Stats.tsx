@@ -3,7 +3,6 @@ import KeyStatisticsTable from "./KeyStatistics"
 import { getKeyStatistics } from "./services"
 import { useSymbol } from "../../contexts/SymbolContext"
 import Placeholder from "./Placeholders/Placeholder"
-import { FLAGS, useRenderFlag } from "../../contexts/RenderFlagContext"
 import STATUS from "../../utils/statusKeys"
 import { StatusStringType } from "../../utils/statusKeys"
 import { KeyStatistics } from "./stats.d"
@@ -18,7 +17,6 @@ const Stats = () => {
 		status: STATUS.LOADING,
 	})
 	const { symbol } = useSymbol()
-	const { renderFlag } = useRenderFlag()
 
 	const requestData = async () => {
 		try {
@@ -31,12 +29,9 @@ const Stats = () => {
 	}
 
 	useEffect(() => {
-		if (renderFlag === FLAGS.stats) {
-			requestData()
-		} else if (renderFlag === -1) {
-			setStatistics({ status: STATUS.LOADING })
-		}
-	}, [symbol, renderFlag])
+		setStatistics({ status: STATUS.LOADING })
+		requestData()
+	}, [symbol])
 
 	const statsRenderer = () => {
 		let content = null

@@ -20,8 +20,8 @@ interface IndexPropsType {
 	className: string
 }
 
-const Index = ({ symbol, className }: IndexPropsType) => {
-	const price = useLivePrice(symbol)
+export const Index = ({ symbol, className }: IndexPropsType) => {
+	const price = useLivePrice(symbol, 5)
 	let content
 
 	if (price.body) {

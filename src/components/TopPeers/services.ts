@@ -1,12 +1,13 @@
 // import { cloud as base } from '../../utils/baseUrl'
-import { checkResponseForError } from "../../utils/checkResponseForError"
+// import { fetchhAndCheckResponseForError } from "../../utils/fetchAndCheckResponseForError"
 
 export async function getPeers(symbol: string) {
 	// const PEERS_URL = `${base}stock/${symbol}/relevant?token=${
 	//   import.meta.env.VITE_IEX_TOKEN
 	// }`
 	const response = await fetchMock(true)
-	return await checkResponseForError(response as Response)
+	// return await fecthAndCheckResponseForError(response as Response)
+	return await response.json()
 }
 
 const fetchMock = (bool: boolean) => {

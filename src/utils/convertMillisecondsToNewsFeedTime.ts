@@ -9,23 +9,22 @@ export const millisecondTimes = {
 	year: 3.154e10,
 }
 
-const convertMillisecondsToNewsFeedTime = (milliseconds : number) => {
-	let timeString = "Error"
+const convertMillisecondsToNewsFeedTime = (milliseconds: number) => {
 	const millisecondsSincePost = Date.now() - milliseconds
 	const [yearsSincePost, yearsRemainder] = getQuotientAndRemainder(
 		millisecondsSincePost,
 		millisecondTimes.year
 	)
-	if (yearsSincePost > 0) timeString = "Over a year"
+	if (yearsSincePost > 0) return "Over a year ago"
 	const [monthsSincePost, monthsRemainder] = getQuotientAndRemainder(
 		yearsRemainder,
 		millisecondTimes.month
 	)
 	if (monthsSincePost > 0) {
 		if (monthsSincePost === 1) {
-			timeString = "1 month"
+			return "1 month ago"
 		} else {
-			timeString = `${monthsSincePost} months`
+			return `${monthsSincePost} months ago`
 		}
 	}
 	const [daysSincePost, daysRemainder] = getQuotientAndRemainder(
@@ -34,9 +33,9 @@ const convertMillisecondsToNewsFeedTime = (milliseconds : number) => {
 	)
 	if (daysSincePost > 0) {
 		if (daysSincePost === 1) {
-			timeString = "1 day"
+			return "1 day ago"
 		} else {
-			timeString = `${daysSincePost} days`
+			return `${daysSincePost} days ago`
 		}
 	}
 	const [hoursSincePost, hoursRemainder] = getQuotientAndRemainder(
@@ -45,9 +44,9 @@ const convertMillisecondsToNewsFeedTime = (milliseconds : number) => {
 	)
 	if (hoursSincePost > 0) {
 		if (hoursSincePost === 1) {
-			timeString = "1 hour"
+			return "1 hour ago"
 		} else {
-			timeString = `${hoursSincePost} hours`
+			return `${hoursSincePost} hours ago`
 		}
 	}
 	const [minutesSincePost, minutesRemainder] = getQuotientAndRemainder(
@@ -56,9 +55,9 @@ const convertMillisecondsToNewsFeedTime = (milliseconds : number) => {
 	)
 	if (minutesSincePost > 0) {
 		if (minutesSincePost === 1) {
-			timeString = "1 minute"
+			return "1 minute ago"
 		} else {
-			timeString = `${minutesSincePost} minutes`
+			return `${minutesSincePost} minutes ago`
 		}
 	}
 	const [secondsSincePost, millisecondsRemainder] = getQuotientAndRemainder(
@@ -67,16 +66,16 @@ const convertMillisecondsToNewsFeedTime = (milliseconds : number) => {
 	)
 	if (secondsSincePost > 0) {
 		if (secondsSincePost === 1) {
-			timeString = "1 second"
+			return "1 second ago"
 		} else {
-			timeString = `${secondsSincePost} seconds`
+			return `${secondsSincePost} seconds ago`
 		}
 	}
 	if (millisecondsRemainder > 0) {
 		return "Now"
 	}
 
-	return timeString + " ago"
+	return "Error"
 }
 
 export default convertMillisecondsToNewsFeedTime
