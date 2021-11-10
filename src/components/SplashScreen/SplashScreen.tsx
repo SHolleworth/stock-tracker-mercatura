@@ -4,6 +4,7 @@ import "./styles.css"
 import ProgressBar from "./ProgressBar"
 import SearchBar from "../Search/SearchBar"
 import LogoColumn from "../Logo/LogoColumn"
+import { useSymbol } from "../../contexts/SymbolContext"
 
 interface FocusProps {
 	focused: boolean
@@ -12,8 +13,10 @@ interface FocusProps {
 
 const SplashScreen: React.FC<FocusProps> = ({ focused, setFocused }) => {
 	const [progress, setProgress] = useState(0)
+	const { setSymbol } = useSymbol()
 
 	useEffect(() => {
+		setSymbol("")
 		localStorage.clear()
 		if (progress < 100) {
 			const progressIntervalId = setInterval(() => {
@@ -37,7 +40,7 @@ const SplashScreen: React.FC<FocusProps> = ({ focused, setFocused }) => {
 						<div className="grayborder" style={{ width: "100%" }}>
 							<SearchBar
 								focused={focused}
-								onFocus={() => setFocused(true)}
+								setFocused={() => setFocused(true)}
 							/>
 						</div>
 					</div>
