@@ -46,6 +46,10 @@ body {
 	transition: align-items 1s ease-in-out;
 }
 
+.logo-section:hover {
+	cursor: pointer;
+}
+
 .main-section {
 	flex: 1;
 	align-self: stretch;

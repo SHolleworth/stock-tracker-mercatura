@@ -3,15 +3,12 @@ import Suggestions from "./Suggestions"
 import "./styles.css"
 import { useSymbol } from "../../contexts/SymbolContext"
 import { requestCompanyInfo } from "../CompanySummary/services"
+import { useFocus } from "../../contexts/FocusContext"
 
-interface Props {
-	focused: boolean
-	setFocused: (focused: boolean) => void
-}
-
-const SearchBar: React.FC<Props> = ({ focused, setFocused }) => {
+const SearchBar = () => {
 	const [value, setValue] = useState("")
 	const { symbol } = useSymbol()
+	const { focused, setFocused } = useFocus()
 
 	const handleChange = ({ target }: React.ChangeEvent<HTMLInputElement>) => {
 		setValue(target.value)

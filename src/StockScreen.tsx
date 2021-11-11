@@ -10,10 +10,12 @@ import LogoColumn from "./components/Logo/LogoColumn"
 import TopPeers from "./components/TopPeers/TopPeers"
 import { useHistory } from "react-router-dom"
 import { useSymbol } from "./contexts/SymbolContext"
+import { useFocus } from "./contexts/FocusContext"
 
 const StockScreen = () => {
 	const { symbol } = useSymbol()
 	const history = useHistory()
+	const { setFocused } = useFocus()
 
 	useEffect(() => {
 		if (!symbol) {
@@ -26,11 +28,16 @@ const StockScreen = () => {
 			<LogoColumn alignment="stretch" />
 			<div className="main-section">
 				<StockHeader />
-				<Chart />
-				<Stats />
-				<Indices />
+				<div onClick={() => setFocused(false)}>
+					<Chart />
+					<Stats />
+					<Indices />
+				</div>
 			</div>
-			<div className="news-summary-section">
+			<div
+				className="news-summary-section"
+				onClick={() => setFocused(false)}
+			>
 				<NewsFeed />
 				<CompanySummary />
 				<TopPeers />

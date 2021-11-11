@@ -8,7 +8,6 @@ import { useSymbol } from "../../contexts/SymbolContext"
 
 const SplashScreen = () => {
 	const [progress, setProgress] = useState(0)
-	const [focused, setFocused] = useState(false)
 	const { setSymbol } = useSymbol()
 
 	useEffect(() => {
@@ -34,10 +33,7 @@ const SplashScreen = () => {
 					<LogoColumn alignment="center" />
 					<div className="searchbar__container">
 						<div className="grayborder" style={{ width: "100%" }}>
-							<SearchBar
-								focused={focused}
-								setFocused={() => setFocused(true)}
-							/>
+							<SearchBar />
 						</div>
 					</div>
 				</>

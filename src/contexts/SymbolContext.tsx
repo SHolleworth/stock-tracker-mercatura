@@ -1,6 +1,6 @@
 import React, { useState, createContext, useContext } from "react"
 
-type SymbolContextType = {
+interface SymbolContextType {
 	symbol: string
 	setSymbol: (symbol: string) => void
 }
