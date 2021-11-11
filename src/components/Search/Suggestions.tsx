@@ -1,13 +1,29 @@
-import React from "react"
+import React, { useEffect, useState } from "react"
 import { useSymbol } from "../../contexts/SymbolContext"
 import { useHistory } from "react-router-dom"
 import "./styles.css"
 import useSearch from "./hooks/useSearch"
+import useKeyPress from "./hooks/useKeyPress"
 
-const Suggestions: React.FC<{ value: string }> = ({ value }) => {
+interface SuggestionsProps {
+	value: string
+	setValue: (value: string) => void
+	setFocused: (focused: boolean) => void
+}
+
+const Suggestions: React.FC<SuggestionsProps> = ({
+	value,
+	setValue,
+	setFocused,
+}) => {
+	const [cursor, setCursor] = useState(0)
 	const { setSymbol } = useSymbol()
 	const history = useHistory()
 	const suggestions = useSearch(value)
+	const downPress = useKeyPress("ArrowDown")
+	const upPress = useKeyPress("ArrowUp")
+	const enterPress = useKeyPress("Enter")
+	const escapePress = useKeyPress("Escape")
 
 	const highlightSearch = (suggestion: string) => {
 		const expression = new RegExp(value, "i")
@@ -29,6 +45,39 @@ const Suggestions: React.FC<{ value: string }> = ({ value }) => {
 		history.push("/stock")
 	}
 
+	useEffect(() => {
+		if (suggestions.length && downPress) {
+			setCursor((prevState) =>
+				prevState < suggestions.length - 1 ? prevState + 1 : prevState
+			)
+		}
+	}, [downPress])
+
+	useEffect(() => {
+		if (suggestions.length && upPress) {
+			setCursor((prevState) =>
+				prevState > 0 ? prevState - 1 : prevState
+			)
+		}
+	}, [upPress])
+
+	useEffect(() => {
+		if (suggestions.length && enterPress) {
+			symbolSetter(suggestions[cursor].symbol)
+		}
+	}, [cursor, enterPress])
+
+	useEffect(() => {
+		if (escapePress) {
+			if (localStorage.getItem("currentSymbol")) {
+				history.push("/")
+			} else {
+				setValue("")
+				setFocused(false)
+			}
+		}
+	}, [escapePress])
+
 	return (
 		<div className="suggestions">
 			<ul className="suggestions__list">
@@ -39,7 +88,9 @@ const Suggestions: React.FC<{ value: string }> = ({ value }) => {
 					suggestions?.map((suggestion, i) => (
 						<li
 							key={i}
-							className="suggestions__stock"
+							className={`suggestions__stock ${
+								i === cursor ? "suggestions__stock__active" : ""
+							}`}
 							onClick={() => symbolSetter(suggestion.symbol)}
 						>
 							{highlightSearch(suggestion.symbol)} -{" "}

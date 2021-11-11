@@ -75,7 +75,8 @@
 	user-select: none;
 }
 
-.suggestions__stock:hover {
+.suggestions__stock:hover,
+.suggestions__stock__active {
 	background-color: var(--background-dark);
 	color: black;
 	border-radius: 28px;

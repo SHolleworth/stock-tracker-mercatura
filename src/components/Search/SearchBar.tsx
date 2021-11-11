@@ -41,7 +41,13 @@ const SearchBar = () => {
 						onFocus={() => setFocused(true)}
 					/>
 				</div>
-				{focused && value ? <Suggestions value={value} /> : null}
+				{focused && value ? (
+					<Suggestions
+						value={value}
+						setValue={setValue}
+						setFocused={setFocused}
+					/>
+				) : null}
 			</div>
 		</>
 	)
