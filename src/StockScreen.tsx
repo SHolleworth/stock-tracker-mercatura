@@ -28,11 +28,9 @@ const StockScreen = () => {
 			<LogoColumn alignment="stretch" />
 			<div className="main-section">
 				<StockHeader />
-				<div onClick={() => setFocused(false)}>
-					<Chart />
-					<Stats />
-					<Indices />
-				</div>
+				<Chart />
+				<Stats />
+				<Indices />
 			</div>
 			<div
 				className="news-summary-section"

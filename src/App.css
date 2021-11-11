@@ -42,11 +42,10 @@ body {
 	display: flex;
 	justify-content: center;
 	padding-top: calc(var(--padding) * 3);
-	height: 100%;
 	transition: align-items 1s ease-in-out;
 }
 
-.logo-section:hover {
+.logo:hover {
 	cursor: pointer;
 }
 

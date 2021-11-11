@@ -37,7 +37,10 @@ const KeyStatisticsTable: React.FC<KeyStatisticsProps> = ({
 					Low <span>{low ? addDollarSign(low) : "-"}</span>
 				</li>
 				<li>
-					Previous Close <span>{addDollarSign(previousClose)}</span>
+					Previous Close{" "}
+					<span>
+						{previousClose ? addDollarSign(previousClose) : "-"}
+					</span>
 				</li>
 			</ul>
 			<ul className="stats__list middle-section">
@@ -49,10 +52,15 @@ const KeyStatisticsTable: React.FC<KeyStatisticsProps> = ({
 				</li>
 				<li>
 					52 Week Range{" "}
-					<span>{addDollarSign(`${week52High} - ${week52Low}`)}</span>
+					<span>
+						{!week52High || !week52Low
+							? "-"
+							: addDollarSign(`${week52High} - ${week52Low}`)}
+					</span>
 				</li>
 				<li>
-					Market Cap <span>{abbreviateNumber(marketCap)}</span>
+					Market Cap{" "}
+					<span>{marketCap ? abbreviateNumber(marketCap) : "-"}</span>
 				</li>
 				<li>
 					P/E Ratio <span>{peRatio}</span>
@@ -61,14 +69,18 @@ const KeyStatisticsTable: React.FC<KeyStatisticsProps> = ({
 			<ul className="stats__list">
 				<li>
 					Dividend Yield{" "}
-					<span>{dividendYield?.toFixed(2) + "%"}</span>
+					<span>
+						{dividendYield ? dividendYield?.toFixed(2) + "%" : "-"}
+					</span>
 				</li>
 				<li>
 					Earnings Per Share{" "}
 					<span>
-						{addDollarSign(
-							incomeNetPerWabsoSplitAdjusted?.toFixed(2)
-						)}
+						{incomeNetPerWabsoSplitAdjusted
+							? addDollarSign(
+									incomeNetPerWabsoSplitAdjusted?.toFixed(2)
+							  )
+							: "-"}
 					</span>
 				</li>
 				<li>
@@ -76,7 +88,11 @@ const KeyStatisticsTable: React.FC<KeyStatisticsProps> = ({
 				</li>
 				<li>
 					Total Avg. Volume{" "}
-					<span>{abbreviateNumber(avgTotalVolume)}</span>
+					<span>
+						{avgTotalVolume
+							? abbreviateNumber(avgTotalVolume)
+							: "-"}
+					</span>
 				</li>
 			</ul>
 		</div>

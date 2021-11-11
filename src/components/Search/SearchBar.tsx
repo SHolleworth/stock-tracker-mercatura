@@ -15,6 +15,7 @@ const SearchBar = () => {
 	}
 
 	useEffect(() => {
+		setFocused(false)
 		requestCompanyInfo(symbol)
 			.then((info) => {
 				setValue(`${info.symbol} - ${info.companyName}`)
@@ -40,7 +41,13 @@ const SearchBar = () => {
 						onFocus={() => setFocused(true)}
 					/>
 				</div>
-				{focused ? <Suggestions value={value} /> : null}
+				{focused && value ? (
+					<Suggestions
+						value={value}
+						setValue={setValue}
+						setFocused={setFocused}
+					/>
+				) : null}
 			</div>
 		</>
 	)
