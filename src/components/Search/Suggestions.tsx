@@ -10,6 +10,9 @@ interface SuggestionsProps {
 	setValue: (value: string) => void
 	setFocused: (focused: boolean) => void
 }
+interface Suggestion {
+	[key: string]: string
+}
 
 const Suggestions: React.FC<SuggestionsProps> = ({
 	value,
@@ -17,6 +20,7 @@ const Suggestions: React.FC<SuggestionsProps> = ({
 	setFocused,
 }) => {
 	const [cursor, setCursor] = useState(0)
+	const [hovered, setHovered] = useState<Suggestion>()
 	const { setSymbol } = useSymbol()
 	const history = useHistory()
 	const suggestions = useSearch(value)
@@ -68,6 +72,12 @@ const Suggestions: React.FC<SuggestionsProps> = ({
 	}, [cursor, enterPress])
 
 	useEffect(() => {
+		if (suggestions.length && hovered) {
+			setCursor(suggestions.indexOf(hovered))
+		}
+	}, [hovered])
+
+	useEffect(() => {
 		if (escapePress) {
 			if (localStorage.getItem("currentSymbol")) {
 				history.push("/")
@@ -92,6 +102,8 @@ const Suggestions: React.FC<SuggestionsProps> = ({
 								i === cursor ? "suggestions__stock__active" : ""
 							}`}
 							onClick={() => symbolSetter(suggestion.symbol)}
+							onMouseEnter={() => setHovered(suggestion)}
+							onMouseLeave={() => setHovered(undefined)}
 						>
 							{highlightSearch(suggestion.symbol)} -{" "}
 							{highlightSearch(suggestion.name)}

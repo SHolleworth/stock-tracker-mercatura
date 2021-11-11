@@ -2,7 +2,7 @@ import { useState, useEffect } from "react"
 // import { getSuggestions } from "../services"
 import rawData from "../../../assets/symbolsAndNames"
 
-type Suggestion = {
+interface Suggestion {
 	[key: string]: string
 }
 
