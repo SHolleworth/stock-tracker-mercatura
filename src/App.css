@@ -32,11 +32,9 @@ body {
 .App {
 	height: 100vh;
 	display: flex;
-	justify-content: space-between;
 }
 
 .logo-section {
-	align-self: stretch;
 	max-width: 200px;
 	min-width: 150px;
 	flex: 1;
@@ -44,6 +42,12 @@ body {
 	display: flex;
 	justify-content: center;
 	padding-top: calc(var(--padding) * 3);
+	height: 100%;
+	transition: align-items 1s ease-in-out;
+}
+
+.logo-section:hover {
+	cursor: pointer;
 }
 
 .main-section {
@@ -69,4 +73,12 @@ body {
 
 ::-webkit-scrollbar {
 	width: 8px;
+}
+
+.logo-center {
+	align-self: center;
+}
+
+.logo-stretch {
+	animation: animation-to-stretch 2 ease-in-out;
 }

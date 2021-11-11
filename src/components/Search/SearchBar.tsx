@@ -1,18 +1,14 @@
-import React, { SetStateAction, useEffect, useState } from "react"
+import React, { useEffect, useState } from "react"
 import Suggestions from "./Suggestions"
 import "./styles.css"
 import { useSymbol } from "../../contexts/SymbolContext"
 import { requestCompanyInfo } from "../CompanySummary/services"
+import { useFocus } from "../../contexts/FocusContext"
 
-type Props = {
-	focused: boolean
-	setFocused: React.Dispatch<SetStateAction<boolean>>
-	onFocus: () => void
-}
-
-const SearchBar: React.FC<Props> = ({ focused, setFocused, onFocus }) => {
+const SearchBar = () => {
 	const [value, setValue] = useState("")
 	const { symbol } = useSymbol()
+	const { focused, setFocused } = useFocus()
 
 	const handleChange = ({ target }: React.ChangeEvent<HTMLInputElement>) => {
 		setValue(target.value)
@@ -41,17 +37,11 @@ const SearchBar: React.FC<Props> = ({ focused, setFocused, onFocus }) => {
 						placeholder="Enter a stock, symbol or currency"
 						autoComplete="off"
 						onChange={handleChange}
-						onFocus={onFocus}
+						onFocus={() => setFocused(true)}
 					/>
 				</div>
 				{focused ? <Suggestions value={value} /> : null}
 			</div>
-			{focused ? (
-				<div
-					className="clickableArea"
-					onClick={() => setFocused(false)}
-				/>
-			) : null}
 		</>
 	)
 }
