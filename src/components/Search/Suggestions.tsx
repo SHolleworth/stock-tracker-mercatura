@@ -33,18 +33,20 @@ const Suggestions: React.FC<{ value: string }> = ({ value }) => {
 		<div className="suggestions">
 			<ul className="suggestions__list">
 				<div className="suggestions__title">Stock</div>
-				{!suggestions
-					? "No results found"
-					: suggestions?.map((suggestion, i) => (
-							<li
-								key={i}
-								className="suggestions__stock"
-								onClick={() => symbolSetter(suggestion.symbol)}
-							>
-								{highlightSearch(suggestion.symbol)} -{" "}
-								{highlightSearch(suggestion.name)}
-							</li>
-					  ))}
+				{suggestions.length === 0 ? (
+					<li style={{ userSelect: "none" }}>No results found</li>
+				) : (
+					suggestions?.map((suggestion, i) => (
+						<li
+							key={i}
+							className="suggestions__stock"
+							onClick={() => symbolSetter(suggestion.symbol)}
+						>
+							{highlightSearch(suggestion.symbol)} -{" "}
+							{highlightSearch(suggestion.name)}
+						</li>
+					))
+				)}
 			</ul>
 		</div>
 	)
