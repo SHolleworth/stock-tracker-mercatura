@@ -63,7 +63,7 @@ const KeyStatisticsTable: React.FC<KeyStatisticsProps> = ({
 					<span>{marketCap ? abbreviateNumber(marketCap) : "-"}</span>
 				</li>
 				<li>
-					s P/E Ratio <span>{peRatio}</span>
+					P/E Ratio <span>{peRatio}</span>
 				</li>
 			</ul>
 			<ul className="stats__list">

@@ -6,7 +6,6 @@ const useKeyPress = (targetKey: string): boolean => {
 	function downHandler({ key }: { key: string }) {
 		if (key === targetKey) {
 			setKeyPressed(true)
-			console.log(key + " === " + targetKey)
 		}
 	}
 

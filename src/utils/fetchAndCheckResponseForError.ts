@@ -7,7 +7,7 @@ export const fetchhAndCheckResponseForError = (url: string): Promise<any> => {
 					return resolve(json)
 				})
 			} else if (response.status === 429) {
-				console.log("Testing recursion")
+				// console.log("Testing recursion")
 				fetchhAndCheckResponseForError(url).then((response) =>
 					resolve(response)
 				)

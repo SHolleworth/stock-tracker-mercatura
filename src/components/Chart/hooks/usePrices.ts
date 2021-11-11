@@ -34,8 +34,8 @@ export const useHistoricalPrices = (symbol: string): HistoricalPrices => {
 			try {
 				const prices = (await requestHistoricalPrices(symbol)) as []
 
-				console.log("Historic prices retrieved: ")
-				console.log(prices)
+				// console.log("Historic prices retrieved: ")
+				// console.log(prices)
 
 				const pricesWithoutNulls = removeNulls(prices)
 
@@ -95,8 +95,8 @@ export const useIntradayPrices = (
 			try {
 				const prices = (await requestIntradayPrices(symbol)) as []
 
-				console.log("Intraday prices retrieved: ")
-				console.log(prices)
+				// console.log("Intraday prices retrieved: ")
+				// console.log(prices)
 
 				const pricesWithoutNulls = removeNulls(prices)
 
