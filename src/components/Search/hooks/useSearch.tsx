@@ -13,20 +13,18 @@ const useSearch = (value: string) => {
 	const [companySymbolsAndNames, setCompanySymbolsAndNames] = useState<
 		[] | Suggestion[]
 	>([])
+
 	useEffect(() => {
 		const jsonSymbolsAndNames = JSON.parse(rawData) as Suggestion[]
 		setCompanySymbolsAndNames(jsonSymbolsAndNames)
 	}, [])
 
 	useEffect(() => {
-		if (value) {
-			searchJSON(value, companySymbolsAndNames).then((res) => {
-				setSuggestions(res)
-			})
-		}
-
+		searchJSON(value, companySymbolsAndNames).then((res) => {
+			setSuggestions(res)
+		})
 		return () => setSuggestions([])
-	}, [value])
+	}, [value, companySymbolsAndNames])
 
 	return suggestions ?? null
 }
@@ -72,7 +70,6 @@ const searchJSON = (
 		const suggestions = suggestionsWithWeight3
 			.concat(suggestionsWithWeight2, suggestionsWithWeight1)
 			.slice(0, 8)
-		console.log(suggestions)
 		return resolve(suggestions)
 	})
 }

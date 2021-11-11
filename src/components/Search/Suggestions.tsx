@@ -9,8 +9,21 @@ const Suggestions: React.FC<{ value: string }> = ({ value }) => {
 	const history = useHistory()
 	const suggestions = useSearch(value)
 
+	const highlightSearch = (suggestion: string) => {
+		const expression = new RegExp(value, "i")
+		const match = suggestion.match(expression)
+		const highlighted = match ? match.toString() : ""
+		const rest = suggestion.substring(highlighted.length)
+
+		return (
+			<span>
+				<strong>{highlighted}</strong>
+				{rest}
+			</span>
+		)
+	}
+
 	const symbolSetter = (symbol: string) => {
-		console.log(symbol)
 		setSymbol(symbol)
 		localStorage.setItem("currentSymbol", symbol)
 		history.push("/stock")
@@ -20,15 +33,18 @@ const Suggestions: React.FC<{ value: string }> = ({ value }) => {
 		<div className="suggestions">
 			<ul className="suggestions__list">
 				<div className="suggestions__title">Stock</div>
-				{suggestions?.map((suggestion, i) => (
-					<li
-						key={i}
-						className="suggestions__stock"
-						onClick={() => symbolSetter(suggestion.symbol)}
-					>
-						{suggestion.symbol} - {suggestion.name}
-					</li>
-				))}
+				{!suggestions
+					? "No results found"
+					: suggestions?.map((suggestion, i) => (
+							<li
+								key={i}
+								className="suggestions__stock"
+								onClick={() => symbolSetter(suggestion.symbol)}
+							>
+								{highlightSearch(suggestion.symbol)} -{" "}
+								{highlightSearch(suggestion.name)}
+							</li>
+					  ))}
 			</ul>
 		</div>
 	)

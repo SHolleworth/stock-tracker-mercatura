@@ -27,7 +27,6 @@ function NewsFeed() {
 		setArticles({ status: STATUS.LOADING })
 		requestNews(symbol)
 			.then((news) => {
-				console.log("HERE")
 				setArticles({ status: STATUS.RESOLVED, body: news })
 			})
 			.catch((error) => {
