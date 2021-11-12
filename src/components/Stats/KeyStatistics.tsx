@@ -19,7 +19,7 @@ const KeyStatisticsTable: React.FC<KeyStatisticsProps> = ({
 		marketCap,
 		peRatio,
 		dividendYield,
-		incomeNetPerWabsoSplitAdjusted,
+		ttmEPS,
 		volume,
 		avgTotalVolume,
 	},
@@ -76,11 +76,7 @@ const KeyStatisticsTable: React.FC<KeyStatisticsProps> = ({
 				<li>
 					Earnings Per Share{" "}
 					<span>
-						{incomeNetPerWabsoSplitAdjusted
-							? addDollarSign(
-									incomeNetPerWabsoSplitAdjusted?.toFixed(2)
-							  )
-							: "-"}
+						{ttmEPS ? addDollarSign(ttmEPS?.toFixed(2)) : "-"}
 					</span>
 				</li>
 				<li>

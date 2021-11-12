@@ -13,5 +13,5 @@ export async function getKeyStatistics(symbol: string) {
 	const quote = await fetchhAndCheckResponseForError(QUOTE_URL)
 	const fundamentals = await fetchhAndCheckResponseForError(FUNDAMENTALS_URL)
 
-	return { ...quote, ...fundamentals[0] }
+	return { ...quote, ...fundamentals }
 }
