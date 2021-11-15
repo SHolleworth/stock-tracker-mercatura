@@ -3,6 +3,7 @@ import { requestLatestPrice } from "../services"
 import STATUS from "../../../utils/statusKeys"
 import { Price } from "../types"
 import { base_sse as base } from "../../../utils/baseUrl"
+// import { tokens } from "../../../../../token"
 
 //Map whole body response object for the type
 type PriceState = {
@@ -15,6 +16,7 @@ const useLivePrice = (symbol: string, updateInterval: 1 | 5) => {
 	const CURL_URL = `${base}stocksUS${updateInterval}Second?symbols=${symbol}&token=${
 		import.meta.env.VITE_IEX_TOKEN
 	}`
+	// const CURL_URL = `${base}stocksUS${updateInterval}Second?symbols=${symbol}&token=${tokens.REAL_TOKEN}`
 
 	useEffect(() => {
 		setPrice({ status: STATUS.LOADING })

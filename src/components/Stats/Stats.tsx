@@ -21,7 +21,6 @@ const Stats = () => {
 	const requestData = async () => {
 		try {
 			const response = await getKeyStatistics(symbol)
-			console.log(response)
 			setStatistics({ status: STATUS.RESOLVED, body: response })
 		} catch (error) {
 			console.error("Error requesting key statistic data: " + error)
