@@ -8,18 +8,26 @@ import StockHeader from "./components/Search/StockHeader"
 import Indices from "./components/Indices/Indices"
 import LogoColumn from "./components/Logo/LogoColumn"
 import TopPeers from "./components/TopPeers/TopPeers"
-import { useHistory } from "react-router-dom"
+import { useHistory, useParams } from "react-router-dom"
 import { useSymbol } from "./contexts/SymbolContext"
 import { useFocus } from "./contexts/FocusContext"
 
+interface ParamsType {
+	stock: string
+}
+
 const StockScreen = () => {
-	const { symbol } = useSymbol()
+	const { symbol, setSymbol } = useSymbol()
 	const history = useHistory()
+	const { stock } = useParams<ParamsType>()
 	const { setFocused } = useFocus()
 
 	useEffect(() => {
-		if (!symbol) {
+		if (!stock) {
 			history.push("/")
+		}
+		if (stock && !symbol) {
+			setSymbol(stock)
 		}
 	}, [])
 

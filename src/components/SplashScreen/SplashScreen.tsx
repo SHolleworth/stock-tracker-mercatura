@@ -12,7 +12,6 @@ const SplashScreen = () => {
 
 	useEffect(() => {
 		setSymbol("")
-		localStorage.clear()
 		if (progress < 100) {
 			const progressIntervalId = setInterval(() => {
 				setProgress((prev) => prev + 1)
