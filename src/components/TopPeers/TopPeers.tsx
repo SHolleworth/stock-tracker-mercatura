@@ -5,18 +5,18 @@ import { useSymbol } from "../../contexts/SymbolContext"
 import Placeholder from "./Placeholders/Placeholder"
 import STATUS from "../../utils/statusKeys"
 
-/* type PeersType = {
+type PeersType = {
 	status: "loading" | "error" | "resolved"
 	body?: string[]
-} */
+}
 
-interface PeersType {
+/* interface PeersType {
 	status: "loading" | "error" | "resolved"
 	body?: {
 		peers: boolean
 		symbols: string[]
 	}
-}
+} */
 
 const TopPeers = () => {
 	const [peers, setPeers] = useState<PeersType>({
@@ -46,7 +46,7 @@ const TopPeers = () => {
 			content = (
 				<div className="peers__buttons">
 					{peers.body
-						? peers.body.symbols.map((symbol) => (
+						? peers.body.map((symbol) => (
 								<button
 									className="peer"
 									key={symbol}
