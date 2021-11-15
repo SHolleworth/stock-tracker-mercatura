@@ -4,17 +4,20 @@ import "./styles.css"
 import { useSymbol } from "../../contexts/SymbolContext"
 import { requestCompanyInfo } from "../CompanySummary/services"
 import { useFocus } from "../../contexts/FocusContext"
+import { useLocation } from "react-router-dom"
 
 const SearchBar = () => {
 	const [value, setValue] = useState("")
 	const { symbol } = useSymbol()
 	const { focused, setFocused } = useFocus()
+	const location = useLocation()
 
 	const handleChange = ({ target }: React.ChangeEvent<HTMLInputElement>) => {
 		setValue(target.value)
 	}
 
 	useEffect(() => {
+		console.log(location)
 		setFocused(false)
 		requestCompanyInfo(symbol)
 			.then((info) => {
@@ -25,6 +28,10 @@ const SearchBar = () => {
 					"Error requesting company info for search bar: " + error
 				)
 			})
+
+		if (location.pathname === "/") {
+			setValue("")
+		}
 	}, [symbol])
 
 	return (
