@@ -1,10 +1,12 @@
 import { fetchhAndCheckResponseForError } from "../../utils/fetchAndCheckResponseForError"
 import { base } from "../../utils/baseUrl"
+// import { tokens } from "../../../../token"
 
 export const getSuggestions = async (value: string) => {
 	const SEARCH_URL = `${base}search/${value}?token=${
 		import.meta.env.VITE_IEX_TOKEN
 	}`
+	// const SEARCH_URL = `${base}search/${value}?token=${tokens.REAL_TOKEN}`
 	return await fetchhAndCheckResponseForError(SEARCH_URL)
 }
 
