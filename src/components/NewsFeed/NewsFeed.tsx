@@ -89,7 +89,7 @@ function NewsArticle({
 
 	return (
 		<div className="article">
-			<a href={link}>
+			<a href={link} target="_blank" rel="noreferrer">
 				<div className="article__content headlines">{content}</div>
 			</a>
 			<div className="article__time-source">{`${timeString} - ${source}`}</div>

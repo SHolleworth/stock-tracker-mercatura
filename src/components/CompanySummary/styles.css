@@ -24,6 +24,7 @@
 	font-style: italic;
 	padding-bottom: var(--padding);
 	font-size: 13px;
+	text-decoration: underline;
 }
 
 .company__description {

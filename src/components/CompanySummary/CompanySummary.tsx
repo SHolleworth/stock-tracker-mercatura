@@ -56,9 +56,14 @@ const CompanySummary = () => {
 							className="company__name"
 							data-testid="company-name"
 						>{`${companyInfo.body.companyName} (${companyInfo.body.symbol})`}</div>
-						<div className="company__website">
+						<a
+							href={companyInfo.body.website}
+							rel="noreferrer"
+							target="_blank"
+							className="company__website"
+						>
 							{companyInfo.body.website}
-						</div>
+						</a>
 						<div className="company__description">
 							{companyInfo.body.description}
 						</div>
