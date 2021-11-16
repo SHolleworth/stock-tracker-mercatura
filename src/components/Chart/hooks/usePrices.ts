@@ -95,8 +95,8 @@ export const useIntradayPrices = (
 			try {
 				const prices = (await requestIntradayPrices(symbol)) as []
 
-				// console.log("Intraday prices retrieved: ")
-				// console.log(prices)
+				console.log("Intraday prices retrieved: ")
+				console.log(prices)
 
 				const pricesWithoutNulls = removeNulls(prices)
 

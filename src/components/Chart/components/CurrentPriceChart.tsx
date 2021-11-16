@@ -1,46 +1,33 @@
 import React from "react"
 import CustomisedYAxis from "./CustomisedYAxis"
 import CustomisedXAxis from "./CustomisedXAxis"
-import {
-	LineChart,
-	Line,
-	CartesianGrid,
-	ResponsiveContainer,
-	ReferenceLine,
-} from "recharts"
+import { LineChart, Line, CartesianGrid, ResponsiveContainer } from "recharts"
 import { colours } from "../colours"
 import { ReferenceAreas } from "./ReferenceAreas"
-import { TopXAxis } from "./TopXAxis"
 import { CustomisedToolTip } from "./CustomisedToolTip"
 import { axisPropsType, price } from "../types"
 
 interface CurrentPriceChartPropsType {
-	axisProps : axisPropsType
-	previousDayData : price[],
-	currentDayData : price[],
-	interval : number
-	min : number
-	max : number
-	daySize : number
+	axisProps: axisPropsType
+	currentDayData: price[]
+	interval: number
+	min: number
+	max: number
 }
 
-const removePrependedIndex = (stringWithIndex : string) => {
-	const spaceIndex = stringWithIndex.indexOf(" ")
-	return stringWithIndex.slice(spaceIndex + 1)
-}
+// const removePrependedIndex = (stringWithIndex : string) => {
+// 	const spaceIndex = stringWithIndex.indexOf(" ")
+// 	return stringWithIndex.slice(spaceIndex + 1)
+// }
 
 export const CurrentPriceChart = ({
 	axisProps,
-	previousDayData,
 	currentDayData,
 	interval,
 	min,
 	max,
-	daySize,
-} : CurrentPriceChartPropsType) => {
-	const cleanPreviousDayData = previousDayData.map((price) => {
-		return { ...price, minute: removePrependedIndex(price.minute) }
-	})
+}: CurrentPriceChartPropsType) => {
+	const fakeFullDayData = generateFakeFullDayData(currentDayData[0].average)
 
 	const line = (
 		<Line
@@ -54,15 +41,11 @@ export const CurrentPriceChart = ({
 		/>
 	)
 
-	const previousDayLine = (
+	const fakeFullDayLine = (
 		<Line
 			isAnimationActive={false}
-			type="linear"
 			dataKey="average"
-			dot={false}
-			stroke={colours.accentPrimary}
-			data={cleanPreviousDayData}
-			strokeWidth={2}
+			data={fakeFullDayData}
 			hide={true}
 		/>
 	)
@@ -76,42 +59,79 @@ export const CurrentPriceChart = ({
 	)
 
 	return (
-		<ResponsiveContainer height={"100%"} width={daySize}>
+		<ResponsiveContainer width="100%">
 			<LineChart
-				data={currentDayData}
 				margin={{ right: 0, bottom: 10 }}
 				// padding={{ left: 10 }}
 			>
 				{ReferenceAreas({
-					data: cleanPreviousDayData,
+					data: fakeFullDayData,
 					interval,
 					min,
 					max,
 				})}
 				{grid}
-				{previousDayLine}
+				{fakeFullDayLine}
 				{line}
 				{/* recharts does not like your custom components in it's custom components, so this is a work around */}
 				{CustomisedXAxis({ axisProps, interval })}
-				{CustomisedYAxis({ axisProps, min, max, hide: true })}
-				{TopXAxis({
-					data: currentDayData,
-					daySize,
-					style: axisProps.style,
-					isHidden: false
-				})}
-				<ReferenceLine
-					y={previousDayData[previousDayData.length - 1].average}
+				{CustomisedYAxis({ axisProps, min, max })}
+				{/* <ReferenceLine
+					y={fakeFullDayData[fakeFullDayData.length - 1].average}
 					strokeDasharray={"8 5"}
 					stroke={colours.accentPrimary}
-				/>
-				<ReferenceLine
-					x={"09:30"}
-					strokeWidth={2}
-					stroke={colours.daySeparator}
-				/>
+				/> */}
 				{CustomisedToolTip({ style: axisProps.style })}
 			</LineChart>
 		</ResponsiveContainer>
 	)
 }
+
+const generateFakeFullDayData = (average: number) => {
+	return skeletonData.map((data) => {
+		data.average = average
+		return data
+	})
+}
+
+const skeletonData = [
+	{ average: 20, minute: "09:30", date: "" },
+	{ average: 20, minute: "09:40", date: "" },
+	{ average: 20, minute: "09:50", date: "" },
+	{ average: 20, minute: "10:00", date: "" },
+	{ average: 20, minute: "10:10", date: "" },
+	{ average: 20, minute: "10:20", date: "" },
+	{ average: 20, minute: "10:30", date: "" },
+	{ average: 20, minute: "10:40", date: "" },
+	{ average: 20, minute: "10:50", date: "" },
+	{ average: 20, minute: "11:00", date: "" },
+	{ average: 20, minute: "11:10", date: "" },
+	{ average: 20, minute: "11:20", date: "" },
+	{ average: 20, minute: "11:30", date: "" },
+	{ average: 20, minute: "11:40", date: "" },
+	{ average: 20, minute: "11:50", date: "" },
+	{ average: 20, minute: "12:00", date: "" },
+	{ average: 20, minute: "12:10", date: "" },
+	{ average: 20, minute: "12:20", date: "" },
+	{ average: 20, minute: "12:30", date: "" },
+	{ average: 20, minute: "12:40", date: "" },
+	{ average: 20, minute: "12:50", date: "" },
+	{ average: 20, minute: "13:00", date: "" },
+	{ average: 20, minute: "13:10", date: "" },
+	{ average: 20, minute: "13:20", date: "" },
+	{ average: 20, minute: "13:30", date: "" },
+	{ average: 20, minute: "13:40", date: "" },
+	{ average: 20, minute: "13:50", date: "" },
+	{ average: 20, minute: "14:00", date: "" },
+	{ average: 20, minute: "14:10", date: "" },
+	{ average: 20, minute: "14:20", date: "" },
+	{ average: 20, minute: "14:30", date: "" },
+	{ average: 20, minute: "14:40", date: "" },
+	{ average: 20, minute: "14:50", date: "" },
+	{ average: 20, minute: "15:00", date: "" },
+	{ average: 20, minute: "15:10", date: "" },
+	{ average: 20, minute: "15:20", date: "" },
+	{ average: 20, minute: "15:30", date: "" },
+	{ average: 20, minute: "15:40", date: "" },
+	{ average: 20, minute: "15:50", date: "" },
+]

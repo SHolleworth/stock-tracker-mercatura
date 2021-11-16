@@ -37,13 +37,16 @@ export const componentTest = ({
 		expect(screen.getByTestId(testids.loading)).toBeVisible()
 	})
 
-	it("should show placeholder after an error", () => {
+	it("should show placeholder after an error", async () => {
 		mockFunctions.forEach((func, index) => {
 			func.mockRejectedValue(rejectedValues[index])
 		})
 		act(() => {
 			render(component)
 		})
+		await waitFor(() =>
+			expect(mockFunctions[mockFunctions.length - 1]).toHaveBeenCalled()
+		)
 		expect(screen.getByTestId(testids.error)).toBeVisible()
 	})
 
@@ -54,11 +57,13 @@ export const componentTest = ({
 		act(() => {
 			render(component)
 		})
+		await waitFor(async () =>
+			expect(mockFunctions[mockFunctions.length - 1]).toHaveBeenCalled()
+		)
 		if (testids.resolved) {
 			expect(screen.getByTestId(testids.resolved)).toBeVisible()
 		}
 		if (matches.length) {
-			await waitFor(async () => screen.getByText(matches[0]))
 			matches.forEach((match) => {
 				return expect(screen.getByText(match)).toBeVisible()
 			})
