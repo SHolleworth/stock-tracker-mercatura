@@ -11,7 +11,7 @@ type Article = {
 	headline: string
 	url: string
 	source: string
-	timeSincePublication: number
+	datetime: number
 }
 
 function NewsFeed() {
@@ -48,7 +48,7 @@ function NewsFeed() {
 							key={article.headline}
 							link={article.url}
 							content={article.headline}
-							timeSincePublication={article.timeSincePublication}
+							timeSincePublication={article.datetime}
 							source={article.source}
 						/>
 				  ))

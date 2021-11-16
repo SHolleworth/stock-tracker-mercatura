@@ -12,7 +12,7 @@ const mockData = [
 	{
 		url: "website.com",
 		headline: "content test",
-		timeSincePublication: Date.now() - millisecondTimes.day - 12,
+		datetime: Date.now() - millisecondTimes.day - 12,
 		source: "source test",
 	},
 ]
