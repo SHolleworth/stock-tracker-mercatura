@@ -1,14 +1,14 @@
-export const addDollarSign = (str : string | number) => {
+export const addDollarSign = (str: string | number) => {
 	return "$" + str
 }
 
-export const abbreviateNumber = (numberToAbbreviate : number) => {
+export const abbreviateNumber = (numberToAbbreviate: number) => {
 	const strNumber = numberToAbbreviate.toString()
 	if (strNumber.length <= 3) {
 		return strNumber
 	}
 
-	const suffixes = ["", "K", "M", "B", "T"]
+	const suffixes = ["", " k", " M", " B", " T"]
 	const suffixToShow = Math.floor(numberToAbbreviate.toString().length / 3)
 	const exponent =
 		Math.floor(numberToAbbreviate.toString().length % 3) === 0
