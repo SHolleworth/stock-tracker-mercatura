@@ -40,7 +40,7 @@ const TopPeers = () => {
 
 	const handleClick = (symbol: string) => {
 		setSymbol(symbol)
-		history.push(`/stock/${symbol}`)
+		history.push(`/stock-tracker-mercatura/stock/${symbol}`)
 	}
 
 	const peersRenderer = () => {

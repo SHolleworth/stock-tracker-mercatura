@@ -14,13 +14,16 @@ function App() {
 		<div className="App">
 			<Router>
 				<Switch>
-					<Route exact path="/">
+					<Route exact path="/stock-tracker-mercatura">
 						<SplashScreen />
 					</Route>
-					<Route path="/stock/:stock">
+					<Route path="stock-tracker-mercatura/stock/:stock">
 						<StockScreen />
 					</Route>
-					<Redirect from="/stock" to="/" />
+					<Redirect
+						from="/stock-tracker-mercatura/stock/"
+						to="/stock-tracker-mercatura"
+					/>
 				</Switch>
 			</Router>
 		</div>
