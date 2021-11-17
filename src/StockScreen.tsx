@@ -24,7 +24,7 @@ const StockScreen = () => {
 
 	useEffect(() => {
 		if (!stock) {
-			history.push("/")
+			history.push("/stock-tracker-mercatura")
 		}
 		if (stock && !symbol) {
 			setSymbol(stock)

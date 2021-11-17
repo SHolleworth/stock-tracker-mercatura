@@ -45,7 +45,7 @@ const Suggestions: React.FC<SuggestionsProps> = ({
 
 	const symbolSetter = (symbol: string) => {
 		setSymbol(symbol)
-		history.push(`/stock/${symbol}`)
+		history.push(`stock-tracker-mercatura/stock/${symbol}`)
 	}
 
 	useEffect(() => {
@@ -79,7 +79,7 @@ const Suggestions: React.FC<SuggestionsProps> = ({
 	useEffect(() => {
 		if (escapePress) {
 			if (localStorage.getItem("currentSymbol")) {
-				history.push("/")
+				history.push("/stock-tracker-mercatura")
 			} else {
 				setValue("")
 			}
