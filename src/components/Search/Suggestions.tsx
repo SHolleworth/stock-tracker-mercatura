@@ -79,7 +79,7 @@ const Suggestions: React.FC<SuggestionsProps> = ({
 	useEffect(() => {
 		if (escapePress) {
 			if (localStorage.getItem("currentSymbol")) {
-				history.push("/stock-tracker-mercatura")
+				history.push("/")
 			} else {
 				setValue("")
 			}
