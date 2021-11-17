@@ -1,17 +1,21 @@
 import React from "react"
-import { getDayFromDate } from "../../../utils/getDayFromDate"
 import { ReferenceArea } from "recharts"
 import { price } from "../types"
-
+import { colours } from "../colours"
 
 interface ReferenceAreasPropsType {
 	interval: number
 	min: number
 	max: number
-	data: price[] 
+	data: price[]
 }
 
-export const ReferenceAreas = ({ interval, min, max, data} : ReferenceAreasPropsType) => {
+export const ReferenceAreas = ({
+	interval,
+	min,
+	max,
+	data,
+}: ReferenceAreasPropsType) => {
 	//The amount of reference areas is going to be equal to the amount of data points
 	//divided by the interval between the x-axis's ticks
 	const referenceAreaArray = new Array(
@@ -19,8 +23,6 @@ export const ReferenceAreas = ({ interval, min, max, data} : ReferenceAreasProps
 	).fill("")
 	return referenceAreaArray.map((el, index) => {
 		const offset = index * interval
-		const day = Number.parseInt(getDayFromDate(data[offset].date))
-		const opacityWeight = day % 2 === 0 ? 0 : 0.1
 		const x1 = data[offset].minute
 		const x2 =
 			index === referenceAreaArray.length - 1
@@ -35,8 +37,8 @@ export const ReferenceAreas = ({ interval, min, max, data} : ReferenceAreasProps
 				y2={max}
 				fill={
 					index % 2 !== 0
-						? `rgba(0, 0, 0, ${0.05 + opacityWeight})`
-						: `rgba(0, 0, 0, ${0})`
+						? colours.coreSecondary2
+						: colours.coreSecondary1
 				}
 			/>
 		)

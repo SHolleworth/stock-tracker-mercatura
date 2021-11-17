@@ -52,8 +52,8 @@ export const CurrentPriceChart = ({
 
 	const grid = (
 		<CartesianGrid
-			stroke={`rgba(0, 0, 0, 0.05)`}
-			// vertical={false}
+			stroke={colours.coreSecondary3}
+			vertical={false}
 			strokeWidth={1}
 		/>
 	)
