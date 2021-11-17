@@ -4,6 +4,7 @@ import { getPeers } from "./services"
 import { useSymbol } from "../../contexts/SymbolContext"
 import Placeholder from "./Placeholders/Placeholder"
 import STATUS from "../../utils/statusKeys"
+import { useHistory } from "react-router-dom"
 
 type PeersType = {
 	status: "loading" | "error" | "resolved"
@@ -23,6 +24,7 @@ const TopPeers = () => {
 		status: STATUS.LOADING,
 	})
 	const { symbol, setSymbol } = useSymbol()
+	const history = useHistory()
 
 	useEffect(() => {
 		setPeers({ status: STATUS.LOADING })
@@ -35,6 +37,11 @@ const TopPeers = () => {
 				setPeers({ status: STATUS.ERROR })
 			})
 	}, [symbol])
+
+	const handleClick = (symbol: string) => {
+		setSymbol(symbol)
+		history.push(`/stock/${symbol}`)
+	}
 
 	const peersRenderer = () => {
 		let content = null
@@ -50,7 +57,7 @@ const TopPeers = () => {
 								<button
 									className="peer"
 									key={symbol}
-									onClick={() => setSymbol(symbol)}
+									onClick={() => handleClick(symbol)}
 								>
 									{symbol}
 								</button>

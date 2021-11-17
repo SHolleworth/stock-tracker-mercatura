@@ -45,8 +45,7 @@ const Suggestions: React.FC<SuggestionsProps> = ({
 
 	const symbolSetter = (symbol: string) => {
 		setSymbol(symbol)
-		localStorage.setItem("currentSymbol", symbol)
-		history.push("/stock")
+		history.push(`/stock/${symbol}`)
 	}
 
 	useEffect(() => {
