@@ -1,6 +1,7 @@
 {
 	"name": "temp",
 	"version": "0.0.0",
+	"homepage": "https://adaptiveconsulting.github.io/stock-tracker-mercatura/",
 	"scripts": {
 		"dev": "vite",
 		"build": "vite build",

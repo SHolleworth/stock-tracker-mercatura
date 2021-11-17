@@ -82,7 +82,6 @@ const Suggestions: React.FC<SuggestionsProps> = ({
 				history.push("/")
 			} else {
 				setValue("")
-				setFocused(false)
 			}
 		}
 	}, [escapePress])
