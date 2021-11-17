@@ -15,7 +15,7 @@ const LogoColumn: React.FC<LogoColumnPropsType> = ({ alignment }) => {
 
 	const handleClick = () => {
 		setSymbol("")
-		history.push("/stock-tracker-mercatura")
+		history.push("/")
 	}
 	return (
 		<div className="logo-section" onClick={() => setFocused(false)}>
