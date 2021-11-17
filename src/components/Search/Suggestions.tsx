@@ -45,7 +45,7 @@ const Suggestions: React.FC<SuggestionsProps> = ({
 
 	const symbolSetter = (symbol: string) => {
 		setSymbol(symbol)
-		history.push(`stock-tracker-mercatura/stock/${symbol}`)
+		history.push(`/stock/${symbol}`)
 	}
 
 	useEffect(() => {

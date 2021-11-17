@@ -1,29 +1,19 @@
 import React from "react"
-import "./App.css"
-import SplashScreen from "./components/SplashScreen"
-import StockScreen from "./StockScreen"
-import {
-	BrowserRouter as Router,
-	Switch,
-	Route,
-	Redirect,
-} from "react-router-dom"
+import SplashScreen from "./screens/SplashScreen"
+import StockScreen from "./screens/StockScreen/StockScreen"
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom"
 
 function App() {
 	return (
 		<div className="App">
 			<Router>
 				<Switch>
-					<Route exact path="/stock-tracker-mercatura">
-						<SplashScreen />
-					</Route>
-					<Route path="stock-tracker-mercatura/stock/:stock">
+					<Route path="/stock/:stock">
 						<StockScreen />
 					</Route>
-					<Redirect
-						from="/stock-tracker-mercatura/stock/"
-						to="/stock-tracker-mercatura"
-					/>
+					<Route exact path="/">
+						<SplashScreen />
+					</Route>
 				</Switch>
 			</Router>
 		</div>
