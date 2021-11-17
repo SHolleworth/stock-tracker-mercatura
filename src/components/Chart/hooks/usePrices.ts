@@ -92,6 +92,7 @@ export const useIntradayPrices = (
 
 	useEffect(() => {
 		(async () => {
+			setPrices({ status: STATUS.LOADING })
 			try {
 				const prices = (await requestIntradayPrices(symbol)) as []
 

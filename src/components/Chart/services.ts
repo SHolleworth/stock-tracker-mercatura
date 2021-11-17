@@ -1,4 +1,4 @@
-import { fetchhAndCheckResponseForError } from "../../utils/fetchAndCheckResponseForError"
+import { fetchAndCheckResponseForError } from "../../utils/fetchAndCheckResponseForError"
 import { base } from "../../utils/baseUrl"
 // import { tokens } from "../../../../token"
 
@@ -7,14 +7,14 @@ const token = `token=${import.meta.env.VITE_IEX_TOKEN}`
 
 export const requestIntradayPrices = async (symbol: string) => {
 	// throw Error()
-	return await fetchhAndCheckResponseForError(
+	return await fetchAndCheckResponseForError(
 		`${base}/stock/${symbol}/intraday-prices?${token}&chartInterval=10`
 	)
 }
 
 export const requestHistoricalPrices = async (symbol: string) => {
 	// throw Error()
-	return await fetchhAndCheckResponseForError(
+	return await fetchAndCheckResponseForError(
 		`${base}/stock/${symbol}/chart/5dm?${token}`
 	)
 }

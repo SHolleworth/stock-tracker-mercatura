@@ -1,4 +1,4 @@
-import { fetchhAndCheckResponseForError } from "../../utils/fetchAndCheckResponseForError"
+import { fetchAndCheckResponseForError } from "../../utils/fetchAndCheckResponseForError"
 import { base } from "../../utils/baseUrl"
 // import { tokens } from "../../../../token"
 
@@ -8,5 +8,5 @@ export const requestCompanyInfo = async (company: string) => {
 	}`
 	// const COMPANYINFO_URL = `${base}stock/${company}/company?token=${tokens.REAL_TOKEN}`
 	// throw Error()
-	return await fetchhAndCheckResponseForError(COMPANYINFO_URL)
+	return await fetchAndCheckResponseForError(COMPANYINFO_URL)
 }
