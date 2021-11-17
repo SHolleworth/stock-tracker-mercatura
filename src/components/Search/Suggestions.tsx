@@ -4,6 +4,7 @@ import { useHistory } from "react-router-dom"
 import "./styles.css"
 import useSearch from "./hooks/useSearch"
 import useKeyPress from "./hooks/useKeyPress"
+import ROUTES from "../../utils/routes"
 
 interface SuggestionsProps {
 	value: string
@@ -45,7 +46,7 @@ const Suggestions: React.FC<SuggestionsProps> = ({
 
 	const symbolSetter = (symbol: string) => {
 		setSymbol(symbol)
-		history.push(`/stock/${symbol}`)
+		history.push(`${ROUTES.base}stock/${symbol}`)
 	}
 
 	useEffect(() => {
@@ -79,7 +80,7 @@ const Suggestions: React.FC<SuggestionsProps> = ({
 	useEffect(() => {
 		if (escapePress) {
 			if (localStorage.getItem("currentSymbol")) {
-				history.push("/")
+				history.push(ROUTES.base)
 			} else {
 				setValue("")
 			}

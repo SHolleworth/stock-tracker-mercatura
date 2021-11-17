@@ -11,6 +11,7 @@ import TopPeers from "../../components/TopPeers/TopPeers"
 import { useSymbol } from "../../contexts/SymbolContext"
 import { useFocus } from "../../contexts/FocusContext"
 import { useHistory, useParams } from "react-router-dom"
+import ROUTES from "../../utils/routes"
 
 interface ParamsType {
 	stock: string
@@ -24,7 +25,7 @@ const StockScreen = () => {
 
 	useEffect(() => {
 		if (!stock) {
-			history.push("/")
+			history.push(ROUTES.base)
 		}
 		if (stock && !symbol) {
 			setSymbol(stock)
