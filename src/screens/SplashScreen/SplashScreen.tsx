@@ -2,8 +2,8 @@ import React, { useEffect, useState } from "react"
 // import { CSSTransition } from 'react-transition-group';
 import "./styles.css"
 import ProgressBar from "./ProgressBar"
-import SearchBar from "../Search/SearchBar"
-import LogoColumn from "../Logo/LogoColumn"
+import SearchBar from "../../components/Search/SearchBar"
+import LogoColumn from "../../components/Logo/LogoColumn"
 // import { useSymbol } from "../../contexts/SymbolContext"
 
 const SplashScreen = () => {
