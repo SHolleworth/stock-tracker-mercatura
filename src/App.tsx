@@ -1,9 +1,9 @@
-import React, { useEffect } from "react"
-import SplashScreen from "./screens/SplashScreen"
-import StockScreen from "./screens/StockScreen/StockScreen"
-import { Switch, Route, useHistory } from "react-router-dom"
-import ROUTES from "./utils/routes"
-import { useSymbol } from "./contexts/SymbolContext"
+import React from "react"
+import "./App.css"
+import SplashScreen from "./components/SplashScreen"
+import StockScreen from "./StockScreen"
+import { HashRouter as Router, Switch, Route, Redirect } from "react-router-dom"
+
 
 function App() {
 	const history = useHistory()
