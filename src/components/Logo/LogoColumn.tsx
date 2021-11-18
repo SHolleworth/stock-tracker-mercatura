@@ -3,7 +3,6 @@ import logo from "../../assets/ra-logo.svg"
 import { useHistory } from "react-router-dom"
 import { useFocus } from "../../contexts/FocusContext"
 import { useSymbol } from "../../contexts/SymbolContext"
-import ROUTES from "../../utils/routes"
 
 interface LogoColumnPropsType {
 	alignment: "center" | "stretch"
@@ -16,7 +15,7 @@ const LogoColumn: React.FC<LogoColumnPropsType> = ({ alignment }) => {
 
 	const handleClick = () => {
 		setSymbol("")
-		history.push(ROUTES.base)
+		history.push("/")
 	}
 	return (
 		<div className="logo-section" onClick={() => setFocused(false)}>
