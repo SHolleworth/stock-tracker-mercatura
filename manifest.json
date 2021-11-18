@@ -5,7 +5,7 @@
 	"background_color": "#f9fafa",
 	"display": "browser",
 	"scope": "/",
-	"start_url": "http://localhost:3000",
+	"start_url": "https://adaptiveconsulting.github.io/stock-tracker-mercatura/",
 	"icons": [
 		{
 			"src": "icon-512px/png",
