@@ -7,9 +7,6 @@ export default defineConfig({
 	plugins: [
 		react(),
 		VitePWA({
-			base: "https://adaptiveconsulting.github.io/stock-tracker-mercatura/#/",
-			srcDir: "src",
-			mode: "production",
 			manifest: {
 				name: "Mercatura Tracker",
 				short_name: "Mercatura Tracker",
