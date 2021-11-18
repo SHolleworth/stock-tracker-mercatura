@@ -10,8 +10,7 @@ import LogoColumn from "../../components/Logo/LogoColumn"
 import TopPeers from "../../components/TopPeers/TopPeers"
 import { useSymbol } from "../../contexts/SymbolContext"
 import { useFocus } from "../../contexts/FocusContext"
-import { useHistory, useParams } from "react-router-dom"
-import ROUTES from "../../utils/routes"
+import { useParams } from "react-router-dom"
 
 interface ParamsType {
 	stock: string
@@ -19,38 +18,48 @@ interface ParamsType {
 
 const StockScreen = () => {
 	const { symbol, setSymbol } = useSymbol()
-	const history = useHistory()
 	const { stock } = useParams<ParamsType>()
 	const { setFocused } = useFocus()
 
+	console.log("STOCKSCREEN SYMBOL: " + symbol)
+	console.log("STOCKSCREEN STOCK: " + stock)
+
 	useEffect(() => {
-		if (!stock) {
-			history.push(ROUTES.base)
-		}
-		if (stock && !symbol) {
+		// if (!stock) {
+		// 	history.push(`${ROUTES.base}stock/${symbol}`)
+		// }
+		// if (stock && !symbol) {
+		// 	setSymbol(stock)
+		// }
+		console.log("AFTER MOUNTING STOCK SCREEN")
+		if (stock) {
 			setSymbol(stock)
 		}
+		return () => console.log("AFTER UNMOUNTING STOCK SCREEN")
 	}, [])
 
-	return (
-		<>
-			<LogoColumn alignment="stretch" />
-			<div className="main-section">
-				<StockHeader />
-				<Chart />
-				<Stats />
-				<Indices />
-			</div>
-			<div
-				className="news-summary-section"
-				onClick={() => setFocused(false)}
-			>
-				<NewsFeed />
-				<CompanySummary />
-				<TopPeers />
-			</div>
-		</>
-	)
+	if (symbol) {
+		return (
+			<>
+				<LogoColumn alignment="stretch" />
+				<div className="main-section">
+					<StockHeader />
+					<Chart />
+					<Stats />
+					<Indices />
+				</div>
+				<div
+					className="news-summary-section"
+					onClick={() => setFocused(false)}
+				>
+					<NewsFeed />
+					<CompanySummary />
+					<TopPeers />
+				</div>
+			</>
+		)
+	}
+	return null
 }
 
 export default StockScreen
