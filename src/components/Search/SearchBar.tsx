@@ -16,14 +16,16 @@ const SearchBar = () => {
 
 	useEffect(() => {
 		(async () => {
-			try {
-				setFocused(false)
-				const info = await requestCompanyInfo(symbol)
-				setValue(`${info.symbol} - ${info.companyName}`)
-			} catch (error) {
-				console.error(
-					"Error requesting company info for search bar: " + error
-				)
+			if (symbol) {
+				try {
+					setFocused(false)
+					const info = await requestCompanyInfo(symbol)
+					setValue(`${info.symbol} - ${info.companyName}`)
+				} catch (error) {
+					console.error(
+						"Error requesting company info for search bar: " + error
+					)
+				}
 			}
 		})()
 	}, [symbol])

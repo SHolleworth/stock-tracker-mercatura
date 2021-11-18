@@ -27,20 +27,23 @@ const TopPeers = () => {
 	const history = useHistory()
 
 	useEffect(() => {
-		setPeers({ status: STATUS.LOADING })
-		getPeers(symbol)
-			.then((peerData) => {
-				setPeers({ status: STATUS.RESOLVED, body: peerData })
-			})
-			.catch((error) => {
-				console.error("Error retrieving top peers data: " + error)
-				setPeers({ status: STATUS.ERROR })
-			})
+		(async () => {
+			setPeers({ status: STATUS.LOADING })
+			if (symbol) {
+				try {
+					const peerData = await getPeers(symbol)
+					setPeers({ status: STATUS.RESOLVED, body: peerData })
+				} catch (error) {
+					console.error("Error retrieving top peers data: " + error)
+					setPeers({ status: STATUS.ERROR })
+				}
+			}
+		})()
 	}, [symbol])
 
 	const handleClick = (symbol: string) => {
 		setSymbol(symbol)
-		history.push(`/stock-tracker-mercatura/stock/${symbol}`)
+		history.push(`/stock/${symbol}`)
 	}
 
 	const peersRenderer = () => {
