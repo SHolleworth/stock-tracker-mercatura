@@ -19,7 +19,7 @@ interface SummaryState {
 
 const CompanySummary = () => {
 	const [companyInfo, setCompanyInfo] = useState<SummaryState>({
-		status: "loading",
+		status: STATUS.LOADING,
 	})
 	const { symbol } = useSymbol()
 

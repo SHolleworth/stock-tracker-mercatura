@@ -1,16 +1,10 @@
-import React, { useEffect } from "react"
+import React from "react"
 import SplashScreen from "./screens/SplashScreen"
 import StockScreen from "./screens/StockScreen/StockScreen"
 import { Switch, Route } from "react-router-dom"
-import { useSymbol } from "./contexts/SymbolContext"
+import "./App.css"
 
 function App() {
-	const { symbol } = useSymbol()
-
-	console.log("SYMBOL: " + symbol)
-
-	useEffect(() => {}, [])
-
 	return (
 		<div className="App">
 			<Switch>

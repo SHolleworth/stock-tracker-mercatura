@@ -1,5 +1,6 @@
 import React from "react"
-import { act, render, screen, waitFor } from "@testing-library/react"
+import { render, screen, waitFor } from "@testing-library/react"
+import SymbolContextProvider from "../contexts/SymbolContext"
 
 interface ComponentTestProps {
 	component: React.ReactElement<any>
@@ -28,9 +29,7 @@ export const componentTest = ({
 				await new Promise(() => {})
 			})
 		})
-		act(() => {
-			render(component)
-		})
+		render(<SymbolContextProvider>{component}</SymbolContextProvider>)
 		await waitFor(() =>
 			expect(mockFunctions[mockFunctions.length - 1]).toHaveBeenCalled()
 		)
@@ -41,9 +40,7 @@ export const componentTest = ({
 		mockFunctions.forEach((func, index) => {
 			func.mockRejectedValue(rejectedValues[index])
 		})
-		act(() => {
-			render(component)
-		})
+		render(<SymbolContextProvider>{component}</SymbolContextProvider>)
 		await waitFor(() =>
 			expect(mockFunctions[mockFunctions.length - 1]).toHaveBeenCalled()
 		)
@@ -54,9 +51,7 @@ export const componentTest = ({
 		mockFunctions.forEach(async (func, index) => {
 			func.mockResolvedValue(resolvedValues[index])
 		})
-		act(() => {
-			render(component)
-		})
+		render(<SymbolContextProvider>{component}</SymbolContextProvider>)
 		await waitFor(async () =>
 			expect(mockFunctions[mockFunctions.length - 1]).toHaveBeenCalled()
 		)

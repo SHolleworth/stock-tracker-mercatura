@@ -1,7 +1,7 @@
 import React from "react"
 import { colours } from "./colours"
 import "./styles.css"
-import { useIntradayPrices } from "./hooks/usePrices"
+import { useIntradayPrices, usePreviousClose } from "./hooks/usePrices"
 import { CurrentPriceChart } from "./components/CurrentPriceChart"
 import { Placeholder } from "./Placeholders/Placeholder"
 import { useSymbol } from "../../contexts/SymbolContext"
@@ -25,6 +25,7 @@ const axisProps = {
 const Chart = () => {
 	const { symbol } = useSymbol()
 	const [intradayPrices, { min, max }] = useIntradayPrices(symbol)
+	const previousClose = usePreviousClose(symbol)
 	const interval = 3
 
 	const chartRenderer = () => {
@@ -40,6 +41,9 @@ const Chart = () => {
 					<CurrentPriceChart
 						axisProps={axisProps}
 						currentDayData={intradayPrices.body}
+						previousClose={
+							previousClose ? previousClose : undefined
+						}
 						interval={interval}
 						max={max}
 						min={min}

@@ -1,7 +1,13 @@
 import React from "react"
 import CustomisedYAxis from "./CustomisedYAxis"
 import CustomisedXAxis from "./CustomisedXAxis"
-import { LineChart, Line, CartesianGrid, ResponsiveContainer } from "recharts"
+import {
+	LineChart,
+	Line,
+	CartesianGrid,
+	ResponsiveContainer,
+	ReferenceLine,
+} from "recharts"
 import { colours } from "../colours"
 import { ReferenceAreas } from "./ReferenceAreas"
 import { CustomisedToolTip } from "./CustomisedToolTip"
@@ -10,6 +16,7 @@ import { axisPropsType, price } from "../types"
 interface CurrentPriceChartPropsType {
 	axisProps: axisPropsType
 	currentDayData: price[]
+	previousClose?: number
 	interval: number
 	min: number
 	max: number
@@ -23,6 +30,7 @@ interface CurrentPriceChartPropsType {
 export const CurrentPriceChart = ({
 	axisProps,
 	currentDayData,
+	previousClose,
 	interval,
 	min,
 	max,
@@ -76,11 +84,11 @@ export const CurrentPriceChart = ({
 				{/* recharts does not like your custom components in it's custom components, so this is a work around */}
 				{CustomisedXAxis({ axisProps, interval })}
 				{CustomisedYAxis({ axisProps, min, max })}
-				{/* <ReferenceLine
-					y={fakeFullDayData[fakeFullDayData.length - 1].average}
+				<ReferenceLine
+					y={previousClose}
 					strokeDasharray={"8 5"}
 					stroke={colours.accentPrimary}
-				/> */}
+				/>
 				{CustomisedToolTip({ style: axisProps.style })}
 			</LineChart>
 		</ResponsiveContainer>

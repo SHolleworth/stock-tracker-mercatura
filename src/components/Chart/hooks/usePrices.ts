@@ -1,6 +1,10 @@
 import { useState, useEffect, Dispatch, SetStateAction } from "react"
 import STATUS from "../../../utils/statusKeys"
-import { requestHistoricalPrices, requestIntradayPrices } from "../services"
+import {
+	requestHistoricalPrices,
+	requestIntradayPrices,
+	requestPreviousDayPrices,
+} from "../services"
 import { priceState, price } from "../types"
 
 interface minMaxState {
@@ -32,7 +36,7 @@ export const useHistoricalPrices = (symbol: string): HistoricalPrices => {
 	useEffect(() => {
 		(async () => {
 			try {
-				const prices = (await requestHistoricalPrices(symbol)) as []
+				const prices = await requestHistoricalPrices(symbol)
 
 				// console.log("Historic prices retrieved: ")
 				// console.log(prices)
@@ -94,10 +98,7 @@ export const useIntradayPrices = (
 		(async () => {
 			setPrices({ status: STATUS.LOADING })
 			try {
-				const prices = (await requestIntradayPrices(symbol)) as []
-
-				console.log("Intraday prices retrieved: ")
-				console.log(prices)
+				const prices = await requestIntradayPrices(symbol)
 
 				const pricesWithoutNulls = removeNulls(prices)
 
@@ -121,6 +122,23 @@ export const useIntradayPrices = (
 	}, [symbol])
 
 	return [prices, minMax]
+}
+
+export const usePreviousClose = (symbol: string) => {
+	const [previousClose, setPreviousClose] = useState()
+
+	useEffect(() => {
+		(async () => {
+			try {
+				const previousDayPrices = await requestPreviousDayPrices(symbol)
+				setPreviousClose(previousDayPrices.close)
+			} catch (error) {
+				console.error("Error retreiving previous day prices: " + error)
+			}
+		})()
+	}, [])
+
+	return previousClose
 }
 
 const findMinAndMax = (prices: price[]) => {

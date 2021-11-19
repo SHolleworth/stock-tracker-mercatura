@@ -3,9 +3,7 @@ a {
 }
 
 .newsfeed__heading {
-	padding: var(--padding);
-	padding-top: calc(var(--padding) * 3);
-	padding-bottom: 0;
+	padding-left: calc(var(--padding) * 1)
 }
 
 .article {

@@ -26,10 +26,8 @@
 }
 
 .stock__header {
-	width: 100%;
 	display: flex;
 	justify-content: space-between;
-	max-width: 1260px;
 }
 
 .grayborder {
