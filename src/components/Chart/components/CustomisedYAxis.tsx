@@ -35,8 +35,7 @@ interface YAxisTickPropsType {
 	style: React.CSSProperties
 }
 
-const CustomisedYAxisTick = ({ x, y, payload, style } : YAxisTickPropsType) => {
-
+const CustomisedYAxisTick = ({ x, y, payload, style }: YAxisTickPropsType) => {
 	const text = Number.parseFloat(payload.value).toFixed(0)
 
 	return (
@@ -55,10 +54,10 @@ const CustomisedYAxisTick = ({ x, y, payload, style } : YAxisTickPropsType) => {
 }
 
 interface CustomisedYAxisPropsType {
-	axisProps : axisPropsType
+	axisProps: axisPropsType
 	min: number
 	max: number
-	hide: boolean
+	hide?: boolean
 }
 
 interface StaticYAxisPropsTypes {
@@ -68,7 +67,12 @@ interface StaticYAxisPropsTypes {
 	max: number
 }
 
-export const StaticYAxis = ({ data, axisProps, min, max } : StaticYAxisPropsTypes) => {
+export const StaticYAxis = ({
+	data,
+	axisProps,
+	min,
+	max,
+}: StaticYAxisPropsTypes) => {
 	return (
 		<div className="static-y-axis">
 			<ResponsiveContainer height={"100%"} width={61}>
@@ -81,9 +85,13 @@ export const StaticYAxis = ({ data, axisProps, min, max } : StaticYAxisPropsType
 	)
 }
 
-function CustomisedYAxis({ axisProps, min, max, hide } : CustomisedYAxisPropsType) {
-	const { tickSize, tickMargin, tickLine, stroke, style } =
-		axisProps
+function CustomisedYAxis({
+	axisProps,
+	min,
+	max,
+	hide,
+}: CustomisedYAxisPropsType) {
+	const { tickSize, tickMargin, tickLine, stroke, style } = axisProps
 	//min and max are used to control the height of the graph
 	const difference = Math.ceil(max - min)
 	let ticks = []
@@ -97,8 +105,13 @@ function CustomisedYAxis({ axisProps, min, max, hide } : CustomisedYAxisPropsTyp
 			dataKey="average"
 			// ticks={ticks}
 			domain={[min, max]}
-			tick={({x, y, payload} : YAxisTickPropsType) => (
-				<CustomisedYAxisTick x={x} y={y} payload={payload} style={style}/>
+			tick={({ x, y, payload }: YAxisTickPropsType) => (
+				<CustomisedYAxisTick
+					x={x}
+					y={y}
+					payload={payload}
+					style={style}
+				/>
 			)}
 			tickSize={tickSize}
 			tickCount={5}

@@ -1,13 +1,10 @@
 import React from "react"
 import Chart from "./Chart"
-import { requestHistoricalPrices, requestIntradayPrices } from "./services"
+import { requestIntradayPrices } from "./services"
 import { componentTest } from "../componentTest"
 
 jest.mock("./services")
 
-const mockHistoricalPrices = requestHistoricalPrices as jest.MockedFunction<
-	typeof requestHistoricalPrices
->
 const mockIntradayPrices = requestIntradayPrices as jest.MockedFunction<
 	typeof requestIntradayPrices
 >
@@ -29,12 +26,9 @@ const mockData = [
 
 componentTest({
 	component: <Chart />,
-	mockFunctions: [mockHistoricalPrices, mockIntradayPrices],
-	rejectedValues: [
-		"Test error historical prices",
-		"Test error intraday prices",
-	],
-	resolvedValues: [mockData, mockData],
+	mockFunctions: [mockIntradayPrices],
+	rejectedValues: ["Test error intraday prices"],
+	resolvedValues: [mockData],
 	testids: {
 		loading: "chart-placeholder",
 		error: "chart-placeholder",

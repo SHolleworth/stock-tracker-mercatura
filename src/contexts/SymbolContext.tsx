@@ -1,11 +1,12 @@
 import React, { useState, createContext, useContext } from "react"
 
-interface SymbolContextType {
-	symbol?: string
+export interface SymbolContextType {
+	symbol: string
 	setSymbol: (symbol: string) => void
 }
 
-const SymbolContext = createContext<SymbolContextType>({
+export const SymbolContext = createContext<SymbolContextType>({
+	symbol: "",
 	setSymbol: () => {},
 })
 
@@ -13,8 +14,12 @@ export const useSymbol = () => {
 	return useContext(SymbolContext)
 }
 
-const SymbolContextProvider: React.FC = ({ children }) => {
-	const [symbol, setSymbol] = useState<string>()
+interface SymbolContextProviderProps {
+	children: React.ReactNode
+}
+
+const SymbolContextProvider = ({ children }: SymbolContextProviderProps) => {
+	const [symbol, setSymbol] = useState<string>("")
 
 	return (
 		<SymbolContext.Provider value={{ symbol, setSymbol }}>

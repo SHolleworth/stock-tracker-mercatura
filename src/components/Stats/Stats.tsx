@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react"
 import KeyStatisticsTable from "./KeyStatistics"
-import { getKeyStatistics } from "./services"
+import { requestKeyStatistics } from "./services"
 import { useSymbol } from "../../contexts/SymbolContext"
 import Placeholder from "./Placeholders/Placeholder"
 import STATUS from "../../utils/statusKeys"
@@ -20,7 +20,7 @@ const Stats = () => {
 
 	const requestData = async () => {
 		try {
-			const response = await getKeyStatistics(symbol)
+			const response = await requestKeyStatistics(symbol)
 			setStatistics({ status: STATUS.RESOLVED, body: response })
 		} catch (error) {
 			console.error("Error requesting key statistic data: " + error)

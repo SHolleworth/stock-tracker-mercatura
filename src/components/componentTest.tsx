@@ -1,5 +1,6 @@
 import React from "react"
-import { act, render, screen, waitFor } from "@testing-library/react"
+import { render, screen, waitFor } from "@testing-library/react"
+import SymbolContextProvider from "../contexts/SymbolContext"
 
 interface ComponentTestProps {
 	component: React.ReactElement<any>
@@ -28,22 +29,21 @@ export const componentTest = ({
 				await new Promise(() => {})
 			})
 		})
-		act(() => {
-			render(component)
-		})
+		render(<SymbolContextProvider>{component}</SymbolContextProvider>)
 		await waitFor(() =>
 			expect(mockFunctions[mockFunctions.length - 1]).toHaveBeenCalled()
 		)
 		expect(screen.getByTestId(testids.loading)).toBeVisible()
 	})
 
-	it("should show placeholder after an error", () => {
+	it("should show placeholder after an error", async () => {
 		mockFunctions.forEach((func, index) => {
 			func.mockRejectedValue(rejectedValues[index])
 		})
-		act(() => {
-			render(component)
-		})
+		render(<SymbolContextProvider>{component}</SymbolContextProvider>)
+		await waitFor(() =>
+			expect(mockFunctions[mockFunctions.length - 1]).toHaveBeenCalled()
+		)
 		expect(screen.getByTestId(testids.error)).toBeVisible()
 	})
 
@@ -51,14 +51,14 @@ export const componentTest = ({
 		mockFunctions.forEach(async (func, index) => {
 			func.mockResolvedValue(resolvedValues[index])
 		})
-		act(() => {
-			render(component)
-		})
+		render(<SymbolContextProvider>{component}</SymbolContextProvider>)
+		await waitFor(async () =>
+			expect(mockFunctions[mockFunctions.length - 1]).toHaveBeenCalled()
+		)
 		if (testids.resolved) {
 			expect(screen.getByTestId(testids.resolved)).toBeVisible()
 		}
 		if (matches.length) {
-			await waitFor(async () => screen.getByText(matches[0]))
 			matches.forEach((match) => {
 				return expect(screen.getByText(match)).toBeVisible()
 			})

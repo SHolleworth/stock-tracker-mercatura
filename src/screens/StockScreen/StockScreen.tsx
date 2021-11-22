@@ -21,21 +21,10 @@ const StockScreen = () => {
 	const { stock } = useParams<ParamsType>()
 	const { setFocused } = useFocus()
 
-	console.log("STOCKSCREEN SYMBOL: " + symbol)
-	console.log("STOCKSCREEN STOCK: " + stock)
-
 	useEffect(() => {
-		// if (!stock) {
-		// 	history.push(`${ROUTES.base}stock/${symbol}`)
-		// }
-		// if (stock && !symbol) {
-		// 	setSymbol(stock)
-		// }
-		console.log("AFTER MOUNTING STOCK SCREEN")
 		if (stock) {
 			setSymbol(stock)
 		}
-		return () => console.log("AFTER UNMOUNTING STOCK SCREEN")
 	}, [])
 
 	if (symbol) {

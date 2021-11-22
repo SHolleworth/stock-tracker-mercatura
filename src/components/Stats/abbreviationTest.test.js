@@ -12,8 +12,8 @@ describe("Numbers are being correctly abbreviated", () => {
 			abbreviateNumber(number)
 		)
 
-		const expectedMillionResult = ["7.08M", "44.65M", "118.66M"]
-		const expectedThousandsResult = ["2.63K", "49.08K", "659.00K"]
+		const expectedMillionResult = ["7.08 M", "44.65 M", "118.66 M"]
+		const expectedThousandsResult = ["2.63 k", "49.08 k", "659.00 k"]
 
 		expect(millionsResult).toStrictEqual(expectedMillionResult)
 		expect(thousandsResult).toStrictEqual(expectedThousandsResult)

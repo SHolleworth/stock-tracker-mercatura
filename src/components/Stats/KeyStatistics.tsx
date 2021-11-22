@@ -80,7 +80,8 @@ const KeyStatisticsTable: React.FC<KeyStatisticsProps> = ({
 					</span>
 				</li>
 				<li>
-					Volume <span>{volume ?? "-"}</span>
+					Volume{" "}
+					<span>{volume ? abbreviateNumber(volume) : "-"}</span>
 				</li>
 				<li>
 					Total Avg. Volume{" "}

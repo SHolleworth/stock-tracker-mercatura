@@ -1,4 +1,4 @@
-export const fetchhAndCheckResponseForError = (url: string): Promise<any> => {
+export const fetchAndCheckResponseForError = (url: string): Promise<any> => {
 	return new Promise((resolve, reject) => {
 		fetch(url).then((response) => {
 			// throw Error()
@@ -8,7 +8,7 @@ export const fetchhAndCheckResponseForError = (url: string): Promise<any> => {
 				})
 			} else if (response.status === 429) {
 				// console.log("Testing recursion")
-				fetchhAndCheckResponseForError(url).then((response) =>
+				fetchAndCheckResponseForError(url).then((response) =>
 					resolve(response)
 				)
 			} else {
