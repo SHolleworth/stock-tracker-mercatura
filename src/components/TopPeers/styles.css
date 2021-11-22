@@ -1,6 +1,6 @@
 .top-peers {
-	padding: var(--padding);
-	padding-top: calc(var(--padding) * 3);
+	padding: calc(var(--padding) * 1.5);
+	padding-top: calc(var(--padding) * 2.4);
 }
 
 .peers__buttons {
@@ -10,7 +10,7 @@
 }
 
 .peers__heading {
-	padding-bottom: calc(var(--padding) * 2);
+	padding-bottom: calc(var(--padding) * 1.5);
 }
 
 .peer {
@@ -19,12 +19,12 @@
 	border-radius: 43px;
 	width: 51px;
 	background-color: var(--background-dark);
-	/* padding: var(--padding); */
 	padding: 4px 7.5px 3px 7.5px;
-	margin: 0 6px;
 	border: 2px solid var(--ui-element);
-	flex-basis: 18%;
-	margin: calc(var(--padding) * 0.5);
+	/* flex-basis: 18%; */
+	margin-left: calc(var(--padding) * 0.4);
+	/* margin-right: calc(var(--padding) * 0.4); */
+	margin-bottom: calc(var(--padding) * 0.4);
 }
 
 .peer:hover {

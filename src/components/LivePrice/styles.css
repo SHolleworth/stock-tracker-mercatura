@@ -3,10 +3,31 @@
 	display: flex;
 	align-items: center;
 	justify-content: end;
+	padding: 0;
 }
 
 .price__display--hidden {
 	display: none;
+}
+
+.price__change__wrapper {
+	display: flex;
+	justify-content: center;
+	align-items: flex-end;
+	height: 35px;
+}
+
+.arrow {
+	position: relative;
+	width: 35px;
+	margin-right: -5px;
+	margin-bottom: -6px;
+}
+
+.index-price__change__wrapper {
+	display: flex;
+	justify-content: center;
+	align-items: center;
 }
 
 .price {
@@ -21,7 +42,6 @@
 	padding-right: calc(var(--padding) * -2);
 	font-weight: 500;
 	font-size: var(--section-headers-fontsize);
-	align-self: center;
 }
 
 .positive {
@@ -30,11 +50,6 @@
 
 .negative {
 	color: var(--negative);
-}
-
-.arrow {
-	width: 35px;
-	margin-right: -5px;
 }
 
 .live-price__placeholder {

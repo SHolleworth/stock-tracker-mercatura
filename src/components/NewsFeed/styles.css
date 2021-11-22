@@ -3,18 +3,19 @@ a {
 }
 
 .newsfeed__heading {
-	padding-left: calc(var(--padding) * 1)
+	padding-left: calc(var(--padding) * 1);
 }
 
 .article {
 	border-bottom: solid 1px var(--ui-element);
-	padding: calc(var(--padding) * 1.5);
-	padding-left: var(--padding);
-	padding-right: var(--padding);
+	padding-left: calc(var(--padding) * 1.5);
+	padding-right: calc(var(--padding) * 1.5);
+	margin-bottom: calc(var(--padding) * 0.5);
 }
 
 .article__content {
 	padding-top: var(--padding);
+	padding-bottom: var(--padding);
 }
 
 .article__time-source {
@@ -22,8 +23,7 @@ a {
 	font-style: italic;
 	font-size: var(--content-fontsize);
 	color: var(--light-text);
-	padding-top: var(--padding);
-	padding-bottom: var(--padding);
+	padding-bottom: calc(var(--padding) * 2);
 }
 
 .news__placeholder {
