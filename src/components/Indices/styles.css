@@ -42,6 +42,10 @@
 	padding-right: calc(var(--padding) * 0.7);
 }
 
+.index__arrow {
+	width: 15px;
+}
+
 .center {
 	border-left: 1px solid var(--ui-element-light);
 	border-right: 1px solid var(--ui-element-light);

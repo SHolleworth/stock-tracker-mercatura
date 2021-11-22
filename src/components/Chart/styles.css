@@ -1,8 +1,9 @@
 .chart__container {
 	flex: 0.75;
 	min-height: 600px;
+	min-width: 1200px;
 	padding-top: calc(var(--padding) * 3);
-	overflow-x: auto;
+	overflow: hidden;
 	display: flex;
 	flex-direction: row;
 }
@@ -34,9 +35,10 @@
 
 .custom-tooltip {
 	background-color: var(--background-light);
-	height: 80px;
-	width: 100px;
-	border: solid 1px var(--accent-primary);
+	height: 50px;
+	border: solid 1px var(--ui-element);
+	padding-left: calc(var(--padding));
+	padding-right: calc(var(--padding));
 	display: flex;
 	flex-direction: column;
 	justify-content: space-evenly;
