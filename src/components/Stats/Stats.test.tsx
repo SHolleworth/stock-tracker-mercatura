@@ -29,7 +29,10 @@ componentTest({
 	mockFunctions: [mockStats],
 	rejectedValues: ["Test error for stats"],
 	resolvedValues: [mockData],
-	testids: { error: "stats-placeholder", loading: "stats-placeholder" },
+	testids: {
+		error: "stats-error-placeholder",
+		loading: "stats-loading-placeholder",
+	},
 	matches: [
 		`$${mockData.open}`,
 		`$${mockData.high}`,

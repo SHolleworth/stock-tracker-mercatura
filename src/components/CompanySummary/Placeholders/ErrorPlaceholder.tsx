@@ -4,7 +4,7 @@ function ErrorPlaceholder() {
 	return (
 		<div
 			className={"summary-placeholder--error"}
-			data-testid="summary-placeholder"
+			data-testid="summary-error-placeholder"
 		>
 			Error Loading Company Summary
 		</div>

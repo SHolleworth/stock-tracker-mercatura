@@ -56,7 +56,7 @@ const Chart = () => {
 	}
 
 	return (
-		<div className="chart__container" data-testid="historic-chart">
+		<div className="chart__container" data-testid="intraday-chart">
 			{chartRenderer()}
 		</div>
 	)

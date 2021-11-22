@@ -7,7 +7,7 @@ function LoadingPlaceholder() {
 	return (
 		<div
 			className="stats__placeholder"
-			data-testid="stats-placeholder"
+			data-testid="stats-loading-placeholder"
 			style={{ opacity: opacity }}
 		>
 			<div className="stats__placeholder__column">

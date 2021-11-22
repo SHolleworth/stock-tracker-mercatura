@@ -8,7 +8,7 @@ function ErrorPlaceholder() {
 		<div
 			className={"summary-placeholder"}
 			style={{ opacity: opacity }}
-			data-testid="summary-placeholder"
+			data-testid="summary-loading-placeholder"
 		>
 			<div className={"summary-placeholder__title"} />
 			<div className={"summary-placeholder__content"} />
