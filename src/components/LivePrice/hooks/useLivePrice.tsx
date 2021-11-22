@@ -31,7 +31,7 @@ const useLivePrice = (symbol: string, updateInterval: 1 | 5) => {
 			const data = JSON.parse(e.data)
 			if (data.length !== 0) {
 				setPrice({
-					status: STATUS.ERROR,
+					status: STATUS.RESOLVED,
 					body: JSON.parse(e.data)[0],
 				})
 			} else {
