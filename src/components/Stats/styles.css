@@ -58,6 +58,7 @@
 }
 
 .stats__placeholder {
+	flex: 1;
 	align-self: stretch;
 	display: flex;
 	justify-content: space-between;
