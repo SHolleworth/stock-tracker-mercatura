@@ -13,6 +13,7 @@
 
 .company__name {
 	font-family: "Roboto", sans-serif;
+	font-size: var(--subheader-fontsize);
 	color: var(--medium-text);
 	font-weight: 500;
 	padding-bottom: var(--padding);
@@ -23,7 +24,7 @@
 	color: var(--accent-primary);
 	font-style: italic;
 	padding-bottom: var(--padding);
-	font-size: 13px;
+	font-size: var(--smallcontent-fontsize);
 	text-decoration: underline;
 }
 
@@ -32,7 +33,7 @@
 	font-family: "Roboto", sans-serif;
 	line-height: 1.67;
 	letter-spacing: 0.09px;
-	font-size: 14px;
+	font-size: var(--content-fontsize);
 }
 
 .summary-placeholder {

@@ -10,6 +10,11 @@
 	--negative: #f23441;
 	--positive: #01c38d;
 	--padding: 10px;
+	--symbol-fontsize: 2rem;
+	--section-headers-fontsize: 1rem;
+	--subheader-fontsize: 0.8125rem;
+	--content-fontsize: 0.75rem;
+	--smallcontent-fontsize: 0.6875rem;
 }
 
 body {
@@ -21,23 +26,22 @@ body {
 .headlines {
 	font-family: "Merriweather";
 	font-weight: 700;
+	font-size: var(--subheader-fontsize);
 	color: var(--medium-text);
 	padding-bottom: var(--padding);
+	line-height: 1.54;
 }
 
 .section-heading {
-	font-size: 20px;
+	font-size: var(--section-headers-fontsize);
 }
 
 .logo-section {
-	max-width: 200px;
-	min-width: 150px;
-	flex: 1;
+	width: 129px;
 	background-color: var(--background-dark);
 	display: flex;
 	justify-content: center;
 	padding-top: calc(var(--padding) * 3);
-	transition: align-items 1s ease-in-out;
 }
 
 .logo:hover {
@@ -57,8 +61,7 @@ body {
 }
 
 .news-summary-section {
-	flex: 2;
-	max-width: 450px;
+	width: 351px;
 	align-self: stretch;
 	display: flex;
 	flex-direction: column;
@@ -73,8 +76,4 @@ body {
 
 .logo-center {
 	align-self: center;
-}
-
-.logo-stretch {
-	animation: animation-to-stretch 2 ease-in-out;
 }

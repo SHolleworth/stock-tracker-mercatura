@@ -20,7 +20,7 @@ a {
 .article__time-source {
 	font-family: "Roboto";
 	font-style: italic;
-	font-size: 12px;
+	font-size: var(--content-fontsize);
 	color: var(--light-text);
 	padding-top: var(--padding);
 	padding-bottom: var(--padding);
