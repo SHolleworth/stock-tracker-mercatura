@@ -28,7 +28,6 @@ body {
 	font-weight: 700;
 	font-size: var(--subheader-fontsize);
 	color: var(--medium-text);
-	padding-bottom: var(--padding);
 	line-height: 1.54;
 }
 

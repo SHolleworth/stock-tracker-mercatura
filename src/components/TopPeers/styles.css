@@ -1,6 +1,6 @@
 .top-peers {
 	padding: var(--padding);
-	padding-top: calc(var(--padding) * 3);
+	padding-top: calc(var(--padding) * 2.4);
 }
 
 .peers__buttons {
