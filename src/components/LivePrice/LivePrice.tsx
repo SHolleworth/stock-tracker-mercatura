@@ -55,7 +55,7 @@ export const PriceDisplay: React.FC<PriceProps> = ({
 			<span className={className}>{`$${price.latestPrice.toFixed(
 				2
 			)}`}</span>
-			<div style={{ display: "flex", justifyContent: "center" }}>
+			<div className={`${className}__change__wrapper`}>
 				<img
 					className="arrow"
 					src={price.change > 0 ? normalArrow : downArrow}

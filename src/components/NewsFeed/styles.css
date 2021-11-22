@@ -3,13 +3,13 @@ a {
 }
 
 .newsfeed__heading {
-	padding-left: calc(var(--padding) * 1)
+	padding-left: calc(var(--padding) * 1);
 }
 
 .article {
 	border-bottom: solid 1px var(--ui-element);
-	padding-left: var(--padding);
-	padding-right: var(--padding);
+	padding-left: calc(var(--padding) * 1.5);
+	padding-right: calc(var(--padding) * 1.5);
 	margin-bottom: calc(var(--padding) * 0.5);
 }
 

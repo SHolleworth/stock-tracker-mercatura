@@ -3,11 +3,12 @@
 	justify-content: center;
 	align-items: center;
 	align-self: stretch;
-	padding-bottom: calc(var(--padding) * 2.5);
-	padding-top: calc(var(--padding) * 1.7);
+	padding-bottom: calc(var(--padding) * 1.3);
+	padding-top: calc(var(--padding) * 0.9);
 	font-family: Roboto;
 	border-top: 1px solid var(--ui-element-light);
 	margin-top: auto;
+	height: calc(var(--padding) * 5.6);
 }
 
 .index {
@@ -18,7 +19,10 @@
 	align-self: stretch;
 	padding-left: calc(var(--padding) * 2.4);
 	padding-right: calc(var(--padding) * 1.5);
+	padding-top: var(--padding);
+	padding-bottom: var(--padding);
 	font-size: var(--content-fontsize);
+	/* height: calc(var(--padding) * 1.5) */
 }
 
 .index-price__display {
