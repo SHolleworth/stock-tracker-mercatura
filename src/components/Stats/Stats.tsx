@@ -2,10 +2,11 @@ import React, { useState, useEffect } from "react"
 import KeyStatisticsTable from "./KeyStatistics"
 import { requestKeyStatistics } from "./services"
 import { useSymbol } from "../../contexts/SymbolContext"
-import Placeholder from "./Placeholders/Placeholder"
+import LoadingPlaceholder from "./Placeholders/LoadingPlaceholder"
 import STATUS from "../../utils/statusKeys"
 import { StatusStringType } from "../../utils/statusKeys"
 import { KeyStatistics } from "./stats.d"
+import ErrorPlaceholder from "./Placeholders/ErrorPlaceholder"
 
 interface StatisticsState {
 	status: StatusStringType
@@ -36,9 +37,9 @@ const Stats = () => {
 	const statsRenderer = () => {
 		let content = null
 		if (statistics.status === STATUS.LOADING) {
-			content = <Placeholder />
+			content = <LoadingPlaceholder />
 		} else if (statistics.status === STATUS.ERROR) {
-			content = <Placeholder />
+			content = <ErrorPlaceholder />
 		} else if (statistics.status === STATUS.RESOLVED) {
 			// is this really neccesary?
 			content = statistics.body ? (

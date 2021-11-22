@@ -2,9 +2,10 @@ import React, { useState, useEffect } from "react"
 import "./styles.css"
 import { getPeers } from "./services"
 import { useSymbol } from "../../contexts/SymbolContext"
-import Placeholder from "./Placeholders/Placeholder"
+import LoadingPlaceholder from "./Placeholders/LoadingPlaceholder"
 import STATUS from "../../utils/statusKeys"
 import { useHistory } from "react-router-dom"
+import ErrorPlaceholder from "./Placeholders/ErrorPlaceholder"
 
 type PeersType = {
 	status: "loading" | "error" | "resolved"
@@ -49,9 +50,9 @@ const TopPeers = () => {
 	const peersRenderer = () => {
 		let content = null
 		if (peers.status === STATUS.LOADING) {
-			content = <Placeholder />
+			content = <LoadingPlaceholder />
 		} else if (peers.status === STATUS.ERROR) {
-			content = <Placeholder />
+			content = <ErrorPlaceholder />
 		} else if (peers.status === STATUS.RESOLVED) {
 			content = (
 				<div className="peers__buttons">

@@ -1,7 +1,7 @@
 export const fetchAndCheckResponseForError = (url: string): Promise<any> => {
 	return new Promise((resolve, reject) => {
 		fetch(url).then((response) => {
-			// throw Error()
+			// return reject()
 			if (response.ok) {
 				response.json().then((json) => {
 					return resolve(json)

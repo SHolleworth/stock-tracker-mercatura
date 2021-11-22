@@ -133,7 +133,7 @@ export const usePreviousClose = (symbol: string) => {
 				const previousDayPrices = await requestPreviousDayPrices(symbol)
 				setPreviousClose(previousDayPrices.close)
 			} catch (error) {
-				console.error("Error retreiving previous day prices: " + error)
+				console.error("Error retrieving previous day prices: " + error)
 			}
 		})()
 	}, [])

@@ -53,3 +53,11 @@
 	background-color: var(--ui-element-light);
 	border-radius: 10px;
 }
+
+.index__placeholder--error {
+	width: 200px;
+	height: 20px;
+	background-color: var(--bac);
+	display: flex;
+	justify-content: center;
+}

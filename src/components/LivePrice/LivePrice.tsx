@@ -1,5 +1,5 @@
 import React from "react"
-import Placeholder from "./Placeholders/Placeholder"
+import LoadingPlaceholder from "./Placeholders/LoadingPlaceholder"
 import { useSymbol } from "../../contexts/SymbolContext"
 import useLivePrice from "./hooks/useLivePrice"
 import "./styles.css"
@@ -7,6 +7,7 @@ import downArrow from "../../assets/red-arrow.svg"
 import normalArrow from "../../assets/green-arrow.svg"
 import STATUS from "../../utils/statusKeys"
 import { Price } from "./types"
+import ErrorPlaceholder from "./Placeholders/ErrorPlaceholder"
 
 const LivePrice = ({ searchFocused }: { searchFocused: boolean }) => {
 	const { symbol } = useSymbol()
@@ -14,9 +15,9 @@ const LivePrice = ({ searchFocused }: { searchFocused: boolean }) => {
 
 	const livePriceRenderer = () => {
 		if (price.status === STATUS.LOADING) {
-			return <Placeholder />
+			return <LoadingPlaceholder />
 		} else if (price.status === STATUS.ERROR) {
-			return <Placeholder />
+			return <ErrorPlaceholder />
 		} else if (price.status === STATUS.RESOLVED) {
 			return (
 				<PriceDisplay

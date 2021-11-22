@@ -1,11 +1,15 @@
 import React from "react"
 import { usePlaceholderAnimation } from "../../../hooks/usePlaceholderAnimation"
 
-function Placeholder() {
+function LoadingPlaceholder() {
 	const opacity = usePlaceholderAnimation()
 
 	return (
-		<div className="stats__placeholder" style={{ opacity: opacity }}>
+		<div
+			className="stats__placeholder"
+			data-testid="stats-placeholder"
+			style={{ opacity: opacity }}
+		>
 			<div className="stats__placeholder__column">
 				<div className="stats__placeholder__row">
 					<div className="stats__placeholder__row__title" />
@@ -66,4 +70,4 @@ function Placeholder() {
 	)
 }
 
-export default Placeholder
+export default LoadingPlaceholder

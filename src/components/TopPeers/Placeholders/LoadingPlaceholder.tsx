@@ -1,7 +1,7 @@
 import React from "react"
 import { usePlaceholderAnimation } from "../../../hooks/usePlaceholderAnimation"
 
-function Placeholder() {
+function LoadingPlaceholder() {
 	const opacity = usePlaceholderAnimation()
 
 	return (
@@ -17,4 +17,4 @@ function Placeholder() {
 	)
 }
 
-export default Placeholder
+export default LoadingPlaceholder

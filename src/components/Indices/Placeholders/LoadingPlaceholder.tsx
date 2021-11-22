@@ -1,14 +1,15 @@
 import React from "react"
 import { usePlaceholderAnimation } from "../../../hooks/usePlaceholderAnimation"
 
-export function Placeholder() {
+function LoadingPlaceholder() {
 	const opacity = usePlaceholderAnimation()
-
 	return (
 		<div
-			className="chart__placeholder"
+			className="index__placeholder"
+			data-testid="index-placeholder"
 			style={{ opacity: opacity }}
-			data-testid="chart-placeholder"
 		></div>
 	)
 }
+
+export default LoadingPlaceholder

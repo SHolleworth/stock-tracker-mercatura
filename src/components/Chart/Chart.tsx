@@ -3,9 +3,10 @@ import { colours } from "./colours"
 import "./styles.css"
 import { useIntradayPrices, usePreviousClose } from "./hooks/usePrices"
 import { CurrentPriceChart } from "./components/CurrentPriceChart"
-import { Placeholder } from "./Placeholders/Placeholder"
+import { LoadingPlaceholder } from "./Placeholders/LoadingPlaceholder"
 import { useSymbol } from "../../contexts/SymbolContext"
 import STATUS from "../../utils/statusKeys"
+import { ErrorPlaceholder } from "./Placeholders/ErrorPlaceholder"
 
 const style: React.CSSProperties = {
 	fontFamily: "Roboto",
@@ -30,10 +31,10 @@ const Chart = () => {
 
 	const chartRenderer = () => {
 		if (intradayPrices.status === STATUS.LOADING) {
-			return <Placeholder />
+			return <LoadingPlaceholder />
 		}
 		if (intradayPrices.status === STATUS.ERROR) {
-			return <Placeholder />
+			return <ErrorPlaceholder />
 		}
 		if (intradayPrices.status === STATUS.RESOLVED) {
 			if (intradayPrices.body) {
@@ -51,7 +52,7 @@ const Chart = () => {
 				)
 			}
 		}
-		return <Placeholder />
+		return <LoadingPlaceholder />
 	}
 
 	return (

@@ -5,6 +5,7 @@
 .stats {
 	display: flex;
 	flex-wrap: wrap;
+	align-self: stretch;
 	font-family: "Roboto", sans-serif;
 	font-weight: 500;
 	padding-left: var(--padding);
@@ -14,7 +15,7 @@
 }
 
 .stats-container {
-	width: 100%;
+	flex: 1;
 	display: flex;
 	justify-content: space-between;
 }
@@ -57,7 +58,7 @@
 }
 
 .stats__placeholder {
-	width: 100%;
+	align-self: stretch;
 	display: flex;
 	justify-content: space-between;
 }
@@ -86,4 +87,14 @@
 	height: 20px;
 	background-color: var(--ui-element);
 	border-radius: 15px;
+}
+
+.stats__placeholder--error {
+	height: 200px;
+	flex: 1;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	font-family: roboto;
+	font-weight: 400;
 }
