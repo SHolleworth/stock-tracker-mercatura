@@ -18,6 +18,7 @@
 	align-self: stretch;
 	padding-left: calc(var(--padding) * 2);
 	padding-right: calc(var(--padding) * 2);
+	font-size: var(--content-fontsize);
 }
 
 .index-price__display {

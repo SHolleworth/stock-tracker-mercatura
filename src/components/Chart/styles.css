@@ -54,12 +54,12 @@
 }
 
 .custom-tooltip__label {
-	font-size: 14px;
+	font-size: var(--content-fontsize);
 }
 
 .custom-tooltip__content {
 	color: var(--dark-text);
-	font-size: 14px;
+	font-size: var(--content-fontsize);
 }
 
 .chart__placeholder {

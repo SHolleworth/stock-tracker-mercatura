@@ -21,7 +21,8 @@ const LogoColumn: React.FC<LogoColumnPropsType> = ({ alignment }) => {
 		<div className="logo-section" onClick={() => setFocused(false)}>
 			<img
 				src={logo}
-				height={120}
+				height={92}
+				width={66}
 				className={`logo logo-${alignment}`}
 				alt={"Reactive Analystics Logo"}
 				onClick={handleClick}

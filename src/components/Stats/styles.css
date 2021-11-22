@@ -39,7 +39,7 @@
 }
 
 .stats__list li {
-	font-size: 16px;
+	font-size: var(--content-fontsize);
 	display: flex;
 	justify-content: space-between;
 	border-bottom: 1px solid var(--ui-element-light);
