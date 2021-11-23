@@ -30,9 +30,9 @@ componentTest({
 	rejectedValues: ["Test error intraday prices"],
 	resolvedValues: [mockData],
 	testids: {
-		loading: "chart-placeholder",
-		error: "chart-placeholder",
-		resolved: "historic-chart",
+		loading: "chart-loading-placeholder",
+		error: "chart-error-placeholder",
+		resolved: "intraday-chart",
 	},
 	matches: [],
 })

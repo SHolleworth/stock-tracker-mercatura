@@ -4,8 +4,9 @@ import { requestNews } from "./services"
 import convertMillisecondsToNewsFeedTime from "../../utils/convertMillisecondsToNewsFeedTime"
 import "./styles.css"
 import { useSymbol } from "../../contexts/SymbolContext"
-import Placeholder from "./Placeholders/Placeholder"
+import LoadingPlaceholder from "./Placeholders/LoadingPlaceholder"
 import STATUS, { StatusStringType } from "../../utils/statusKeys"
+import ErrorPlaceholder from "./Placeholders/ErrorPlaceholder"
 
 type Article = {
 	headline: string
@@ -38,9 +39,9 @@ function NewsFeed() {
 	const newsRenderer = () => {
 		let content = null
 		if (articles.status === STATUS.LOADING) {
-			content = <Placeholder />
+			content = <LoadingPlaceholder />
 		} else if (articles.status === STATUS.ERROR) {
-			content = <Placeholder />
+			content = <ErrorPlaceholder />
 		} else if (articles.status === STATUS.RESOLVED) {
 			content = articles.body
 				? articles.body.map((article, index) => (

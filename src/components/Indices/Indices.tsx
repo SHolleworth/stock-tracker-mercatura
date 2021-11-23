@@ -1,9 +1,10 @@
 import React from "react"
-import statusKeys from "../../utils/statusKeys"
-import Placeholder from "./Placeholders/Placeholder"
+import STATUS from "../../utils/statusKeys"
+import LoadingPlaceholder from "./Placeholders/LoadingPlaceholder"
 import useLivePrice from "../LivePrice/hooks/useLivePrice"
 import { PriceDisplay } from "../LivePrice/LivePrice"
 import "./styles.css"
+import ErrorPlaceholder from "./Placeholders/ErrorPlaceholder"
 
 function Indices() {
 	return (
@@ -37,8 +38,10 @@ export const Index = ({ symbol, className }: IndexPropsType) => {
 		)
 	}
 
-	if (price.status !== statusKeys.RESOLVED) {
-		content = <Placeholder />
+	if (price.status === STATUS.LOADING) {
+		content = <LoadingPlaceholder />
+	} else if (price.status === STATUS.ERROR) {
+		content = <ErrorPlaceholder index={symbol} />
 	}
 
 	return <div className={"index " + className}>{content}</div>

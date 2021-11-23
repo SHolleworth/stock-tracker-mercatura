@@ -2,8 +2,9 @@ import React, { useState, useEffect } from "react"
 import { requestCompanyInfo } from "./services"
 import "./styles.css"
 import { useSymbol } from "../../contexts/SymbolContext"
-import Placeholder from "./Placeholders/Placeholder"
+import LoadingPlaceholder from "./Placeholders/LoadingPlaceholder"
 import STATUS, { StatusStringType } from "../../utils/statusKeys"
+import ErrorPlaceholder from "./Placeholders/ErrorPlaceholder"
 
 interface Summary {
 	symbol: string
@@ -43,10 +44,10 @@ const CompanySummary = () => {
 	const summaryRenderer = () => {
 		let content = null
 		if (companyInfo.status === STATUS.LOADING) {
-			content = <Placeholder />
+			content = <LoadingPlaceholder />
 		}
 		if (companyInfo.status === STATUS.ERROR) {
-			content = <Placeholder />
+			content = <ErrorPlaceholder />
 		}
 		if (companyInfo.status === STATUS.RESOLVED) {
 			if (companyInfo.body) {

@@ -21,6 +21,9 @@ componentTest({
 	mockFunctions: [mockCompanyInfo],
 	rejectedValues: ["Test error for company summary"],
 	resolvedValues: [mockData],
-	testids: { error: "summary-placeholder", loading: "summary-placeholder" },
+	testids: {
+		error: "summary-error-placeholder",
+		loading: "summary-loading-placeholder",
+	},
 	matches: ["Name (TST)", "website.com", "description..."],
 })

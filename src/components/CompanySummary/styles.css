@@ -61,3 +61,13 @@
 .summary-placeholder__content--short {
 	width: 70%;
 }
+
+.summary-placeholder--error {
+	height: 250px;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	font-family: roboto;
+	color: var(--dark-text);
+}

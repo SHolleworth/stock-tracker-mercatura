@@ -22,6 +22,9 @@ componentTest({
 	mockFunctions: [mockNews],
 	rejectedValues: ["Test error for news feed"],
 	resolvedValues: [mockData],
-	testids: { error: "news-placeholder", loading: "news-placeholder" },
+	testids: {
+		error: "news-error-placeholder",
+		loading: "news-loading-placeholder",
+	},
 	matches: [mockData[0].headline, `1 day ago - ${mockData[0].source}`],
 })

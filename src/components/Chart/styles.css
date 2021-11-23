@@ -57,7 +57,19 @@
 
 .chart__placeholder {
 	flex: 1;
-	width: 1260px;
+	align-self: stretch;
 	background-color: var(--ui-element);
 	border-radius: 10px;
+}
+
+.chart__placeholder--error {
+	flex: 1;
+	align-self: stretch;
+	color: var(--dark-text);
+	background-color: var(--background-light);
+	border-radius: 10px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	font-family: Roboto;
 }

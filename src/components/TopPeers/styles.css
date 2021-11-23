@@ -33,20 +33,23 @@
 }
 
 .peers__placeholder {
+	align-self: stretch;
 	display: flex;
 	justify-content: center;
 	flex-wrap: wrap;
 }
 
 .peers__placeholder__button {
-	height: 40px;
-	min-width: 60px;
+	height: 25px;
+	width: 51px;
 	border-radius: 43px;
 	background-color: var(--ui-element);
-	padding-left: var(--padding);
-	padding-right: var(--padding);
-	padding-bottom: calc(var(--padding) * 1.5);
-	padding-top: calc(var(--padding) * 1.5);
-	flex-basis: 18%;
-	margin: calc(var(--padding) * 0.5);
+	margin: calc(var(--padding) * 0.2);
+}
+
+.peers__placeholder--error {
+	display: flex;
+	justify-content: center;
+	flex-wrap: wrap;
+	font-family: roboto;
 }
