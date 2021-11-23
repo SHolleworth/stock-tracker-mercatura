@@ -65,8 +65,8 @@ export const PriceDisplay: React.FC<PriceProps> = ({
 				<span
 					className={
 						price.change > 0
-							? `${className} change positive`
-							: `${className} change negative`
+							? `${className}__change positive`
+							: `${className}__change negative`
 					}
 				>
 					{`${price.change} | ${price.changePercent.toFixed(2)}%`}
