@@ -4,7 +4,16 @@
 	box-sizing: border-box;
 	flex: 2;
 	position: relative;
-	z-index: 9;
+	z-index: 10;
+}
+
+.search__clickable-area {
+	position: fixed;
+	top: 0;
+	left: 0;
+	z-index: 1;
+	height: 100vh;
+	width: 100vw;
 }
 
 .field {
@@ -41,7 +50,7 @@
 	font-family: "Roboto";
 	position: absolute;
 	top: 70px;
-	z-index: 9;
+	z-index: 10;
 	box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.15);
 	color: #828282;
 	width: 100%;

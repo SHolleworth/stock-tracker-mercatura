@@ -39,6 +39,7 @@ const SearchBar = () => {
 			<div className="searchbar">
 				<div className="field">
 					<input
+						className="searchbar__input"
 						type="text"
 						id="search"
 						value={value}
@@ -53,6 +54,13 @@ const SearchBar = () => {
 					<Suggestions value={value} setValue={setValue} />
 				) : null}
 			</div>
+			<div
+				className="search__clickable-area"
+				hidden={!focused}
+				onClick={() => {
+					setFocused(false)
+				}}
+			/>
 		</>
 	)
 }
