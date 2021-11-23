@@ -8,6 +8,7 @@ export default defineConfig({
 		react(),
 		VitePWA({
 			manifest: {
+				start_url: "/",
 				name: "Mercatura Tracker",
 				short_name: "Mercatura Tracker",
 				theme_color: "#ffffff",
