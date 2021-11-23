@@ -14,11 +14,7 @@ interface Suggestion {
 	[key: string]: string
 }
 
-const Suggestions: React.FC<SuggestionsProps> = ({
-	value,
-	setValue,
-	setFocused,
-}) => {
+const Suggestions: React.FC<SuggestionsProps> = ({ value, setValue }) => {
 	const [cursor, setCursor] = useState(0)
 	const [hovered, setHovered] = useState<Suggestion>()
 	const { setSymbol } = useSymbol()
@@ -45,7 +41,7 @@ const Suggestions: React.FC<SuggestionsProps> = ({
 
 	const symbolSetter = (symbol: string) => {
 		setSymbol(symbol)
-		history.push(`stock/${symbol}`)
+		history.push(`/stock/${symbol}`)
 	}
 
 	useEffect(() => {
