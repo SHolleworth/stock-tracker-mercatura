@@ -67,7 +67,7 @@ export const CurrentPriceChart = ({
 	)
 
 	return (
-		<ResponsiveContainer width="100%">
+		<ResponsiveContainer width="99%">
 			<LineChart
 				margin={{ right: 0, bottom: 10 }}
 				// padding={{ left: 10 }}
@@ -83,7 +83,7 @@ export const CurrentPriceChart = ({
 				{line}
 				{/* recharts does not like your custom components in it's custom components, so this is a work around */}
 				{CustomisedXAxis({ axisProps, interval })}
-				{CustomisedYAxis({ axisProps, min, max })}
+				{CustomisedYAxis({ axisProps, min, max, hide: true })}
 				<ReferenceLine
 					y={previousClose}
 					strokeDasharray={"8 5"}

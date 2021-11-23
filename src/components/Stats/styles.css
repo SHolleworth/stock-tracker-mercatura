@@ -37,8 +37,18 @@
 	padding: 0;
 	flex: 1;
 	list-style: none;
-	min-width: 100px;
 }
+
+@media (max-width: 1366px) {
+	.middle-section{
+		flex: 1;
+		margin-left: calc(var(--padding) * 6);
+		margin-right: calc(var(--padding) * 6);
+	}
+	.stats {
+		padding-bottom: calc(var(--padding) * 5);
+	}
+} 
 
 .stats__list li {
 	font-size: var(--content-fontsize);

@@ -7,6 +7,8 @@ import { LoadingPlaceholder } from "./Placeholders/LoadingPlaceholder"
 import { useSymbol } from "../../contexts/SymbolContext"
 import STATUS from "../../utils/statusKeys"
 import { ErrorPlaceholder } from "./Placeholders/ErrorPlaceholder"
+import { StaticYAxis } from "./components/CustomisedYAxis"
+import { useDrag } from "./hooks/useDrag"
 
 const style: React.CSSProperties = {
 	fontFamily: "Roboto",
@@ -27,6 +29,7 @@ const Chart = () => {
 	const { symbol } = useSymbol()
 	const [intradayPrices, { min, max }] = useIntradayPrices(symbol)
 	const previousClose = usePreviousClose(symbol)
+	const [chartRef, startDrag] = useDrag()
 	const interval = 3
 
 	const chartRenderer = () => {
@@ -39,16 +42,24 @@ const Chart = () => {
 		if (intradayPrices.status === STATUS.RESOLVED) {
 			if (intradayPrices.body) {
 				return (
-					<CurrentPriceChart
-						axisProps={axisProps}
-						currentDayData={intradayPrices.body}
-						previousClose={
-							previousClose ? previousClose : undefined
-						}
-						interval={interval}
-						max={max}
-						min={min}
-					/>
+					<>
+						<StaticYAxis
+							axisProps={axisProps}
+							data={intradayPrices.body}
+							max={max}
+							min={min}
+						/>
+						<CurrentPriceChart
+							axisProps={axisProps}
+							currentDayData={intradayPrices.body}
+							previousClose={
+								previousClose ? previousClose : undefined
+							}
+							interval={interval}
+							max={max}
+							min={min}
+						/>
+					</>
 				)
 			}
 		}
@@ -56,8 +67,13 @@ const Chart = () => {
 	}
 
 	return (
-		<div className="chart__container" data-testid="intraday-chart">
-			{chartRenderer()}
+		<div
+			className="chart__container"
+			ref={chartRef}
+			onMouseDown={startDrag}
+			data-testid="intraday-chart"
+		>
+			<div className="chart__inner">{chartRenderer()}</div>
 		</div>
 	)
 }

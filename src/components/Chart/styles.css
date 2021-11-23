@@ -1,24 +1,36 @@
 .chart__container {
 	flex: 0.75;
 	min-height: 600px;
-	min-width: 1200px;
 	padding-top: calc(var(--padding) * 3);
-	overflow: hidden;
+	padding-bottom: calc(var(--padding) * 1.5);
 	display: flex;
 	flex-direction: row;
+	overflow-x: auto;
+}
+
+
+@media (max-width: 1366px) {
+	.chart__inner {
+		cursor: grab;
+	}
+}
+
+.chart__inner {
+	flex: 1;
+	min-width: 1200px;	
+	display: flex;
 }
 
 .chart__container::-webkit-scrollbar {
-	height: 7px;
+	height: 0px;
 }
 
 .chart__container::-webkit-scrollbar-thumb {
-	background-color: var(--background-dark);
-	border-radius: 5px;
+	background-color: var(--ui-element);
 }
 
 .chart__container::-webkit-scrollbar-track {
-	display: none;
+	background-color: var(--background-dark);
 	border-radius: 5px;
 }
 
@@ -28,12 +40,13 @@
 
 .static-y-axis {
 	position: sticky;
-	left: -1px;
+	left: 0;
 	z-index: 5;
 	background-color: var(--background-light);
 }
 
 .custom-tooltip {
+	user-select: none;
 	background-color: var(--background-light);
 	height: 50px;
 	border: solid 1px var(--ui-element);
