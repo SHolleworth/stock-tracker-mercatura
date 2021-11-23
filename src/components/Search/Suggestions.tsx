@@ -8,7 +8,6 @@ import useKeyPress from "./hooks/useKeyPress"
 interface SuggestionsProps {
 	value: string
 	setValue: (value: string) => void
-	setFocused: (focused: boolean) => void
 }
 interface Suggestion {
 	[key: string]: string

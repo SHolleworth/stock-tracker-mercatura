@@ -15,7 +15,7 @@ export const useFocus = () => {
 }
 
 const FocusContextProvider: React.FC = ({ children }) => {
-	const [focused, setFocused] = useState(false)
+	const [focused, setFocused] = useState(true)
 
 	return (
 		<FocusContext.Provider value={{ focused, setFocused }}>

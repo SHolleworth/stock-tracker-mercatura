@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react"
+import React, { useEffect, useRef, useState } from "react"
 import Suggestions from "./Suggestions"
 import "./styles.css"
 import { useSymbol } from "../../contexts/SymbolContext"
@@ -9,6 +9,7 @@ const SearchBar = () => {
 	const [value, setValue] = useState("")
 	const { symbol } = useSymbol()
 	const { focused, setFocused } = useFocus()
+	const input = useRef<HTMLInputElement>(null)
 
 	const handleChange = ({ target }: React.ChangeEvent<HTMLInputElement>) => {
 		setValue(target.value)
@@ -18,9 +19,12 @@ const SearchBar = () => {
 		(async () => {
 			if (symbol) {
 				try {
-					setFocused(false)
 					const info = await requestCompanyInfo(symbol)
 					setValue(`${info.symbol} - ${info.companyName}`)
+					if (input.current) {
+						setFocused(false)
+						input.current.blur()
+					}
 				} catch (error) {
 					console.error(
 						"Error requesting company info for search bar: " + error
@@ -42,14 +46,11 @@ const SearchBar = () => {
 						autoComplete="off"
 						onChange={handleChange}
 						onFocus={() => setFocused(true)}
+						ref={input}
 					/>
 				</div>
 				{focused && value ? (
-					<Suggestions
-						value={value}
-						setValue={setValue}
-						setFocused={setFocused}
-					/>
+					<Suggestions value={value} setValue={setValue} />
 				) : null}
 			</div>
 		</>
