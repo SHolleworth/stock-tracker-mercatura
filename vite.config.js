@@ -7,6 +7,10 @@ export default defineConfig({
 	plugins: [
 		react(),
 		VitePWA({
+			strategies: "injectManifest",
+			srcDir: "src",
+			outDir: "dist",
+			filename: "sw.ts",
 			manifest: {
 				name: "Mercatura Tracker",
 				short_name: "Mercatura Tracker",
@@ -26,5 +30,5 @@ export default defineConfig({
 			},
 		}),
 	],
-	base: "./",
+	base: process.env.BASE_URL ? `${process.env.BASE_URL}` : "./",
 })
