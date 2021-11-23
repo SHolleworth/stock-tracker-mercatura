@@ -26,9 +26,6 @@ body {
 .headlines {
 	font-family: "Merriweather";
 	font-weight: 700;
-	font-size: var(--subheader-fontsize);
-	color: var(--medium-text);
-	line-height: 1.54;
 }
 
 .section-heading {
@@ -41,6 +38,10 @@ body {
 	display: flex;
 	justify-content: center;
 	padding-top: calc(var(--padding) * 3);
+}
+
+.logo {
+	user-select: none;
 }
 
 .logo:hover {
@@ -66,6 +67,7 @@ body {
 	flex-direction: column;
 	background-color: var(--background-dark);
 	padding: calc(var(--padding) * 1.5);
+	padding-top: calc(var(--padding) * 4);
 	overflow-y: auto;
 }
 

@@ -3,7 +3,7 @@ a {
 }
 
 .newsfeed__heading {
-	padding-left: calc(var(--padding) * 1);
+	padding-left: calc(var(--padding) * 1.5);
 }
 
 .article {
@@ -16,6 +16,11 @@ a {
 .article__content {
 	padding-top: var(--padding);
 	padding-bottom: var(--padding);
+	font-family: "Merriweather";
+	font-size: var(--subheader-fontsize);
+	color: var(--medium-text);
+	font-weight: 700;
+	line-height: 1.54;
 }
 
 .article__time-source {

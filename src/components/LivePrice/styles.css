@@ -1,9 +1,11 @@
 .price__display {
 	flex: 1;
 	display: flex;
-	align-items: center;
+	align-items: flex-end;
 	justify-content: end;
 	padding: 0;
+	padding-bottom: calc(var(--padding) * 1.5);
+	user-select: none;
 }
 
 .price__display--hidden {
@@ -12,16 +14,12 @@
 
 .price__change__wrapper {
 	display: flex;
-	justify-content: center;
-	align-items: flex-end;
-	height: 35px;
+	align-items: center;
 }
 
-.arrow {
+.price__arrow {
 	position: relative;
-	width: 35px;
-	margin-right: -5px;
-	margin-bottom: -6px;
+	width: 30px;
 }
 
 .index-price__change__wrapper {
@@ -37,9 +35,8 @@
 	padding-right: var(--padding);
 }
 
-.change {
+.price__change {
 	font-family: "Roboto", sans-serif;
-	padding-right: calc(var(--padding) * -2);
 	font-weight: 500;
 	font-size: var(--section-headers-fontsize);
 }

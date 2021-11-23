@@ -58,15 +58,15 @@ export const PriceDisplay: React.FC<PriceProps> = ({
 			)}`}</span>
 			<div className={`${className}__change__wrapper`}>
 				<img
-					className="arrow"
+					className={`${className}__arrow`}
 					src={price.change > 0 ? normalArrow : downArrow}
 					alt="down arrow"
 				/>
 				<span
 					className={
 						price.change > 0
-							? `${className} change positive`
-							: `${className} change negative`
+							? `${className}__change positive`
+							: `${className}__change negative`
 					}
 				>
 					{`${price.change} | ${price.changePercent.toFixed(2)}%`}
