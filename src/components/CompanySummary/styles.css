@@ -7,6 +7,16 @@
 	padding-bottom: calc(var(--padding) * 4);
 }
 
+@media (max-width: 1366px) {
+	.company__summary {
+		padding: 0;
+		padding-left: calc(var(--padding) * 6);
+		padding-right: calc(var(--padding) * 6);
+		border-bottom: none;
+		flex: 1;
+	}
+}
+
 .company-summary__heading {
 	padding-bottom: var(--padding);
 }

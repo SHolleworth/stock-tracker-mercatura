@@ -1,35 +1,33 @@
 import React, { RefObject, useRef } from "react"
 
-export const useDrag = (): [RefObject<HTMLInputElement>, (e: React.MouseEvent) => void, (pixels: number) => void ] => {
+export const useDrag = (): [
+	RefObject<HTMLInputElement>,
+	(e: React.MouseEvent) => void
+] => {
 	const ref = useRef<HTMLInputElement>(null)
 
 	let pos = { left: 0, x: 0 }
-	const startScroll = (e : React.MouseEvent) => {
+	const startDrag = (e: React.MouseEvent) => {
+		console.log(e)
 		if (ref.current) {
 			pos = { left: ref.current.scrollLeft, x: e.clientX }
-	
+
 			document.addEventListener("mousemove", handleScroll)
 			document.addEventListener("mouseup", endScroll)
 		}
 	}
 
-	const handleScroll = (e : MouseEvent) => {
+	const handleScroll = (e: MouseEvent) => {
 		const dx = e.clientX - pos.x
 		if (ref.current) {
 			ref.current.scrollLeft = pos.left - dx
 		}
 	}
 
-	const endScroll = (e : MouseEvent) => {
+	const endScroll = (e: MouseEvent) => {
 		document.removeEventListener("mousemove", handleScroll)
 		document.removeEventListener("mouseup", endScroll)
 	}
 
-	const setScroll = (pixels : number) => {
-		if (ref.current) {
-			ref.current.scrollLeft = pixels
-		}
-	}
-
-	return [ref, startScroll, setScroll]
+	return [ref, startDrag]
 }

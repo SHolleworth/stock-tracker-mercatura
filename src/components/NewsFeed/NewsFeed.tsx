@@ -51,6 +51,7 @@ function NewsFeed() {
 							content={article.headline}
 							timeSincePublication={article.datetime}
 							source={article.source}
+							index={index}
 						/>
 				  ))
 				: null
@@ -61,7 +62,7 @@ function NewsFeed() {
 			)
 		}
 		return (
-			<div className="newsfeed__background">
+			<div className="newsfeed">
 				<div className="newsfeed__heading section-heading">
 					Latest News
 				</div>
@@ -78,6 +79,7 @@ type NewsProps = {
 	content: string
 	timeSincePublication: number
 	source: string
+	index: number
 }
 
 function NewsArticle({
@@ -85,11 +87,14 @@ function NewsArticle({
 	content,
 	timeSincePublication,
 	source,
+	index,
 }: NewsProps) {
 	const timeString = convertMillisecondsToNewsFeedTime(timeSincePublication)
 
+	const lastArticleClass = index > 1 ? "article__last" : ""
+
 	return (
-		<div className="article">
+		<div className={`article ${lastArticleClass}`}>
 			<a href={link} target="_blank" rel="noreferrer">
 				<div className="article__content">{content}</div>
 			</a>

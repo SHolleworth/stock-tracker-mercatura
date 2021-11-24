@@ -3,8 +3,6 @@ import React from "react"
 import { YAxis, ResponsiveContainer, LineChart, Text } from "recharts"
 import { colours } from "../colours"
 import { axisPropsType, price } from "../types"
-// import { Text } from "recharts"
-import { TopXAxis } from "./TopXAxis"
 
 // const CustomisedYAxisTick = ({ x, y, payload, style, min }) => {
 // 	let text = "-"
@@ -75,10 +73,9 @@ export const StaticYAxis = ({
 }: StaticYAxisPropsTypes) => {
 	return (
 		<div className="static-y-axis">
-			<ResponsiveContainer height={"100%"} width={61}>
+			<ResponsiveContainer height="100%" width={61}>
 				<LineChart data={data} margin={{ bottom: 40 }}>
 					{CustomisedYAxis({ axisProps, min, max, hide: false })}
-					{TopXAxis({ data, style: axisProps.style, isHidden: true })}
 				</LineChart>
 			</ResponsiveContainer>
 		</div>

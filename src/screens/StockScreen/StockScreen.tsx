@@ -29,13 +29,12 @@ const StockScreen = () => {
 
 	if (symbol) {
 		return (
-			<>
+			<div className="stock-screen">
 				<LogoColumn alignment="stretch" />
 				<div className="main-section">
 					<StockHeader />
 					<Chart />
 					<Stats />
-					<Indices />
 				</div>
 				<div
 					className="news-summary-section"
@@ -45,7 +44,10 @@ const StockScreen = () => {
 					<CompanySummary />
 					<TopPeers />
 				</div>
-			</>
+				<div className="indice-section">
+					<Indices />
+				</div>
+			</div>
 		)
 	}
 	return null

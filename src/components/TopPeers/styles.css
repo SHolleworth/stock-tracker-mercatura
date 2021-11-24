@@ -53,3 +53,13 @@
 	flex-wrap: wrap;
 	font-family: roboto;
 }
+
+@media (max-width: 1366px) {
+	.top-peers {
+		padding: 0;
+		flex: 1;
+	}
+	.peers__buttons {
+		justify-content: flex-start;
+	}
+}

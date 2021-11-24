@@ -2,6 +2,12 @@ a {
 	text-decoration: none;
 }
 
+@media (max-width: 1366px) {
+	.newsfeed {
+		flex: 1;
+	}
+}
+
 .newsfeed__heading {
 	padding-left: calc(var(--padding) * 1.5);
 }
@@ -29,6 +35,12 @@ a {
 	font-size: var(--content-fontsize);
 	color: var(--light-text);
 	padding-bottom: calc(var(--padding) * 2);
+}
+
+@media (max-width: 1366px) {
+	.article__last {
+		border-bottom: none;
+	}
 }
 
 .news__placeholder {
