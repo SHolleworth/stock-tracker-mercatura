@@ -29,6 +29,13 @@
 	padding: 15px 5px;
 }
 
+@media(max-width: 834px) {
+	.field input {
+		font-size: var(--section-headers-fontsize);
+		padding-top: calc(var(--padding) * 2.5);
+	}
+}
+
 .field input:focus-visible {
 	outline: none;
 	border-bottom: 2px solid var(--accent-primary);

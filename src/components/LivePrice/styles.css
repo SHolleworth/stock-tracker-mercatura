@@ -17,6 +17,10 @@
 	align-items: center;
 }
 
+.arrow {
+	margin-right: calc(var(--padding) * -.5)
+}
+
 .price__arrow {
 	position: relative;
 	width: 30px;
@@ -35,10 +39,31 @@
 	padding-right: var(--padding);
 }
 
+.change {
+	white-space: nowrap;
+}
+
 .price__change {
 	font-family: "Roboto", sans-serif;
 	font-weight: 500;
 	font-size: var(--section-headers-fontsize);
+}
+
+@media(max-width: 834px) {
+	.price {
+		align-self: stretch;
+		font-size: var(--section-headers-fontsize);
+	}
+
+	.price__display {
+		font-size: var(--section-headers-fontsize);
+		padding-top: calc(var(--padding) * 2.5);
+	}
+
+	.price__change {
+		font-size: var(--subheader-fontsize);
+
+	}
 }
 
 .positive {

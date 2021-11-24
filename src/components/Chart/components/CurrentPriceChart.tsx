@@ -69,7 +69,7 @@ export const CurrentPriceChart = ({
 	return (
 		<ResponsiveContainer width="99%">
 			<LineChart
-				margin={{ right: 0, bottom: 10 }}
+				margin={{ right: 40, bottom: 10 }}
 				// padding={{ left: 10 }}
 			>
 				{ReferenceAreas({

@@ -53,7 +53,7 @@ const Stats = () => {
 		}
 		return (
 			<div className="stats">
-				<h2 className="stats__title section-heading">Key Statistics</h2>
+				<h2 className="section-heading stats__title">Key Statistics</h2>
 				{content}
 			</div>
 		)

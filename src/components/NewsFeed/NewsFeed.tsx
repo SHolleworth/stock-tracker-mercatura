@@ -91,12 +91,15 @@ function NewsArticle({
 }: NewsProps) {
 	const timeString = convertMillisecondsToNewsFeedTime(timeSincePublication)
 
+	const firstArticleClass = index < 1 ? "article__content__first" : ""
 	const lastArticleClass = index > 1 ? "article__last" : ""
 
 	return (
 		<div className={`article ${lastArticleClass}`}>
 			<a href={link} target="_blank" rel="noreferrer">
-				<div className="article__content">{content}</div>
+				<div className={`article__content ${firstArticleClass}`}>
+					{content}
+				</div>
 			</a>
 			<div className="article__time-source">{`${timeString} - ${source}`}</div>
 		</div>
