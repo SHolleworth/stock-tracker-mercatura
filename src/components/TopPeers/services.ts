@@ -4,9 +4,13 @@ import { fetchAndCheckResponseForError } from "../../utils/fetchAndCheckResponse
 const token = `token=${import.meta.env.VITE_IEX_TOKEN}`
 
 export async function getPeers(symbol: string) {
-	const PEERS_URL = `${base}stock/${symbol}/relevant?${token}`
-	const response = await fetchAndCheckResponseForError(PEERS_URL)
-	return response.symbols
+	if (symbol) {
+		const PEERS_URL = `${base}stock/${symbol}/relevant?${token}`
+		const response = await fetchAndCheckResponseForError(PEERS_URL)
+		return response.symbols
+	} else {
+		throw Error("No Symbol when requesting peers")
+	}
 }
 
 // const fetchMock = (bool: boolean) => {

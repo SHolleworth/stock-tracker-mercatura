@@ -13,27 +13,23 @@ export interface PriceState {
 	body?: Price
 }
 
+function fromEventSource(url: string): Observable<MessageEvent> {
+	return new Observable<MessageEvent>((subscriber) => {
+		const sse = new EventSource(url)
+
+		sse.onmessage = (e) => subscriber.next(e)
+		sse.onerror = (e) => subscriber.error(e)
+
+		return () => sse.close()
+	})
+}
+
 const useLivePrice = (symbol: string, updateInterval: 1 | 5) => {
 	const [price, setPrice] = useState<PriceState>({ status: STATUS.LOADING })
 	const CURL_URL = `${base}stocksUS${updateInterval}Second?symbols=${symbol}&token=${
 		import.meta.env.VITE_IEX_TOKEN
 	}`
 	// const CURL_URL = `${base}stocksUS${updateInterval}Second?symbols=${symbol}&token=${tokens.REAL_TOKEN}`
-
-	function fromEventSource(url: string): Observable<MessageEvent> {
-		return new Observable<MessageEvent>((subscriber) => {
-			const sse = new EventSource(url)
-
-			sse.onmessage = (e) => subscriber.next(e)
-			sse.onerror = (e) => subscriber.error(e)
-
-			return () => {
-				if (sse.readyState === 1) {
-					sse.close()
-				}
-			}
-		})
-	}
 
 	useEffect(() => {
 		setPrice({ status: STATUS.LOADING })
@@ -42,9 +38,9 @@ const useLivePrice = (symbol: string, updateInterval: 1 | 5) => {
 			.pipe(
 				map((message) => JSON.parse(message.data)[0]),
 				filter((data) => data),
-				catchError((err, catched) => {
+				catchError((err, caught) => {
 					console.log(err)
-					return catched
+					return caught
 				})
 			)
 			.subscribe((data) =>
