@@ -4,7 +4,7 @@ function ErrorPlaceholder({ index }: { index: string }) {
 	return (
 		<div
 			className="index__placeholder--error"
-			data-testid="index-placeholder"
+			data-testid="index-error-placeholder"
 		>
 			{`Error Loading ${index}`}
 		</div>

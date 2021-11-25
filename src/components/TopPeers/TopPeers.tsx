@@ -30,14 +30,12 @@ const TopPeers = () => {
 	useEffect(() => {
 		(async () => {
 			setPeers({ status: STATUS.LOADING })
-			if (symbol) {
-				try {
-					const peerData = await getPeers(symbol)
-					setPeers({ status: STATUS.RESOLVED, body: peerData })
-				} catch (error) {
-					console.error("Error retrieving top peers data: " + error)
-					setPeers({ status: STATUS.ERROR })
-				}
+			try {
+				const peerData = await getPeers(symbol)
+				setPeers({ status: STATUS.RESOLVED, body: peerData })
+			} catch (error) {
+				console.error("Error retrieving top peers data: " + error)
+				setPeers({ status: STATUS.ERROR })
 			}
 		})()
 	}, [symbol])

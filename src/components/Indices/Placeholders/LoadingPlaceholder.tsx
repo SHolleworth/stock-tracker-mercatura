@@ -6,7 +6,7 @@ function LoadingPlaceholder() {
 	return (
 		<div
 			className="index__placeholder"
-			data-testid="index-placeholder"
+			data-testid="index-loading-placeholder"
 			style={{ opacity: opacity }}
 		></div>
 	)
