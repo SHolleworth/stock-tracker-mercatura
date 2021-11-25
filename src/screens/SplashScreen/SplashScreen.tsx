@@ -8,6 +8,7 @@ import LogoColumn from "../../components/Logo/LogoColumn"
 
 const SplashScreen = () => {
 	const [progress, setProgress] = useState(0)
+	const [searchFocused, setSearchFocused] = useState(false)
 	// const { setSymbol } = useSymbol()
 
 	const checkIfLoaded = () => {
@@ -36,14 +37,24 @@ const SplashScreen = () => {
 					<ProgressBar completed={progress} />
 				</div>
 			) : (
-				<>
-					<LogoColumn alignment="center" />
+				<div className="landing-page">
+					<LogoColumn
+						alignment="center"
+						className={`landing-page__logo ${
+							searchFocused
+								? "landing-page__logo--search-focused"
+								: null
+						}`}
+					/>
 					<div className="searchbar__container">
 						<div className="grayborder" style={{ width: "100%" }}>
-							<SearchBar />
+							<SearchBar
+								className="landing-page__search"
+								setSearchFocused={setSearchFocused}
+							/>
 						</div>
 					</div>
-				</>
+				</div>
 			)}
 		</>
 	)

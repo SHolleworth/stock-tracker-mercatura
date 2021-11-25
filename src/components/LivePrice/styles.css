@@ -2,9 +2,8 @@
 	flex: 1;
 	display: flex;
 	align-items: flex-end;
-	justify-content: end;
+	justify-content: flex-end;
 	padding: 0;
-	padding-bottom: calc(var(--padding) * 1.5);
 	user-select: none;
 }
 
@@ -47,23 +46,6 @@
 	font-family: "Roboto", sans-serif;
 	font-weight: 500;
 	font-size: var(--section-headers-fontsize);
-}
-
-@media(max-width: 834px) {
-	.price {
-		align-self: stretch;
-		font-size: var(--section-headers-fontsize);
-	}
-
-	.price__display {
-		font-size: var(--section-headers-fontsize);
-		padding-top: calc(var(--padding) * 2.5);
-	}
-
-	.price__change {
-		font-size: var(--subheader-fontsize);
-
-	}
 }
 
 .positive {
@@ -111,4 +93,22 @@
 	align-items: center;
 	justify-content: center;
 	font-family: roboto;
+}
+
+@media(max-width: 834px) {
+	.price {
+		align-self: stretch;
+		font-size: var(--section-headers-fontsize);
+		padding-right: 0;
+	}
+
+	.price__display {
+		font-size: var(--section-headers-fontsize);
+		align-items: center;
+	}
+
+	.price__change {
+		font-size: var(--subheader-fontsize);
+
+	}
 }

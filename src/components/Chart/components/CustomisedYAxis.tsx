@@ -51,7 +51,7 @@ const CustomisedYAxisTick = ({ x, y, payload, style }: YAxisTickPropsType) => {
 			y={y - 1}
 			fill={colours.keys}
 			style={style}
-			fontSize={14}
+			fontSize={".75rem"}
 			textAnchor="end"
 			verticalAnchor="middle"
 		>

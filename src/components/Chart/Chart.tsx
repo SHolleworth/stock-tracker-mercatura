@@ -73,7 +73,15 @@ const Chart = () => {
 			onMouseDown={startDrag}
 			data-testid="intraday-chart"
 		>
-			<div className="chart__inner">{chartRenderer()}</div>
+			<div
+				className={`chart__inner ${
+					intradayPrices.status === STATUS.ERROR
+						? "error-container"
+						: null
+				}`}
+			>
+				{chartRenderer()}
+			</div>
 		</div>
 	)
 }

@@ -17,6 +17,11 @@
 	--smallcontent-fontsize: 0.6875rem;
 }
 
+body {
+	background-color: var(--background-light);
+	margin: 0;
+}
+
 .App {
 	height: 100vh;
 	display: flex;

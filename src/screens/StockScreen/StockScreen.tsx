@@ -30,7 +30,10 @@ const StockScreen = () => {
 	if (symbol) {
 		return (
 			<div className="stock-screen">
-				<LogoColumn alignment="stretch" />
+				<LogoColumn
+					alignment="stretch"
+					className="stock-screen__logo"
+				/>
 				<div className="main-section">
 					<StockHeader />
 					<Chart />

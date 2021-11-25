@@ -88,7 +88,7 @@
 
 @media (max-width: 834px) {
 	.index {
-		padding: calc(var(--padding) * .5);
+		padding: calc(var(--padding) * .75);
 	}
 	.indices {
 		padding-top: calc(var(--padding) * 2)

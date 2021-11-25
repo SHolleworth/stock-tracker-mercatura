@@ -1,11 +1,22 @@
-import React, { useEffect, useRef, useState } from "react"
+import React, {
+	Dispatch,
+	SetStateAction,
+	useEffect,
+	useRef,
+	useState,
+} from "react"
 import Suggestions from "./Suggestions"
 import "./styles.css"
 import { useSymbol } from "../../contexts/SymbolContext"
 import { requestCompanyInfo } from "../CompanySummary/services"
 import { useFocus } from "../../contexts/FocusContext"
 
-const SearchBar = () => {
+interface SearchBarProps {
+	className?: string
+	setSearchFocused?: Dispatch<SetStateAction<boolean>>
+}
+
+const SearchBar = ({ className, setSearchFocused }: SearchBarProps) => {
 	const [value, setValue] = useState("")
 	const { symbol } = useSymbol()
 	const { focused, setFocused } = useFocus()
@@ -13,6 +24,13 @@ const SearchBar = () => {
 
 	const handleChange = ({ target }: React.ChangeEvent<HTMLInputElement>) => {
 		setValue(target.value)
+		if (setSearchFocused) {
+			if (target.value) {
+				setSearchFocused(true)
+			} else {
+				setSearchFocused(false)
+			}
+		}
 	}
 
 	useEffect(() => {
@@ -36,7 +54,7 @@ const SearchBar = () => {
 
 	return (
 		<>
-			<div className="searchbar">
+			<div className={`searchbar ${className}`}>
 				<div className="field">
 					<input
 						className="searchbar__input"
