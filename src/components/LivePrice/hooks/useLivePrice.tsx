@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
 // import { requestLatestPrice } from "../services"
-import STATUS from "../../../utils/statusKeys"
+import STATUS, { StatusStringType } from "../../../utils/statusKeys"
 import { Price } from "../types"
 import { base_sse as base } from "../../../utils/baseUrl"
 import { Observable } from "rxjs"
@@ -8,8 +8,8 @@ import { map, filter, catchError } from "rxjs/operators"
 // import { tokens } from "../../../../../token"
 
 //Map whole body response object for the type
-type PriceState = {
-	status: string
+export interface PriceState {
+	status: StatusStringType
 	body?: Price
 }
 
