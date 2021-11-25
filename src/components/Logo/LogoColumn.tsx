@@ -7,9 +7,13 @@ import { useSymbol } from "../../contexts/SymbolContext"
 
 interface LogoColumnPropsType {
 	alignment: "center" | "stretch"
+	className?: string
 }
 
-const LogoColumn: React.FC<LogoColumnPropsType> = ({ alignment }) => {
+const LogoColumn: React.FC<LogoColumnPropsType> = ({
+	alignment,
+	className,
+}) => {
 	const history = useHistory()
 	const { setSymbol } = useSymbol()
 	const { setFocused } = useFocus()
@@ -18,7 +22,10 @@ const LogoColumn: React.FC<LogoColumnPropsType> = ({ alignment }) => {
 		history.push("/")
 	}
 	return (
-		<div className="logo-section" onClick={() => setFocused(false)}>
+		<div
+			className={`logo-section ${className}`}
+			onClick={() => setFocused(false)}
+		>
 			<img
 				src={smallLogo}
 				height={92}

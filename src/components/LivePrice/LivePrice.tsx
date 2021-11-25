@@ -38,41 +38,48 @@ const LivePrice = ({ searchFocused }: { searchFocused: boolean }) => {
 }
 
 type PriceProps = {
+	symbol?: string
 	price: Price
 	searchFocused: boolean
 	className: string
 }
 
 export const PriceDisplay: React.FC<PriceProps> = ({
+	symbol,
 	price,
 	searchFocused,
 	className,
 }) => {
 	return (
-		<div
-			className={`${className}__display 
-			${searchFocused ? `${className}__display--hidden` : null}`}
-		>
-			<span className={className}>{`$${price.latestPrice.toFixed(
-				2
-			)}`}</span>
-			<div className={`${className}__change__wrapper`}>
-				<img
-					className={`${className}__arrow`}
-					src={price.change > 0 ? normalArrow : downArrow}
-					alt="down arrow"
-				/>
-				<span
-					className={
-						price.change > 0
-							? `${className}__change positive`
-							: `${className}__change negative`
-					}
-				>
-					{`${price.change} | ${price.changePercent.toFixed(2)}%`}
-				</span>
+		<>
+			<div
+				className={`${className}__display 
+				${searchFocused ? `${className}__display--hidden` : null}`}
+			>
+				<div style={{ display: "flex" }}>
+					<div className={`${className}__symbol`}>{symbol}</div>
+					<span className={className}>{`$${price.latestPrice.toFixed(
+						2
+					)}`}</span>
+				</div>
+				<div className={`${className}__change__wrapper`}>
+					<img
+						className={`${className}__arrow arrow`}
+						src={price.change > 0 ? normalArrow : downArrow}
+						alt="down arrow"
+					/>
+					<span
+						className={
+							price.change > 0
+								? `${className}__change change positive`
+								: `${className}__change change negative`
+						}
+					>
+						{`${price.change} | ${price.changePercent.toFixed(2)}%`}
+					</span>
+				</div>
 			</div>
-		</div>
+		</>
 	)
 }
 

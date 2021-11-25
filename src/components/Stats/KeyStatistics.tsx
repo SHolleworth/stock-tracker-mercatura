@@ -26,72 +26,82 @@ const KeyStatisticsTable: React.FC<KeyStatisticsProps> = ({
 }) => {
 	return (
 		<div className="stats-container">
-			<ul className="stats__list">
-				<li>
+			<div className="stats__list">
+				<div className="stat">
 					Open <span>{open ? addDollarSign(open) : "-"}</span>
-				</li>
-				<li>
+				</div>
+
+				<div className="stat">
 					High <span>{high ? addDollarSign(high) : "-"}</span>
-				</li>
-				<li>
+				</div>
+				<div className="stat">
 					Low <span>{low ? addDollarSign(low) : "-"}</span>
-				</li>
-				<li>
+				</div>
+
+				<div className="stat">
 					Previous Close{" "}
 					<span>
 						{previousClose ? addDollarSign(previousClose) : "-"}
 					</span>
-				</li>
-			</ul>
-			<ul className="stats__list middle-section">
-				<li>
+				</div>
+			</div>
+
+			<div className="stats__list middle-section">
+				<div className="stat">
 					Day Range{" "}
 					<span>
 						{high ? addDollarSign(`${high} - ${low}`) : "-"}
 					</span>
-				</li>
-				<li>
+				</div>
+
+				<div className="stat">
 					52 Week Range{" "}
 					<span>
 						{!week52High || !week52Low
 							? "-"
 							: addDollarSign(`${week52High} - ${week52Low}`)}
 					</span>
-				</li>
-				<li>
+				</div>
+
+				<div className="stat">
 					Market Cap{" "}
 					<span>{marketCap ? abbreviateNumber(marketCap) : "-"}</span>
-				</li>
-				<li>
+				</div>
+
+				<div className="stat">
 					P/E Ratio <span>{peRatio.toFixed(2)}</span>
-				</li>
-			</ul>
-			<ul className="stats__list">
-				<li>
+				</div>
+			</div>
+
+			<div className="stats__list">
+				<div className="stat">
 					Dividend Yield{" "}
 					<span>
 						{dividendYield ? dividendYield?.toFixed(2) + "%" : "-"}
 					</span>
-				</li>
-				<li>
+				</div>
+
+				<div className="stat">
 					Earnings Per Share{" "}
 					<span>
 						{ttmEPS ? addDollarSign(ttmEPS?.toFixed(2)) : "-"}
 					</span>
-				</li>
-				<li>
+				</div>
+
+				<div className="stat">
 					Volume{" "}
 					<span>{volume ? abbreviateNumber(volume) : "-"}</span>
-				</li>
-				<li>
+				</div>
+
+				<div className="stat">
 					Total Avg. Volume{" "}
 					<span>
 						{avgTotalVolume
 							? abbreviateNumber(avgTotalVolume)
 							: "-"}
 					</span>
-				</li>
-			</ul>
+				</div>
+			</div>
 		</div>
 	)
 }

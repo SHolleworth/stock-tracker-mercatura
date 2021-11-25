@@ -1,21 +1,30 @@
 import React from "react"
-// import { colours } from "./colours"
 import { YAxis, ResponsiveContainer, LineChart, Text } from "recharts"
 import { colours } from "../colours"
 import { axisPropsType, price } from "../types"
 
-// const CustomisedYAxisTick = ({ x, y, payload, style, min }) => {
+// interface YAxisTickPropsType {
+// 	x: number
+// 	y: number
+// 	payload: {
+// 		value: string
+// 	}
+// 	style: React.CSSProperties
+// 	index: number
+// }
+
+// const CustomisedYAxisTick = ({ x, y, payload, style, index }: YAxisTickPropsType) => {
 // 	let text = "-"
-// 	if ((payload.value - min) % 2 === 0) {
-// 		text = Number.parseFloat(payload.value).toFixed(0)
+// 	if(index % 4 === 0) {
+// 		text = payload.value
 // 	}
 // 	return (
 // 		<Text
 // 			x={x}
-// 			y={y - 1}
+// 			y={index < 10 ? y : y - 8}
 // 			fill={colours.keys}
 // 			style={style}
-// 			fontSize={16}
+// 			fontSize={14}
 // 			textAnchor="end"
 // 			verticalAnchor="middle"
 // 		>
@@ -42,7 +51,7 @@ const CustomisedYAxisTick = ({ x, y, payload, style }: YAxisTickPropsType) => {
 			y={y - 1}
 			fill={colours.keys}
 			style={style}
-			fontSize={16}
+			fontSize={".75rem"}
 			textAnchor="end"
 			verticalAnchor="middle"
 		>
@@ -111,7 +120,6 @@ function CustomisedYAxis({
 				/>
 			)}
 			tickSize={tickSize}
-			tickCount={5}
 			tickMargin={tickMargin}
 			tickLine={tickLine}
 			stroke={stroke}

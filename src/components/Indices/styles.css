@@ -1,4 +1,5 @@
 .indices {
+	flex: 1;
 	display: flex;
 	justify-content: center;
 	align-items: center;
@@ -7,24 +8,18 @@
 	padding-top: calc(var(--padding) * 0.9);
 	font-family: Roboto;
 	border-top: 1px solid var(--ui-element-light);
-	margin-top: auto;
 	height: calc(var(--padding) * 5.6);
 }
 
-@media (max-width: 1366px) {
-	.indices {
-		border-top: none;
-	}
-}
-
 .index {
+	flex: 1;
+	align-self: stretch;
+	max-width: 240px;
 	display: flex;
 	flex-direction: row;
-	justify-content: center;
 	align-items: center;
-	align-self: stretch;
 	padding-left: calc(var(--padding) * 2.4);
-	padding-right: calc(var(--padding) * 1.5);
+	padding-right: calc(var(--padding) * 2.4);
 	padding-top: var(--padding);
 	padding-bottom: var(--padding);
 	font-size: var(--content-fontsize);
@@ -34,15 +29,17 @@
 .index-price__display {
 	flex: 1;
 	display: flex;
+	flex-wrap: wrap;
 	align-items: center;
 	justify-content: space-between;
+	text-align: left;
 	color: var(--light-text);
 	font-size: var(--content-fontsize);
 }
 
 .index-price {
 	font-size: var(--content-fontsize);
-	padding-right: calc(var(--padding) * 2);
+	/* margin-right: calc(var(--padding) * 2); */
 }
 
 .index-price__change {
@@ -51,8 +48,11 @@
 	font-weight: 500;
 }
 
-.index__symbol {
+.index-price__symbol {
+	color: var(--medium-text);
 	padding-right: calc(var(--padding) * 0.7);
+	/* padding-left: calc(var(--padding) * 2); */
+	font-weight: 500;
 }
 
 .index__arrow {
@@ -77,4 +77,23 @@
 	background-color: var(--bac);
 	display: flex;
 	justify-content: center;
+}
+
+
+@media (max-width: 1366px) {
+	.indices {
+		border-top: none;
+	}
+}
+
+@media (max-width: 834px) {
+	.index {
+		padding: calc(var(--padding) * .75);
+	}
+	.indices {
+		padding-top: calc(var(--padding) * 2)
+	}
+	.index-price__display {
+		justify-content: center;
+	}
 }

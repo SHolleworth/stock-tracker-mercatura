@@ -8,7 +8,13 @@ const StockHeader = () => {
 	const { focused } = useFocus()
 
 	return (
-		<div className={focused ? "stock__header" : "stock__header grayborder"}>
+		<div
+			className={
+				focused
+					? "stock__header purpleborder"
+					: "stock__header grayborder"
+			}
+		>
 			<SearchBar />
 			<LivePrice searchFocused={focused} />
 		</div>

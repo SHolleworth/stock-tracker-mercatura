@@ -28,8 +28,8 @@ export const Index = ({ symbol, className }: IndexPropsType) => {
 	if (price.body) {
 		content = (
 			<>
-				<div className="index__symbol">{symbol}</div>
 				<PriceDisplay
+					symbol={symbol}
 					price={price.body}
 					className="index-price"
 					searchFocused={false}

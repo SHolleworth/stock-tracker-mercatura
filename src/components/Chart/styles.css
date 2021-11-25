@@ -1,5 +1,5 @@
 .chart__container {
-	flex: 0.75;
+	/* flex: 0.75; */
 	min-height: 600px;
 	padding-top: calc(var(--padding) * 3);
 	padding-bottom: calc(var(--padding) * 1.5);
@@ -17,8 +17,12 @@
 
 .chart__inner {
 	flex: 1;
-	min-width: 1200px;	
+	min-width: 1070px;	
 	display: flex;
+}
+
+.error-container {
+	min-width: 0;
 }
 
 .chart__container::-webkit-scrollbar {

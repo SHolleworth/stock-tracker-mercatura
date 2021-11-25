@@ -1,23 +1,24 @@
 .searchbar {
 	display: flex;
-	flex-direction: column;
 	box-sizing: border-box;
 	flex: 2;
 	position: relative;
 	z-index: 10;
+	min-height: 30px;
 }
 
 .search__clickable-area {
 	position: fixed;
 	top: 0;
 	left: 0;
-	z-index: 1;
+	z-index: -1;
 	height: 100vh;
 	width: 100vw;
 }
 
 .field {
 	width: 100%;
+	display: flex;
 }
 
 .field input {
@@ -26,21 +27,26 @@
 	width: 100%;
 	font-size: var(--symbol-fontsize);
 	font-family: "Merriweather";
-	padding: 15px 5px;
 }
+
 
 .field input:focus-visible {
 	outline: none;
-	border-bottom: 2px solid var(--accent-primary);
 }
 
 .stock__header {
 	display: flex;
 	justify-content: space-between;
+	padding-bottom: calc(var(--padding) * 1.5);
+	z-index: 2;
 }
 
 .grayborder {
 	border-bottom: 2px solid var(--ui-element-light);
+}
+
+.purpleborder {
+	border-bottom: 2px solid var(--accent-primary);
 }
 
 .suggestions {
@@ -97,4 +103,21 @@
 	width: 100vw;
 	background-color: clear;
 	z-index: 2;
+}
+
+@media(max-width: 834px) {
+
+	.field input {
+		font-size: var(--section-headers-fontsize);
+		/* padding-bottom: calc(var(--padding) * 1); */
+	}
+
+	.stock__header {
+		padding-bottom: calc(var(--padding) * 1);
+		padding-top: calc(var(--padding) * 1.5);
+	}
+
+	.suggestions {
+		top: 42px;
+	} 
 }

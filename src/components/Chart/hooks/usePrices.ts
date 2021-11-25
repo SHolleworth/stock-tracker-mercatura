@@ -143,7 +143,9 @@ export const usePreviousClose = (symbol: string) => {
 
 const findMinAndMax = (prices: price[]) => {
 	const averages = prices.map((el) => el.average)
-	const min = Math.floor(Math.min(...averages))
-	const max = Math.floor(Math.max(...averages) + 1)
+	const minAverage = Math.min(...averages)
+	const maxAverage = Math.max(...averages)
+	const min = Math.floor(minAverage)
+	const max = Math.ceil(maxAverage)
 	return { min, max }
 }

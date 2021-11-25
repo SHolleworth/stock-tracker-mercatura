@@ -36,7 +36,7 @@ export const CustomisedXAxisTick = ({
 			textAnchor={textAnchor}
 			fill={colours.keys}
 			style={style}
-			fontSize={12}
+			fontSize={".75rem"}
 		>
 			{time}
 		</Text>
