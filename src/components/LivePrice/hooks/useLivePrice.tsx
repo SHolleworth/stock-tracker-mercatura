@@ -14,7 +14,7 @@ export interface PriceState {
 
 function fromEventSource(url: string): Observable<MessageEvent> {
 	return new Observable<MessageEvent>((subscriber) => {
-		const sse = new EventSource(url)
+		const sse = new EventSource(url, { withCredentials: false })
 
 		sse.onmessage = (e) => subscriber.next(e)
 		sse.onerror = (e) => subscriber.error(e)

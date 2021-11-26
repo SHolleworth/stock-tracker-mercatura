@@ -27,7 +27,11 @@ const CompanySummary = () => {
 	const requestData = async () => {
 		try {
 			const response = await requestCompanyInfo(symbol)
-			const desc = response.description.substring(0, 500).concat("...")
+			const summaryLength = 1000
+			let desc = response.description
+			if (desc.length > summaryLength) {
+				desc = desc.substring(0, summaryLength).concat("...")
+			}
 			const body = { ...response, description: desc }
 			setCompanyInfo({ status: STATUS.RESOLVED, body })
 		} catch (error) {
