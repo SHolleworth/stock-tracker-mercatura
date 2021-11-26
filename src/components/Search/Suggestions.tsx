@@ -83,25 +83,36 @@ const Suggestions: React.FC<SuggestionsProps> = ({ value, setValue }) => {
 
 	return (
 		<div className="suggestions">
-			<ul className="suggestions__list">
-				<div className="suggestions__title">Stock</div>
+			<ul
+				className="suggestions__list"
+				style={suggestions.length === 0 ? { padding: 0 } : {}}
+			>
 				{suggestions.length === 0 ? (
-					<li style={{ userSelect: "none" }}>No results found</li>
+					<li style={{ userSelect: "none", alignItems: "center" }}>
+						No results found
+					</li>
 				) : (
-					suggestions?.map((suggestion, i) => (
-						<li
-							key={i}
-							className={`suggestions__stock ${
-								i === cursor ? "suggestions__stock__active" : ""
-							}`}
-							onClick={() => symbolSetter(suggestion.symbol)}
-							onMouseEnter={() => setHovered(suggestion)}
-							onMouseLeave={() => setHovered(undefined)}
-						>
-							{highlightSearch(suggestion.symbol)} -{" "}
-							{highlightSearch(suggestion.name)}
-						</li>
-					))
+					[
+						<div key="title" className="suggestions__title">
+							Stock
+						</div>,
+						suggestions?.map((suggestion, i) => (
+							<li
+								key={i}
+								className={`suggestions__stock ${
+									i === cursor
+										? "suggestions__stock__active"
+										: ""
+								}`}
+								onClick={() => symbolSetter(suggestion.symbol)}
+								onMouseEnter={() => setHovered(suggestion)}
+								onMouseLeave={() => setHovered(undefined)}
+							>
+								{highlightSearch(suggestion.symbol)} -{" "}
+								{highlightSearch(suggestion.name)}
+							</li>
+						)),
+					]
 				)}
 			</ul>
 		</div>
