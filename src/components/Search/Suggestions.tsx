@@ -81,6 +81,12 @@ const Suggestions: React.FC<SuggestionsProps> = ({ value, setValue }) => {
 		}
 	}, [escapePress])
 
+	useEffect(() => {
+		if (cursor > suggestions.length && suggestions.length !== 0) {
+			setCursor(0)
+		}
+	}, [suggestions.length])
+
 	return (
 		<div className="suggestions">
 			<ul
