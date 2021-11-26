@@ -29,7 +29,6 @@
 	font-family: "Merriweather";
 }
 
-
 .field input:focus-visible {
 	outline: none;
 }
@@ -55,7 +54,7 @@
 	margin-top: 4px;
 	font-family: "Roboto";
 	position: absolute;
-	top: 70px;
+	top: 58px;
 	z-index: 10;
 	box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.15);
 	color: #828282;
@@ -105,8 +104,7 @@
 	z-index: 2;
 }
 
-@media(max-width: 834px) {
-
+@media (max-width: 834px) {
 	.field input {
 		font-size: var(--section-headers-fontsize);
 		/* padding-bottom: calc(var(--padding) * 1); */
@@ -119,5 +117,5 @@
 
 	.suggestions {
 		top: 42px;
-	} 
+	}
 }
