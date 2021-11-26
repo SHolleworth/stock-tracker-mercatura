@@ -96,7 +96,12 @@ function NewsArticle({
 
 	return (
 		<div className={`article ${lastArticleClass}`}>
-			<a href={link} target="_blank" rel="noreferrer">
+			<a
+				className="article__link"
+				href={link}
+				target="_blank"
+				rel="noreferrer"
+			>
 				<div className={`article__content ${firstArticleClass}`}>
 					{content}
 				</div>

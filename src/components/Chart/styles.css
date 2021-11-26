@@ -8,7 +8,6 @@
 	overflow-x: auto;
 }
 
-
 @media (max-width: 1366px) {
 	.chart__inner {
 		cursor: grab;
@@ -17,7 +16,7 @@
 
 .chart__inner {
 	flex: 1;
-	min-width: 1070px;	
+	min-width: 1070px;
 	display: flex;
 }
 
@@ -45,7 +44,7 @@
 .static-y-axis {
 	position: sticky;
 	left: 0;
-	z-index: 5;
+	z-index: 1;
 	background-color: var(--background-light);
 }
 

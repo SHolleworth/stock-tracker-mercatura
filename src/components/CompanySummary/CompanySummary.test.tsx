@@ -25,5 +25,5 @@ componentTest({
 		error: "summary-error-placeholder",
 		loading: "summary-loading-placeholder",
 	},
-	matches: ["Name (TST)", "website.com", "description..."],
+	matches: ["Name (TST)", "website.com", "description"],
 })
