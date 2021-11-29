@@ -5,10 +5,10 @@ import { useIntradayPrices, usePreviousClose } from "./hooks/usePrices"
 import { CurrentPriceChart } from "./components/CurrentPriceChart"
 import { LoadingPlaceholder } from "./Placeholders/LoadingPlaceholder"
 import { useSymbol } from "../../contexts/SymbolContext"
-import STATUS from "../../utils/statusKeys"
 import { ErrorPlaceholder } from "./Placeholders/ErrorPlaceholder"
 import { StaticYAxis } from "./components/CustomisedYAxis"
 import { useDrag } from "./hooks/useDrag"
+import ErrorBoundary from "../ErrorBoundary/ErrorBoundary"
 
 const style: React.CSSProperties = {
 	fontFamily: "Roboto",
@@ -26,45 +26,7 @@ const axisProps = {
 }
 
 const Chart = () => {
-	const { symbol } = useSymbol()
-	const [intradayPrices, { min, max }] = useIntradayPrices(symbol)
-	const previousClose = usePreviousClose(symbol)
 	const [chartRef, startDrag] = useDrag()
-	const interval = 3
-
-	const chartRenderer = () => {
-		if (intradayPrices.status === STATUS.LOADING) {
-			return <LoadingPlaceholder />
-		}
-		if (intradayPrices.status === STATUS.ERROR) {
-			return <ErrorPlaceholder />
-		}
-		if (intradayPrices.status === STATUS.RESOLVED) {
-			if (intradayPrices.body) {
-				return (
-					<>
-						<StaticYAxis
-							axisProps={axisProps}
-							data={intradayPrices.body}
-							max={max}
-							min={min}
-						/>
-						<CurrentPriceChart
-							axisProps={axisProps}
-							currentDayData={intradayPrices.body}
-							previousClose={
-								previousClose ? previousClose : undefined
-							}
-							interval={interval}
-							max={max}
-							min={min}
-						/>
-					</>
-				)
-			}
-		}
-		return <LoadingPlaceholder />
-	}
 
 	return (
 		<div
@@ -73,17 +35,43 @@ const Chart = () => {
 			onMouseDown={startDrag}
 			data-testid="intraday-chart"
 		>
-			<div
-				className={`chart__inner ${
-					intradayPrices.status === STATUS.ERROR
-						? "error-container"
-						: null
-				}`}
-			>
-				{chartRenderer()}
+			<div className={`chart__inner`}>
+				<ErrorBoundary fallback={<ErrorPlaceholder />}>
+					<ChartContent />
+				</ErrorBoundary>
 			</div>
 		</div>
 	)
+}
+
+const ChartContent = () => {
+	const { symbol } = useSymbol()
+	const [intradayPrices, { min, max }] = useIntradayPrices(symbol)
+	const previousClose = usePreviousClose(symbol)
+	const interval = 3
+
+	if (intradayPrices.body) {
+		return (
+			<>
+				<StaticYAxis
+					axisProps={axisProps}
+					data={intradayPrices.body}
+					max={max}
+					min={min}
+				/>
+				<CurrentPriceChart
+					axisProps={axisProps}
+					currentDayData={intradayPrices.body}
+					previousClose={previousClose ? previousClose : undefined}
+					interval={interval}
+					max={max}
+					min={min}
+				/>
+			</>
+		)
+	}
+
+	return <LoadingPlaceholder />
 }
 
 // const filterOutPreviousDay = (prices: price[]) => {
