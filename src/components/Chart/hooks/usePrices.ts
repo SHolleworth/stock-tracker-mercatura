@@ -115,8 +115,9 @@ export const useIntradayPrices = (
 					body: pricesWithoutNulls,
 				})
 			} catch (error) {
-				console.error("Error requesting intraday prices: " + error)
-				setPrices({ status: STATUS.ERROR })
+				setPrices(() => {
+					throw Error("Error requesting intraday prices: " + error)
+				})
 			}
 		})()
 	}, [symbol])
