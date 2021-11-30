@@ -29,7 +29,7 @@
 }
 
 .logo-stretch {
-	animation: translate-top 1s ease-in-out;
+	animation: translate-top 1.25s ease-in-out;
 }
 
 @keyframes translate-top {
@@ -75,7 +75,7 @@
 	padding: calc(var(--padding) * 1.5);
 	padding-top: calc(var(--padding) * 4);
 	overflow-y: scroll;
-	animation: slide-from-right 1s ease-in-out;
+	animation: slide-from-right 1.25s ease-in-out;
 }
 
 @keyframes slide-from-right {
