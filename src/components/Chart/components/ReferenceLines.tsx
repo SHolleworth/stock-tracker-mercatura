@@ -1,9 +1,9 @@
 import React from "react"
 import { ReferenceLine } from "recharts"
 import { colours } from "../colours"
-import { price } from "../types"
+import { Price } from "../types"
 
-export const ReferenceLines = ({ data }: { data: price[] }) => {
+export const ReferenceLines = ({ data }: { data: Price[] }) => {
 	const dates = new Set(
 		data.map((price) => {
 			return price.date

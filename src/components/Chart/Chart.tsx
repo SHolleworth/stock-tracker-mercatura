@@ -1,4 +1,4 @@
-import React from "react"
+import React, { Suspense } from "react"
 import { colours } from "./colours"
 import "./styles.css"
 import { useIntradayPrices, usePreviousClose } from "./hooks/usePrices"
@@ -37,7 +37,9 @@ const Chart = () => {
 		>
 			<div className={`chart__inner`}>
 				<ErrorBoundary fallback={<ErrorPlaceholder />}>
-					<ChartContent />
+					<Suspense fallback={<LoadingPlaceholder />}>
+						<ChartContent />
+					</Suspense>
 				</ErrorBoundary>
 			</div>
 		</div>
@@ -46,45 +48,32 @@ const Chart = () => {
 
 const ChartContent = () => {
 	const { symbol } = useSymbol()
-	const [intradayPrices, { min, max }] = useIntradayPrices(symbol)
+	const [intradayPrices, minMax] = useIntradayPrices(symbol)
 	const previousClose = usePreviousClose(symbol)
 	const interval = 3
 
-	if (intradayPrices.body) {
+	if (intradayPrices && minMax) {
 		return (
 			<>
 				<StaticYAxis
 					axisProps={axisProps}
-					data={intradayPrices.body}
-					max={max}
-					min={min}
+					data={intradayPrices}
+					max={minMax.max}
+					min={minMax.min}
 				/>
 				<CurrentPriceChart
 					axisProps={axisProps}
-					currentDayData={intradayPrices.body}
+					currentDayData={intradayPrices}
 					previousClose={previousClose ? previousClose : undefined}
 					interval={interval}
-					max={max}
-					min={min}
+					max={minMax.max}
+					min={minMax.min}
 				/>
 			</>
 		)
 	}
 
-	return <LoadingPlaceholder />
+	return null
 }
-
-// const filterOutPreviousDay = (prices: price[]) => {
-// 	try {
-// 		const yesterday = prices[prices.length - 1].date
-// 		return prices.filter((price) => price.date === yesterday).slice(0, -1)
-// 	} catch (error) {
-// 		console.error(
-// 			"Error filtering previous day in chart from prices array: " + error
-// 		)
-// 		console.error("Prices array: ")
-// 		console.error(prices)
-// 	}
-// }
 
 export default Chart

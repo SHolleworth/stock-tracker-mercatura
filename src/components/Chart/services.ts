@@ -1,6 +1,6 @@
 import { fetchAndCheckResponseForError } from "../../utils/fetchAndCheckResponseForError"
 import { base } from "../../utils/baseUrl"
-import { price } from "./types"
+import { Price } from "./types"
 // import { tokens } from "../../../../token"
 
 const token = `token=${import.meta.env.VITE_IEX_TOKEN}`
@@ -8,7 +8,7 @@ const token = `token=${import.meta.env.VITE_IEX_TOKEN}`
 
 export const requestIntradayPrices = async (
 	symbol: string
-): Promise<price[]> => {
+): Promise<Price[]> => {
 	// throw Error()
 	if (!symbol) throw Error("No symbol given.")
 	return await fetchAndCheckResponseForError(

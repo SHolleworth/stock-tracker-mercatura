@@ -21,7 +21,6 @@ describe("Testing suggestion main functionality", () => {
 		await waitForElementToBeRemoved(noResults)
 		const { getAllByRole } = within(list)
 		const items = getAllByRole("listitem")
-		console.log(items)
 		expect(items.length).toBe(8)
 	})
 
