@@ -1,13 +1,13 @@
 import React from "react"
 import { ReferenceArea } from "recharts"
-import { price } from "../types"
+import { Price } from "../types"
 import { colours } from "../colours"
 
 interface ReferenceAreasPropsType {
 	interval: number
 	min: number
 	max: number
-	data: price[]
+	data: Price[]
 }
 
 export const ReferenceAreas = ({

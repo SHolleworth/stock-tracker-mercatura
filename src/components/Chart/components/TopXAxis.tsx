@@ -1,27 +1,33 @@
 import React from "react"
 import { Text, XAxis } from "recharts"
 import { colours } from "../colours"
-import { price } from "../types"
-
+import { Price } from "../types"
 
 interface TopXAxisType {
-	data: price[]
+	data: Price[]
 	daySize?: number
 	style: React.CSSProperties
 	isHidden: boolean
 }
 
 interface CustomisedXAxisPropsType {
-	x : number
-	dx : number
-	y : number
-	dy : number
-	style : React.CSSProperties 
-	payload : {
+	x: number
+	dx: number
+	y: number
+	dy: number
+	style: React.CSSProperties
+	payload: {
 		value: number
 	}
 }
-const CustomisedXAxisTick: React.FC<CustomisedXAxisPropsType> = ({ x, dx, y, dy, style, payload }): React.ReactElement => {
+const CustomisedXAxisTick: React.FC<CustomisedXAxisPropsType> = ({
+	x,
+	dx,
+	y,
+	dy,
+	style,
+	payload,
+}): React.ReactElement => {
 	return (
 		<Text x={x + dx} y={y + dy} fontSize={16} style={style}>
 			{payload.value}
@@ -29,7 +35,12 @@ const CustomisedXAxisTick: React.FC<CustomisedXAxisPropsType> = ({ x, dx, y, dy,
 	)
 }
 
-export const TopXAxis : React.FC<TopXAxisType> = ({ data, daySize, style, isHidden }) => {
+export const TopXAxis: React.FC<TopXAxisType> = ({
+	data,
+	daySize,
+	style,
+	isHidden,
+}) => {
 	const dates = new Set(
 		data.map((price) => {
 			return price.date
@@ -42,14 +53,14 @@ export const TopXAxis : React.FC<TopXAxisType> = ({ data, daySize, style, isHidd
 			xAxisId="top"
 			type="category"
 			dataKey="date"
-			tick={({x, y, dx, dy, payload} : CustomisedXAxisPropsType) => (
-				<CustomisedXAxisTick 
+			tick={({ x, y, dx, dy, payload }: CustomisedXAxisPropsType) => (
+				<CustomisedXAxisTick
 					x={x}
 					y={y}
 					dx={dx}
 					dy={dy}
-					payload={payload} 
-					style={{...style, margin: 10 }}
+					payload={payload}
+					style={{ ...style, margin: 10 }}
 				/>
 			)}
 			stroke={colours.daySeparator}
@@ -58,7 +69,7 @@ export const TopXAxis : React.FC<TopXAxisType> = ({ data, daySize, style, isHidd
 			allowDuplicatedCategory={true}
 			orientation={"top"}
 			axisLine={false}
-			dx={daySize ? daySize / 2 - 70: 0}
+			dx={daySize ? daySize / 2 - 70 : 0}
 			dy={-10}
 		/>
 	)

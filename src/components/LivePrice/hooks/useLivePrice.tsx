@@ -2,9 +2,16 @@ import { useEffect, useState } from "react"
 import STATUS, { StatusStringType } from "../../../utils/statusKeys"
 import { Price } from "../types"
 import { base, base_sse } from "../../../utils/baseUrl"
-import { Observable, of } from "rxjs"
+import { Observable } from "rxjs"
 import { fromFetch } from "rxjs/fetch"
-import { map, filter, catchError, switchMap } from "rxjs/operators"
+import {
+	map,
+	filter,
+	catchError,
+	switchMap,
+	delay,
+	repeat,
+} from "rxjs/operators"
 
 //Map whole body response object for the type
 export interface PriceState {
@@ -39,25 +46,20 @@ const useLivePrice = (symbol: string, updateInterval: 1 | 5) => {
 			.pipe(
 				map((message) => JSON.parse(message.data)[0]),
 				filter((data) => data),
-				catchError((err, caught) => {
+				catchError((err) => {
 					console.log(err)
 					return fromFetch(QUOTE_URL).pipe(
+						delay(2000),
+						repeat(),
 						switchMap((response) => {
 							if (response.ok) {
-								// OK return data
 								return response.json()
 							} else {
-								// Server is returning a status requiring the client to try something else.
-								return of({
-									error: true,
-									message: `Error ${response.status}`,
-								})
+								throw Error()
 							}
 						}),
-						catchError((err) => {
-							// Network or other error, handle appropriately
-							console.error(err)
-							return of({ error: true, message: err.message })
+						catchError((err, caught) => {
+							return caught
 						})
 					)
 				})
