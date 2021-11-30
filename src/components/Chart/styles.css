@@ -6,6 +6,23 @@
 	display: flex;
 	flex-direction: row;
 	overflow-x: auto;
+	opacity: 0;
+	animation-name: appear;
+	animation-duration: 1.5s;
+	animation-fill-mode: forwards;
+	animation-delay: 1.25s;
+}
+
+@keyframes appear {
+	from {
+		display: none;
+		opacity: 0;
+	}
+
+	to {
+		display: flex;
+		opacity: 1;
+	}
 }
 
 @media (max-width: 1366px) {
