@@ -39,6 +39,7 @@
 	padding-bottom: calc(var(--padding) * 1.5);
 	z-index: 2;
 	animation: slide-to-top 1.25s ease-in-out;
+	-webkit-animation: slide-to-top 1.25s ease-in-out;
 }
 
 @keyframes slide-to-top {

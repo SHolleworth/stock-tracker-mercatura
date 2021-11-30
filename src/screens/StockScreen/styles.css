@@ -30,6 +30,7 @@
 
 .logo-stretch {
 	animation: translate-top 1.25s ease-in-out;
+	-webkit-animation: translate-top 1.25s ease-in-out;
 }
 
 @keyframes translate-top {
