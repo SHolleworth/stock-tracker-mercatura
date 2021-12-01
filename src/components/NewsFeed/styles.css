@@ -4,6 +4,7 @@
 
 .newsfeed__heading {
 	padding-left: calc(var(--padding) * 1.5);
+	padding-bottom: calc(var(--padding) * 1)
 }
 
 .article {

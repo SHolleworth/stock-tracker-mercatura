@@ -9,7 +9,7 @@
 }
 
 .company-summary__heading {
-	/* padding-bottom: var(--padding); */
+	padding-bottom: var(--padding);
 }
 
 .company__name {
@@ -93,7 +93,7 @@
 
 @media (max-width: 834px) {
 	.company__summary {
-		border-bottom: solid 1px var(--ui-element);
+		/* border-bottom: solid 1px var(--ui-element); */
 		margin-bottom: calc(var(--padding) * 2);
 	}
 

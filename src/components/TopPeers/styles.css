@@ -73,3 +73,9 @@
 		padding-right: calc(var(--padding) * 1.5);
 	}
 }
+
+@media (max-width: 834px) {
+	.top-peers {
+		border-top: none;
+	}
+}
