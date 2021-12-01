@@ -7,6 +7,6 @@ const token = `token=${import.meta.env.VITE_IEX_TOKEN}`
 export const requestNews = async (symbol: string) => {
 	// throw Error()
 	return await fetchAndCheckResponseForError(
-		`${base}/stock/${symbol}/news/last/3?${token}`
+		`${base}stock/${symbol}/news/last/3?${token}`
 	)
 }

@@ -1,24 +1,14 @@
-import { Price } from "./types"
+import { of } from "rxjs"
+import { map } from "rxjs/operators"
 import promiseWrapper from "../../utils/promiseWrapper"
 import { requestIntradayPrices, requestPreviousDayPrices } from "./services"
+import { Price } from "./types"
 
-const requestIntradayPriceData = (symbol: string) => {
-	const intradayPricePromise = requestIntradayPrices(symbol)
-
-	return {
-		prices: promiseWrapper(intradayPricePromise, transformPrices),
-	}
+export const requestIntradayPricesStream = (symbol: string) => {
+	return of(requestIntradayPrices(symbol)).pipe(
+		map((promise) => ({ prices: promiseWrapper(promise, transformPrices) }))
+	)
 }
-
-const requestPreviouDayPriceData = (symbol: string) => {
-	const previousDayPricePromise = requestPreviousDayPrices(symbol)
-
-	return {
-		prices: promiseWrapper(previousDayPricePromise),
-	}
-}
-
-export default { requestIntradayPriceData, requestPreviouDayPriceData }
 
 const transformPrices = (prices: Price[]) => {
 	const pricesWithoutNulls = removeNulls(prices)
@@ -34,4 +24,14 @@ const removeNulls = (prices: Price[]): Price[] => {
 	return prices.filter((price) => {
 		return price.average !== null
 	})
+}
+
+export const requestPreviousDayPricesStream = (symbol: string) => {
+	return of(requestPreviousDayPrices(symbol)).pipe(
+		map((promise) => {
+			return {
+				prices: promiseWrapper(promise),
+			}
+		})
+	)
 }

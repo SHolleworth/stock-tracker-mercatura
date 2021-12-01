@@ -1,11 +1,9 @@
 import { useState, useEffect } from "react"
-// import {
-// 	requestHistoricalPrices,
-// 	requestIntradayPrices,
-// 	requestPreviousDayPrices,
-// } from "../services"
-import requestPriceData from "../services-susp"
 import { Price } from "../types"
+import {
+	requestIntradayPricesStream,
+	requestPreviousDayPricesStream,
+} from "../streams"
 
 interface minMaxState {
 	min: number
@@ -17,10 +15,20 @@ export const useIntradayPrices = (symbol: string): [Price[]?, minMaxState?] => {
 	const [minMax, setMinMax] = useState<minMaxState>()
 
 	useEffect(() => {
-		const prices = requestPriceData.requestIntradayPriceData(symbol).prices
-		console.log("PRICES" + prices)
-		setPrices(() => prices.read() as Price[])
-		setMinMax(() => findMinAndMax(prices.read() as Price[]))
+		requestIntradayPricesStream(symbol).subscribe({
+			next: (resource) => {
+				setPrices(() => resource.prices.read() as Price[])
+				setMinMax(() =>
+					findMinAndMax(resource.prices.read() as Price[])
+				)
+			},
+			error: (error) => {
+				console.log(error)
+				setPrices(() => {
+					throw Error(error)
+				})
+			},
+		})
 	}, [symbol])
 
 	return [prices, minMax]
@@ -31,9 +39,16 @@ export const usePreviousClose = (symbol: string) => {
 
 	useEffect(() => {
 		try {
-			const prices =
-				requestPriceData.requestPreviouDayPriceData(symbol).prices
-			setPreviousClose(() => prices.read().close)
+			requestPreviousDayPricesStream(symbol).subscribe({
+				next: (resource) => {
+					setPreviousClose(() => resource.prices.read().close)
+				},
+				error: (error) => {
+					console.error(
+						"Error loading previous day close: " + error.message
+					)
+				},
+			})
 		} catch (error) {
 			console.error("Failed to retrieve previous close: " + error)
 		}
