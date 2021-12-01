@@ -30,7 +30,7 @@ jobs:
                 path: dist
     deploy:
         needs: [build]
-        runs-on: ubuntu-lastest
+        runs-on: ubuntu-latest
         # if: ${{ github.event_name == 'push' }}
         steps:
             - name: Checkout
