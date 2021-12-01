@@ -41,7 +41,7 @@ jobs:
                 name: site
 
             - name: deploy
-              if: ${{ github.event_name == 'push' }}
+            #   if: ${{ github.event_name == 'push' }}
               uses: JamesIves/github-pages-deploy-action@4.1.5
               with:
                 branch: gh-pages
