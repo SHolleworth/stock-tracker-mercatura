@@ -12,6 +12,7 @@
 	display: flex;
 	justify-content: center;
 	flex-wrap: wrap;
+	user-select: none;
 }
 
 .peer {

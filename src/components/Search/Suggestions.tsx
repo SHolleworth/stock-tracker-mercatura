@@ -38,7 +38,7 @@ const Suggestions: React.FC<SuggestionsProps> = ({ value, setValue }) => {
 		)
 	}
 
-	const symbolSetter = (symbol: string) => {
+	const search = (symbol: string) => {
 		setSymbol(symbol)
 		history.push(`/stock/${symbol}`)
 	}
@@ -61,7 +61,7 @@ const Suggestions: React.FC<SuggestionsProps> = ({ value, setValue }) => {
 
 	useEffect(() => {
 		if (suggestions.length && enterPress) {
-			symbolSetter(suggestions[cursor].symbol)
+			search(suggestions[cursor].symbol)
 		}
 	}, [cursor, enterPress])
 
@@ -73,11 +73,7 @@ const Suggestions: React.FC<SuggestionsProps> = ({ value, setValue }) => {
 
 	useEffect(() => {
 		if (escapePress) {
-			if (localStorage.getItem("currentSymbol")) {
-				history.push("/")
-			} else {
-				setValue("")
-			}
+			setValue("")
 		}
 	}, [escapePress])
 
@@ -110,7 +106,7 @@ const Suggestions: React.FC<SuggestionsProps> = ({ value, setValue }) => {
 										? "suggestions__stock__active"
 										: ""
 								}`}
-								onClick={() => symbolSetter(suggestion.symbol)}
+								onClick={() => search(suggestion.symbol)}
 								onMouseEnter={() => setHovered(suggestion)}
 								onMouseLeave={() => setHovered(undefined)}
 							>

@@ -27,6 +27,7 @@
 	width: 100%;
 	font-size: var(--symbol-fontsize);
 	font-family: "Merriweather";
+	caret-color: var(--accent-primary);
 }
 
 .field input:focus-visible {

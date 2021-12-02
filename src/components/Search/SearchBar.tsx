@@ -18,6 +18,7 @@ interface SearchBarProps {
 
 const SearchBar = ({ className, setSearchFocused }: SearchBarProps) => {
 	const [value, setValue] = useState("")
+	const [savedValue, setSavedValue] = useState("")
 	const { symbol } = useSymbol()
 	const { focused, setFocused } = useFocus()
 	const input = useRef<HTMLInputElement>(null)
@@ -33,11 +34,23 @@ const SearchBar = ({ className, setSearchFocused }: SearchBarProps) => {
 		}
 	}
 
+	const handleFocus = ({ target }: { target: HTMLInputElement }) => {
+		setFocused(true)
+		setSavedValue(value)
+		setValue("")
+	}
+
+	const handleBlur = ({ target }: { target: HTMLInputElement }) => {
+		setValue(savedValue)
+		setFocused(false)
+	}
+
 	useEffect(() => {
 		(async () => {
 			if (symbol) {
 				try {
 					const info = await requestCompanyInfo(symbol)
+					setSavedValue(`${info.symbol} - ${info.companyName}`)
 					setValue(`${info.symbol} - ${info.companyName}`)
 					if (input.current) {
 						setFocused(false)
@@ -64,7 +77,8 @@ const SearchBar = ({ className, setSearchFocused }: SearchBarProps) => {
 						placeholder="Enter a stock, symbol or currency"
 						autoComplete="off"
 						onChange={handleChange}
-						onFocus={() => setFocused(true)}
+						onFocus={handleFocus}
+						onBlur={handleBlur}
 						ref={input}
 					/>
 				</div>
@@ -72,13 +86,6 @@ const SearchBar = ({ className, setSearchFocused }: SearchBarProps) => {
 					<Suggestions value={value} setValue={setValue} />
 				) : null}
 			</div>
-			<div
-				className="search__clickable-area"
-				hidden={!focused}
-				onClick={() => {
-					setFocused(false)
-				}}
-			/>
 		</>
 	)
 }
