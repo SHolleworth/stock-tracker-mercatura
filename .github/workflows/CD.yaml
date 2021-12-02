@@ -7,8 +7,8 @@ on:
         branches:
             - main
 jobs:
-    build:
-        runs-on: windows-latest
+    build-deploy:
+        runs-on: ubuntu-latest
         steps:
             - name: Checkout
               uses: actions/checkout@v2.3.5
@@ -17,31 +17,11 @@ jobs:
               uses: actions/setup-node@v2.4.1
               with:
                   node-version: "16"
-
-            - name: Install and build
-              run: |
-                npm install 
-                npm run build
-
-            - name: Upload Artifact
-              uses: actions/upload-artifact@v1
-              with: 
-                name: site
-                path: dist
-    deploy:
-        needs: [build]
-        runs-on: ubuntu-latest
-        steps:
-            - name: Checkout
-              uses: actions/checkout@v2.3.5
-            
-            - name: Download Artifacts
-              uses: actions/download-artifact@v1
-              with: 
-                name: site
-
-            - name: deploy
+            - run: npm install
+            - run: npm run build
+            - name: Deploy
+              if: ${{ github.event_name == 'push' }}
               uses: JamesIves/github-pages-deploy-action@4.1.5
               with:
-                branch: gh-pages
-                folder: 'site'
+                  branch: gh-pages
+                  folder: dist

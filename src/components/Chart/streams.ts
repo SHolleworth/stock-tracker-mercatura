@@ -10,6 +10,16 @@ export const requestIntradayPricesStream = (symbol: string) => {
 	)
 }
 
+export const requestPreviousDayPricesStream = (symbol: string) => {
+	return of(requestPreviousDayPrices(symbol)).pipe(
+		map((promise) => {
+			return {
+				prices: promiseWrapper(promise),
+			}
+		})
+	)
+}
+
 const transformPrices = (prices: Price[]) => {
 	const pricesWithoutNulls = removeNulls(prices)
 
@@ -24,14 +34,4 @@ const removeNulls = (prices: Price[]): Price[] => {
 	return prices.filter((price) => {
 		return price.average !== null
 	})
-}
-
-export const requestPreviousDayPricesStream = (symbol: string) => {
-	return of(requestPreviousDayPrices(symbol)).pipe(
-		map((promise) => {
-			return {
-				prices: promiseWrapper(promise),
-			}
-		})
-	)
 }
