@@ -41,8 +41,8 @@ componentTest({
 	},
 	matches: [
 		`$${mockResolvedData.body?.latestPrice.toFixed(2)}`,
-		`${
-			mockResolvedData.body?.change
-		} | ${mockResolvedData.body?.changePercent.toFixed(2)}%`,
+		`${mockResolvedData.body?.change.toFixed(
+			2
+		)} | ${mockResolvedData.body?.changePercent.toFixed(2)}%`,
 	],
 })

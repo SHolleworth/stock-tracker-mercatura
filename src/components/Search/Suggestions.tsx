@@ -24,8 +24,9 @@ const Suggestions: React.FC<SuggestionsProps> = ({ value, setValue }) => {
 	const enterPress = useKeyPress("Enter")
 	const escapePress = useKeyPress("Escape")
 
-	const highlightSearch = (suggestion: string) => {
-		const expression = new RegExp(value, "i")
+	const highlightMatchingCharacters = (suggestion: string) => {
+		const escapedString = value.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")
+		const expression = new RegExp(escapedString, "i")
 		const match = suggestion.match(expression)
 		const highlighted = match ? match.toString() : ""
 		const rest = suggestion.substring(highlighted.length)
@@ -38,7 +39,7 @@ const Suggestions: React.FC<SuggestionsProps> = ({ value, setValue }) => {
 		)
 	}
 
-	const symbolSetter = (symbol: string) => {
+	const search = (symbol: string) => {
 		setSymbol(symbol)
 		history.push(`/stock/${symbol}`)
 	}
@@ -61,7 +62,7 @@ const Suggestions: React.FC<SuggestionsProps> = ({ value, setValue }) => {
 
 	useEffect(() => {
 		if (suggestions.length && enterPress) {
-			symbolSetter(suggestions[cursor].symbol)
+			search(suggestions[cursor].symbol)
 		}
 	}, [cursor, enterPress])
 
@@ -73,11 +74,7 @@ const Suggestions: React.FC<SuggestionsProps> = ({ value, setValue }) => {
 
 	useEffect(() => {
 		if (escapePress) {
-			if (localStorage.getItem("currentSymbol")) {
-				history.push("/")
-			} else {
-				setValue("")
-			}
+			setValue("")
 		}
 	}, [escapePress])
 
@@ -110,12 +107,12 @@ const Suggestions: React.FC<SuggestionsProps> = ({ value, setValue }) => {
 										? "suggestions__stock__active"
 										: ""
 								}`}
-								onClick={() => symbolSetter(suggestion.symbol)}
+								onClick={() => search(suggestion.symbol)}
 								onMouseEnter={() => setHovered(suggestion)}
 								onMouseLeave={() => setHovered(undefined)}
 							>
-								{highlightSearch(suggestion.symbol)} -{" "}
-								{highlightSearch(suggestion.name)}
+								{highlightMatchingCharacters(suggestion.symbol)}{" "}
+								- {highlightMatchingCharacters(suggestion.name)}
 							</li>
 						)),
 					]
