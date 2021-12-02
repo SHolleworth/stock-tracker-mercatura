@@ -1,7 +1,7 @@
 import React from "react"
 import { YAxis, ResponsiveContainer, LineChart, Text } from "recharts"
 import { colours } from "../colours"
-import { axisPropsType, price } from "../types"
+import { axisPropsType, Price } from "../types"
 
 // interface YAxisTickPropsType {
 // 	x: number
@@ -68,7 +68,7 @@ interface CustomisedYAxisPropsType {
 }
 
 interface StaticYAxisPropsTypes {
-	data: price[]
+	data: Price[]
 	axisProps: axisPropsType
 	min: number
 	max: number

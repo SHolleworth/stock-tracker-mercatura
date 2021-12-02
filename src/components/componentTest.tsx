@@ -1,5 +1,5 @@
 import React from "react"
-import { render, screen, waitFor } from "@testing-library/react"
+import { render, screen } from "@testing-library/react"
 import SymbolContextProvider from "../contexts/SymbolContext"
 import { PriceState } from "./LivePrice/hooks/useLivePrice"
 import { StatusStringType } from "../utils/statusKeys"
@@ -51,10 +51,7 @@ export const componentTest = ({
 			}
 		})
 		render(<SymbolContextProvider>{component}</SymbolContextProvider>)
-		await waitFor(() =>
-			expect(mockFunctions[mockFunctions.length - 1]).toHaveBeenCalled()
-		)
-		expect(screen.getByTestId(testids.loading)).toBeVisible()
+		expect(await screen.findByTestId(testids.loading)).toBeVisible()
 	})
 
 	it("should show placeholder after an error", async () => {
@@ -67,10 +64,7 @@ export const componentTest = ({
 			}
 		})
 		render(<SymbolContextProvider>{component}</SymbolContextProvider>)
-		await waitFor(() =>
-			expect(mockFunctions[mockFunctions.length - 1]).toHaveBeenCalled()
-		)
-		expect(screen.getByTestId(testids.error)).toBeVisible()
+		expect(await screen.findByTestId(testids.error)).toBeVisible()
 	})
 
 	it("should show the component when data is present", async () => {
@@ -83,16 +77,18 @@ export const componentTest = ({
 			}
 		})
 		render(<SymbolContextProvider>{component}</SymbolContextProvider>)
-		await waitFor(async () =>
-			expect(mockFunctions[mockFunctions.length - 1]).toHaveBeenCalled()
-		)
+		// await waitFor(async () =>
+		// 	expect(mockFunctions[mockFunctions.length - 1]).toHaveBeenCalled()
+		// )
 		if (testids.resolved) {
-			expect(screen.getByTestId(testids.resolved)).toBeVisible()
+			expect(await screen.findByTestId(testids.resolved)).toBeVisible()
 		}
 		if (matches.length) {
-			matches.forEach((match) => {
-				return expect(screen.getByText(match)).toBeVisible()
-			})
+			await Promise.all(
+				matches.map(async (match) => {
+					expect(await screen.findByText(match)).toBeVisible()
+				})
+			)
 		}
 	})
 }

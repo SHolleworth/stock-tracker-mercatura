@@ -8,7 +8,6 @@ export const useDrag = (): [
 
 	let pos = { left: 0, x: 0 }
 	const startDrag = (e: React.MouseEvent) => {
-		console.log(e)
 		if (ref.current) {
 			pos = { left: ref.current.scrollLeft, x: e.clientX }
 

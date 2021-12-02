@@ -1,26 +1,25 @@
 import { fetchAndCheckResponseForError } from "../../utils/fetchAndCheckResponseForError"
 import { base } from "../../utils/baseUrl"
-import { price } from "./types"
-// import { tokens } from "../../../../token"
-
+import { Price } from "./types"
 const token = `token=${import.meta.env.VITE_IEX_TOKEN}`
-// const token = `token=${tokens.REAL_TOKEN}`
+
+export const priceURL = (symbol: string) =>
+	`${base}/stock/${symbol}/intraday-prices?${token}&chartInterval=10`
 
 export const requestIntradayPrices = async (
 	symbol: string
-): Promise<price[]> => {
+): Promise<Price[]> => {
 	// throw Error()
 	if (!symbol) throw Error("No symbol given.")
-	return await fetchAndCheckResponseForError(
-		`${base}/stock/${symbol}/intraday-prices?${token}&chartInterval=10`
-	)
+	return await fetchAndCheckResponseForError(priceURL(symbol))
 }
+
+export const previousDayURL = (symbol: string) =>
+	`${base}/stock/${symbol}/previous?${token}`
 
 export const requestPreviousDayPrices = async (symbol: string) => {
 	if (!symbol) throw Error("No symbol given")
-	return await fetchAndCheckResponseForError(
-		`${base}/stock/${symbol}/previous?${token}`
-	)
+	return await fetchAndCheckResponseForError(previousDayURL(symbol))
 }
 
 export const requestHistoricalPrices = async (symbol: string) => {

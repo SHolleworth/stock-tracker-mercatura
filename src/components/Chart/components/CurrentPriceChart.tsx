@@ -11,11 +11,11 @@ import {
 import { colours } from "../colours"
 import { ReferenceAreas } from "./ReferenceAreas"
 import { CustomisedToolTip } from "./CustomisedToolTip"
-import { axisPropsType, price } from "../types"
+import { axisPropsType, Price } from "../types"
 
 interface CurrentPriceChartPropsType {
 	axisProps: axisPropsType
-	currentDayData: price[]
+	currentDayData: Price[]
 	previousClose?: number
 	interval: number
 	min: number

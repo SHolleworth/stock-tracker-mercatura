@@ -1,5 +1,4 @@
 import React from "react"
-import { StatusStringType } from "../../utils/statusKeys"
 
 export interface axisPropsType {
 	tickSize: number
@@ -18,13 +17,8 @@ export interface axisStyleType {
 	fill: string
 }
 
-export interface price {
+export interface Price {
 	average: number
 	minute: string
 	date: string
-}
-
-export interface priceState {
-	status: StatusStringType
-	body?: price[]
 }
