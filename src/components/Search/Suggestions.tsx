@@ -24,8 +24,9 @@ const Suggestions: React.FC<SuggestionsProps> = ({ value, setValue }) => {
 	const enterPress = useKeyPress("Enter")
 	const escapePress = useKeyPress("Escape")
 
-	const highlightSearch = (suggestion: string) => {
-		const expression = new RegExp(value, "i")
+	const highlightMatchingCharacters = (suggestion: string) => {
+		const escapedString = value.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")
+		const expression = new RegExp(escapedString, "i")
 		const match = suggestion.match(expression)
 		const highlighted = match ? match.toString() : ""
 		const rest = suggestion.substring(highlighted.length)
@@ -110,8 +111,8 @@ const Suggestions: React.FC<SuggestionsProps> = ({ value, setValue }) => {
 								onMouseEnter={() => setHovered(suggestion)}
 								onMouseLeave={() => setHovered(undefined)}
 							>
-								{highlightSearch(suggestion.symbol)} -{" "}
-								{highlightSearch(suggestion.name)}
+								{highlightMatchingCharacters(suggestion.symbol)}{" "}
+								- {highlightMatchingCharacters(suggestion.name)}
 							</li>
 						)),
 					]

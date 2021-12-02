@@ -24,7 +24,7 @@ const SearchBar = ({ className, setSearchFocused }: SearchBarProps) => {
 	const input = useRef<HTMLInputElement>(null)
 
 	const handleChange = ({ target }: React.ChangeEvent<HTMLInputElement>) => {
-		setValue(target.value)
+		setValue(target.value.toString())
 		if (setSearchFocused) {
 			if (target.value) {
 				setSearchFocused(true)
@@ -43,6 +43,11 @@ const SearchBar = ({ className, setSearchFocused }: SearchBarProps) => {
 	const handleBlur = ({ target }: { target: HTMLInputElement }) => {
 		setValue(savedValue)
 		setFocused(false)
+	}
+
+	const removeDefault = (event: React.KeyboardEvent) => {
+		if (event.code === "ArrowUp" || event.code === "ArrowDown")
+			event.preventDefault()
 	}
 
 	useEffect(() => {
@@ -79,6 +84,7 @@ const SearchBar = ({ className, setSearchFocused }: SearchBarProps) => {
 						onChange={handleChange}
 						onFocus={handleFocus}
 						onBlur={handleBlur}
+						onKeyDown={removeDefault}
 						ref={input}
 					/>
 				</div>
