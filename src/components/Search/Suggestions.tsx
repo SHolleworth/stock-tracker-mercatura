@@ -4,6 +4,7 @@ import { useHistory } from "react-router-dom"
 import "./styles.css"
 import useSearch from "./hooks/useSearch"
 import useKeyPress from "./hooks/useKeyPress"
+import { symbolSubject$ } from "../../streams/symbol$"
 
 interface SuggestionsProps {
 	value: string
@@ -41,6 +42,7 @@ const Suggestions: React.FC<SuggestionsProps> = ({ value, setValue }) => {
 
 	const search = (symbol: string) => {
 		setSymbol(symbol)
+		symbolSubject$.next(symbol)
 		history.push(`/stock/${symbol}`)
 	}
 

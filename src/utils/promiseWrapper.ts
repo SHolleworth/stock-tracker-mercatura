@@ -16,7 +16,7 @@ const promiseWrapper = <T>(
 	)
 
 	return {
-		read() {
+		read: () => {
 			if (status === "loading") {
 				throw suspender
 			} else if (status === "error") {

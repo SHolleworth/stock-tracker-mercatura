@@ -4,6 +4,8 @@ import {
 	requestIntradayPricesStream,
 	requestPreviousDayPricesStream,
 } from "../streams"
+import { requestIntradayPrices } from "../services"
+import promiseWrapper from "../../../utils/promiseWrapper"
 
 interface minMaxState {
 	min: number
@@ -15,20 +17,24 @@ export const useIntradayPrices = (symbol: string): [Price[]?, minMaxState?] => {
 	const [minMax, setMinMax] = useState<minMaxState>()
 
 	useEffect(() => {
-		requestIntradayPricesStream(symbol).subscribe({
-			next: (resource) => {
-				setPrices(() => resource.prices.read() as Price[])
-				setMinMax(() =>
-					findMinAndMax(resource.prices.read() as Price[])
-				)
-			},
-			error: (error) => {
-				console.log(error)
-				setPrices(() => {
-					throw Error(error)
-				})
-			},
-		})
+		// requestIntradayPricesStream(symbol).subscribe({
+		// 	next: (resource) => {
+		// 		setPrices(() => resource.prices.read() as Price[])
+		// 		setMinMax(() =>
+		// 			findMinAndMax(resource.prices.read() as Price[])
+		// 		)
+		// 	},
+		// 	error: (error) => {
+		// 		console.log(error)
+		// 		setPrices(() => {
+		// 			throw Error(error)
+		// 		})
+		// 	},
+		(async () => {
+			const prices = await requestIntradayPrices(symbol)
+			setPrices(prices)
+			setMinMax(findMinAndMax(prices))
+		})()
 	}, [symbol])
 
 	return [prices, minMax]

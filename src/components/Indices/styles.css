@@ -61,7 +61,7 @@
 	width: 15px;
 }
 
-.center {
+.index--center {
 	border-left: 1px solid var(--ui-element-light);
 	border-right: 1px solid var(--ui-element-light);
 }

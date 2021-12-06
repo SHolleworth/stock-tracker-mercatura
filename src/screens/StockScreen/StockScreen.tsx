@@ -11,6 +11,7 @@ import TopPeers from "../../components/TopPeers/TopPeers"
 import { useSymbol } from "../../contexts/SymbolContext"
 import { useFocus } from "../../contexts/FocusContext"
 import { useParams } from "react-router-dom"
+import { symbolSubject$ } from "../../streams/symbol$"
 
 interface ParamsType {
 	stock: string
@@ -19,11 +20,11 @@ interface ParamsType {
 const StockScreen = () => {
 	const { symbol, setSymbol } = useSymbol()
 	const { stock } = useParams<ParamsType>()
-	const { setFocused } = useFocus()
 
 	useEffect(() => {
 		if (stock) {
 			setSymbol(stock)
+			symbolSubject$.next(stock)
 		}
 	}, [])
 
@@ -41,7 +42,6 @@ const StockScreen = () => {
 				</div>
 				<div
 					className="news-summary-section"
-					onClick={() => setFocused(false)}
 				>
 					<NewsFeed />
 					<CompanySummary />

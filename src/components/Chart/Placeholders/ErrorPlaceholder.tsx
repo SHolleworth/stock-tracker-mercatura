@@ -1,6 +1,6 @@
 import React from "react"
 
-export function ErrorPlaceholder() {
+function ErrorPlaceholder() {
 	return (
 		<div
 			className="chart__placeholder--error"
@@ -10,3 +10,5 @@ export function ErrorPlaceholder() {
 		</div>
 	)
 }
+
+export default ErrorPlaceholder

@@ -2,7 +2,7 @@ import { useEffect, useState } from "react"
 import STATUS, { StatusStringType } from "../../../utils/statusKeys"
 import { Price } from "../types"
 import { base, base_sse } from "../../../utils/baseUrl"
-import { Observable } from "rxjs"
+import { Observable, of } from "rxjs"
 import { fromFetch } from "rxjs/fetch"
 import {
 	map,
@@ -11,7 +11,11 @@ import {
 	switchMap,
 	delay,
 	repeat,
+	share,
 } from "rxjs/operators"
+import promiseWrapper from "../../../utils/promiseWrapper"
+import { bind, SUSPENSE } from "@react-rxjs/core"
+import symbolSubject$ from "../../../streams/symbol$"
 
 //Map whole body response object for the type
 export interface PriceState {
@@ -19,62 +23,34 @@ export interface PriceState {
 	body?: Price
 }
 
-function fromEventSource(url: string): Observable<MessageEvent> {
-	return new Observable<MessageEvent>((subscriber) => {
-		const sse = new EventSource(url, { withCredentials: false })
+const fromEventSource = (source: Observable<string>) => {
+	return new Observable<Price | typeof SUSPENSE>(subscriber => {
+		return source.subscribe({
+			next: (symbol) => {
+				const CURL_URL = `${base_sse}stocksUS5Second?symbols=${symbol}&token=${
+					import.meta.env.VITE_IEX_TOKEN
+				}`
+				const sse = new EventSource(CURL_URL)
 
-		sse.onmessage = (e) => subscriber.next(e)
-		sse.onerror = (e) => subscriber.error(e)
-
-		return () => sse.close()
+				sse.onmessage = (message) => subscriber.next(JSON.parse(message.data)[0])
+				sse.onerror = error => subscriber.error(error)
+				sse.onopen = () => console.log("CONNECTED")
+			},
+			error: error => subscriber.error(error),
+			complete: () => subscriber.complete()
+		})
 	})
 }
 
-const useLivePrice = (symbol: string, updateInterval: 1 | 5) => {
-	const [price, setPrice] = useState<PriceState>({ status: STATUS.LOADING })
-	const CURL_URL = `${base_sse}stocksUS${updateInterval}Second?symbols=${symbol}&token=${
-		import.meta.env.VITE_IEX_TOKEN
-	}`
-	const QUOTE_URL = `${base}stock/${symbol}/quote?token=${
-		import.meta.env.VITE_IEX_TOKEN
-	}`
+const prices$ = symbolSubject$.pipe(
+	fromEventSource,
+	filter(price => price !== undefined),
+	catchError((error, caught) => {
+		console.error("Error in price stream: " + error)
+		return caught
+	})
+)
 
-	useEffect(() => {
-		setPrice({ status: STATUS.LOADING })
+const [usePriceStream, _] = bind(prices$)
 
-		const subscription = fromEventSource(CURL_URL)
-			.pipe(
-				map((message) => JSON.parse(message.data)[0]),
-				filter((data) => data),
-				catchError((err) => {
-					console.log(err)
-					return fromFetch(QUOTE_URL).pipe(
-						delay(2000),
-						repeat(),
-						switchMap((response) => {
-							if (response.ok) {
-								return response.json()
-							} else {
-								throw Error()
-							}
-						}),
-						catchError((err, caught) => {
-							return caught
-						})
-					)
-				})
-			)
-			.subscribe((data) =>
-				setPrice({
-					status: STATUS.RESOLVED,
-					body: data,
-				})
-			)
-
-		return () => subscription.unsubscribe()
-	}, [CURL_URL, symbol])
-
-	return price
-}
-
-export default useLivePrice
+export default usePriceStream

@@ -1,7 +1,8 @@
 import React from "react"
+import styled from "styled-components"
 import { usePlaceholderAnimation } from "../../../hooks/usePlaceholderAnimation"
 
-export function LoadingPlaceholder() {
+function LoadingPlaceholder() {
 	const opacity = usePlaceholderAnimation()
 
 	return (
@@ -12,3 +13,10 @@ export function LoadingPlaceholder() {
 		></div>
 	)
 }
+
+export default styled(LoadingPlaceholder)`
+	align-self: stretch;
+	background-color: var(--ui-element);
+	border-radius: 10px;
+	margin-top: 20px;
+`

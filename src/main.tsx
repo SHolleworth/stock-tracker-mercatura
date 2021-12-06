@@ -5,6 +5,9 @@ import App from "./App"
 import FocusContextProvider from "./contexts/FocusContext"
 import SymbolContextProvider from "./contexts/SymbolContext"
 import { useRegisterSW } from "virtual:pwa-register/react"
+import { ThemeProvider as MUIThemeProvider } from "@mui/material"
+import { ThemeProvider } from 'styled-components'
+import theme from "./theme"
 
 const RegisterSW: VFC = () => {
 	useRegisterSW({ onRegistered: () => console.log("SW Registered") })
@@ -17,7 +20,11 @@ ReactDOM.render(
 			<FocusContextProvider>
 				<HashRouter basename={"/"}>
 					<RegisterSW />
-					<App />
+					<MUIThemeProvider theme={theme}>
+						<ThemeProvider theme={theme}>
+						<App />
+						</ThemeProvider>
+					</MUIThemeProvider>
 				</HashRouter>
 			</FocusContextProvider>
 		</SymbolContextProvider>

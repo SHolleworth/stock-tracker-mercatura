@@ -83,4 +83,7 @@ export default defineConfig({
 		}),
 	],
 	base: process.env.BASE_URL ? `${process.env.BASE_URL}` : "./",
+	// resolve: {
+	// 	alias: [{ '@mui/styled-engine': '@mui/styled-engine-sc' }]
+	// }
 })
