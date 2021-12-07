@@ -17,7 +17,7 @@
 }
 
 .arrow {
-	margin-right: calc(var(--padding) * -.5)
+	margin-right: calc(var(--padding) * -0.5);
 }
 
 .price__arrow {
@@ -76,14 +76,14 @@
 	width: 20px;
 	border-radius: 10px;
 	margin-right: calc(var(--padding) * -1);
-	background-color: #96db96;
+	background-color: var(--positive);
 }
 
 .live-price__placeholder__change {
 	height: 20px;
 	width: 30%;
 	border-radius: 10px;
-	background-color: #96db96;
+	background-color: var(--positive);
 }
 
 .live-price__placeholder--error {
@@ -95,7 +95,7 @@
 	font-family: roboto;
 }
 
-@media(max-width: 834px) {
+@media (max-width: 834px) {
 	.price {
 		align-self: stretch;
 		font-size: var(--section-headers-fontsize);
@@ -109,6 +109,5 @@
 
 	.price__change {
 		font-size: var(--subheader-fontsize);
-
 	}
 }

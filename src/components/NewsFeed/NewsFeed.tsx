@@ -1,18 +1,23 @@
-import { Suspense } from "react"
+import { styled, Typography } from "@mui/material"
+import React, { Suspense } from "react"
 import ErrorBoundary from "../ErrorBoundary/ErrorBoundary"
 import NewsFeedContent from "./NewsFeedContent"
 import ErrorPlaceholder from "./Placeholders/ErrorPlaceholder"
 import LoadingPlaceholder from "./Placeholders/LoadingPlaceholder"
 import "./styles.css"
 
+const StyledHeading = styled(Typography)(
+	({ theme }) => `
+	padding-left: ${theme.spacing(1.5)};
+	`
+)
 
 function NewsFeed() {
-
 	return (
 		<div className="newsfeed">
-			<div className="newsfeed__heading section-heading">
+			<StyledHeading variant="h2" color="text.primary">
 				Latest News
-			</div>
+			</StyledHeading>
 			<ErrorBoundary fallback={<ErrorPlaceholder />} >	
 				<Suspense fallback={<LoadingPlaceholder />}>
 					<NewsFeedContent />

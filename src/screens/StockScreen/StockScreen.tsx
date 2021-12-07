@@ -9,7 +9,6 @@ import Indices from "../../components/Indices/Indices"
 import LogoColumn from "../../components/Logo/LogoColumn"
 import TopPeers from "../../components/TopPeers/TopPeers"
 import { useSymbol } from "../../contexts/SymbolContext"
-import { useFocus } from "../../contexts/FocusContext"
 import { useParams } from "react-router-dom"
 import { symbolSubject$ } from "../../streams/symbol$"
 
@@ -26,7 +25,7 @@ const StockScreen = () => {
 			setSymbol(stock)
 			symbolSubject$.next(stock)
 		}
-	}, [])
+	}, [stock])
 
 	if (symbol) {
 		return (

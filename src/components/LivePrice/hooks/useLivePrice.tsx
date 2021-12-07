@@ -1,8 +1,6 @@
-import { useEffect, useState } from "react"
-import STATUS, { StatusStringType } from "../../../utils/statusKeys"
 import { Price } from "../types"
 import { base, base_sse } from "../../../utils/baseUrl"
-import { Observable, of } from "rxjs"
+import { from, Observable, of, pipe, Subject } from "rxjs"
 import { fromFetch } from "rxjs/fetch"
 import {
 	map,
@@ -13,28 +11,21 @@ import {
 	repeat,
 	share,
 } from "rxjs/operators"
-import promiseWrapper from "../../../utils/promiseWrapper"
-import { bind, SUSPENSE } from "@react-rxjs/core"
+import { bind } from "@react-rxjs/core"
 import symbolSubject$ from "../../../streams/symbol$"
 
-//Map whole body response object for the type
-export interface PriceState {
-	status: StatusStringType
-	body?: Price
-}
 
 const fromEventSource = (source: Observable<string>) => {
-	return new Observable<Price | typeof SUSPENSE>(subscriber => {
+	return new Observable<Price>(subscriber => {
 		return source.subscribe({
 			next: (symbol) => {
-				const CURL_URL = `${base_sse}stocksUS5Second?symbols=${symbol}&token=${
+				const CURL_URL = `${base_sse}stocksUS1Second?symbols=${symbol}&token=${
 					import.meta.env.VITE_IEX_TOKEN
 				}`
 				const sse = new EventSource(CURL_URL)
-
+				console.log("Created event source from symbol: " + symbol)
 				sse.onmessage = (message) => subscriber.next(JSON.parse(message.data)[0])
-				sse.onerror = error => subscriber.error(error)
-				sse.onopen = () => console.log("CONNECTED")
+				sse.onerror = (error: Event) =>  subscriber.error(error)
 			},
 			error: error => subscriber.error(error),
 			complete: () => subscriber.complete()
@@ -42,15 +33,29 @@ const fromEventSource = (source: Observable<string>) => {
 	})
 }
 
-const prices$ = symbolSubject$.pipe(
+const filterAndCatchErrorsFromLivePrice = pipe(
 	fromEventSource,
 	filter(price => price !== undefined),
 	catchError((error, caught) => {
 		console.error("Error in price stream: " + error)
 		return caught
-	})
+	}))
+
+const prices$ = symbolSubject$.pipe(
+	filterAndCatchErrorsFromLivePrice
 )
 
-const [usePriceStream, _] = bind(prices$)
+const [useSPYPrice, ] = bind(bind(of("SPY"))[1].pipe(filterAndCatchErrorsFromLivePrice)) 
+const [useDIAPrice, ] = bind(bind(of("DIA"))[1].pipe(filterAndCatchErrorsFromLivePrice)) 
+const [useIWMPrice, ] = bind(bind(of("IWM"))[1].pipe(filterAndCatchErrorsFromLivePrice)) 
+
+const indicePriceStreamMap =  new Map()
+indicePriceStreamMap.set("SPY", useSPYPrice)
+indicePriceStreamMap.set("DIA", useDIAPrice)
+indicePriceStreamMap.set("IWM", useIWMPrice)
+
+export { indicePriceStreamMap }
+
+const [usePriceStream, ] = bind(prices$)
 
 export default usePriceStream

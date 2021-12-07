@@ -43,7 +43,7 @@ interface YAxisTickPropsType {
 }
 
 const CustomisedYAxisTick = ({ x, y, payload, style }: YAxisTickPropsType) => {
-	const text = Number.parseFloat(payload.value).toFixed(0)
+	const text = Number.parseFloat(payload.value)
 
 	return (
 		<Text

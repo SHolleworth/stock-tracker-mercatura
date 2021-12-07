@@ -11,8 +11,8 @@ const COLORS = {
 	POSITIVE: '#01c38d'
 }
 
-export default {
-    spacing: 10,
+const theme = {
+    spacing: (x: number = 1) => `${10 * x}px`,
 
     palette: {
         primary: COLORS.MEDIUM_TEXT,
@@ -26,6 +26,11 @@ export default {
     typography: {
         h2: {
             fontFamily: 'Merriweather',
+            fontSize: '1rem',
+            fontWeight: 700,
+        },
+        h3: {
+            fontFamily: 'Merriweather',
             fontSize: '0.8125rem',
             fontWeight: 700,
             lineHeight: 1.54,
@@ -38,3 +43,5 @@ export default {
         }
     }
 }
+
+export default theme

@@ -1,24 +1,28 @@
 import React, { Suspense } from "react"
 import LoadingPlaceholder from "./Placeholders/LoadingPlaceholder"
-import { useSymbol } from "../../contexts/SymbolContext"
 import usePriceStream from "./hooks/useLivePrice"
 import "./styles.css"
 import downArrow from "../../assets/red-arrow.svg"
 import normalArrow from "../../assets/green-arrow.svg"
-import STATUS from "../../utils/statusKeys"
 import { Price } from "./types"
 import ErrorPlaceholder from "./Placeholders/ErrorPlaceholder"
+import ErrorBoundary from "../ErrorBoundary/ErrorBoundary"
+import { Subscribe } from "@react-rxjs/core"
 
 const LivePrice = ({ searchFocused }: { searchFocused: boolean }) => {
 		return (
-			<Suspense fallback={<LoadingPlaceholder />}>
-				<LivePriceContent searchFocused={searchFocused} />
-			</Suspense>
+			<ErrorBoundary fallback={<ErrorPlaceholder />}>
+				<Suspense fallback={<LoadingPlaceholder />}>
+					<Subscribe>
+						<LivePriceContent searchFocused={searchFocused} />
+					</Subscribe>
+				</Suspense>
+			</ErrorBoundary>
 		)
 }
 
-const LivePriceContent = ({ searchFocused }) => {
-	const price = usePriceStream() as Price
+const LivePriceContent = ({ searchFocused }: { searchFocused: boolean }) => {
+	const price = usePriceStream()
 
 	return (
 		<PriceDisplay
@@ -30,12 +34,14 @@ const LivePriceContent = ({ searchFocused }) => {
 }
 
 type PriceProps = {
+	symbol?: string
 	price: Price
 	searchFocused: boolean
 	className: string
 }
 
 export const PriceDisplay: React.FC<PriceProps> = ({
+	symbol,
 	price,
 	searchFocused,
 	className,
@@ -47,7 +53,7 @@ export const PriceDisplay: React.FC<PriceProps> = ({
 					${searchFocused ? `${className}__display--hidden` : null}`}
 				>
 					<div style={{ display: "flex" }}>
-						<div className={`${className}__symbol`}>{"symbol"}</div>
+						{symbol ? <div className={`${className}__symbol`}>{symbol}</div> : null }
 						<span className={className}>{`$${price.latestPrice.toFixed(
 							2
 						)}`}</span>

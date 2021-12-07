@@ -1,6 +1,7 @@
 import { Typography } from '@mui/material'
 import React, { useEffect, useState } from 'react'
-import styled from 'styled-components'
+// import styled from 'styled-components'
+import { styled } from '@mui/material/styles'
 import { useSymbol } from '../../contexts/SymbolContext'
 import convertMillisecondsToNewsFeedTime from '../../utils/convertMillisecondsToNewsFeedTime'
 import { requestNews } from './services'
@@ -54,21 +55,30 @@ type ArticleProps = {
 	index: number
 }
 
-const StyledLink = styled.a`
-	text-decoration: none;
-	:hover {
-		text-decoration: underline ${props => props.theme.palette.text.primary};
-	}
-`
+const StyledLink = styled("a")(
+	({ theme }) => `
+		text-decoration: none;
+		:hover {
+			text-decoration: underline ${theme.palette.text.primary};
+		}
+`)
 
-const StyledHeadline = styled(Typography)`
-	padding-top: ${props => props.theme.spacing}px;
-	padding-bottom: ${props => props.theme.spacing}px;
-`
+const StyledHeadline = styled(Typography)(
+	({ theme }) =>`
+	padding-bottom: ${theme.spacing()};
+`)
 
-const StyledSource = styled(Typography)`
-	padding-bottom: ${props => props.theme.spacing * 2}px;
-`
+
+
+const StyledArticle = styled("div")(
+	({ theme }) => `
+	border-bottom: solid 1px var(--ui-element);
+	padding-left: ${theme.spacing(1.5)};
+	padding-right: ${theme.spacing(1.5)};
+	padding-bottom: ${theme.spacing(1.9)};
+	padding-top: ${theme.spacing(1.6)};
+	`
+)
 
 const NewsArticle = ({
 	link,
@@ -79,22 +89,19 @@ const NewsArticle = ({
 }: ArticleProps) => {
 	const timeString = convertMillisecondsToNewsFeedTime(timeSincePublication)
 
-	const firstArticleClass = index < 1 ? "article__headline__first" : ""
-	const lastArticleClass = index > 1 ? "article__last" : ""
-
 	return (
-		<div className={`article ${lastArticleClass}`}>
+		<StyledArticle>
 			<StyledLink
 				href={link}
 				target="_blank"
 				rel="noreferrer"
 			>
-				<StyledHeadline variant="h2" color="text.primary" gutterBottom>
+				<StyledHeadline variant="h3" color="text.primary">
 					{headline}
 				</StyledHeadline>
 			</StyledLink>
-			<StyledSource variant="subtitle1" color="text.tertiary">{`${timeString} - ${source}`}</StyledSource>
-		</div>
+			<Typography variant="subtitle1" color="text.tertiary">{`${timeString} - ${source}`}</Typography>
+		</StyledArticle>
 	)
 }
 
