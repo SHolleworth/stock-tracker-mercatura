@@ -1,4 +1,5 @@
 import { styled, Typography } from "@mui/material"
+import { Subscribe } from "@react-rxjs/core"
 import React, { Suspense } from "react"
 import ErrorBoundary from "../ErrorBoundary/ErrorBoundary"
 import NewsFeedContent from "./NewsFeedContent"
@@ -21,11 +22,13 @@ function NewsFeed() {
 			<StyledHeading variant="h2" color="text.primary">
 				Latest News
 			</StyledHeading>
+			<Subscribe>
 			<ErrorBoundary fallback={<ErrorPlaceholder />} >	
 				<Suspense fallback={<LoadingPlaceholder />}>
 					<NewsFeedContent />
 				</Suspense>
 			</ErrorBoundary>
+			</Subscribe>
 		</div>
 	)
 }

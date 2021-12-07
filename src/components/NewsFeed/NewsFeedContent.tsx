@@ -1,33 +1,13 @@
 import { Typography } from '@mui/material'
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 // import styled from 'styled-components'
 import { styled } from '@mui/material/styles'
-import { useSymbol } from '../../contexts/SymbolContext'
 import convertMillisecondsToNewsFeedTime from '../../utils/convertMillisecondsToNewsFeedTime'
-import { requestNews } from './services'
-
-type Article = {
-	headline: string
-	url: string
-	source: string
-	datetime: number
-}
+import useNewsFeedStream from './streams'
 
 function NewsFeedContent() {
-    const [articles, setArticles] = useState<Article[]>()
-	const { symbol } = useSymbol()
-
-	useEffect(() => {
-		(async () => {
-			try {
-				const news = await requestNews(symbol)
-				setArticles(news)
-			}
-			catch(error: any) {
-				setArticles(() => { throw Error(error) })
-			}
-		})()
-	}, [symbol])
+ 
+	const articles = useNewsFeedStream()
 
 	return (
         <>
