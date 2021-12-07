@@ -9,6 +9,9 @@ import "./styles.css"
 const StyledHeading = styled(Typography)(
 	({ theme }) => `
 	padding-left: ${theme.spacing(1.5)};
+	@media (max-width: 1366px) {
+		flex: 1;
+	}
 	`
 )
 

@@ -1,7 +1,6 @@
 import { Price } from "../types"
-import { base, base_sse } from "../../../utils/baseUrl"
-import { from, Observable, of, pipe, Subject } from "rxjs"
-import { fromFetch } from "rxjs/fetch"
+import { base_sse } from "../../../utils/baseUrl"
+import { Observable, of, pipe } from "rxjs"
 import {
 	map,
 	filter,
@@ -26,6 +25,8 @@ const fromEventSource = (source: Observable<string>) => {
 				console.log("Created event source from symbol: " + symbol)
 				sse.onmessage = (message) => subscriber.next(JSON.parse(message.data)[0])
 				sse.onerror = (error: Event) =>  subscriber.error(error)
+
+				subscriber.add(() => sse.close())
 			},
 			error: error => subscriber.error(error),
 			complete: () => subscriber.complete()

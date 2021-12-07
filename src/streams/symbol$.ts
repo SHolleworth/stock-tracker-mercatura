@@ -1,8 +1,8 @@
-import { Subject } from "rxjs"
-import { bind, shareLatest } from "@react-rxjs/core"
+import { BehaviorSubject } from "rxjs"
+import { bind } from "@react-rxjs/core"
 
-export const symbolSubject$ = new Subject<string>()
+export const symbolSubject$ = new BehaviorSubject<string>("")
 
-const [_, symbol$] = bind(symbolSubject$)
+const [, symbol$] = bind(symbolSubject$)
 
 export default symbol$
