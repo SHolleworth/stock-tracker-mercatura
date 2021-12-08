@@ -1,4 +1,4 @@
-import { styled, Typography } from "@mui/material"
+import { styled, Typography, Box } from "@mui/material"
 import { Subscribe } from "@react-rxjs/core"
 import React, { Suspense } from "react"
 import ErrorBoundary from "../ErrorBoundary/ErrorBoundary"
@@ -16,9 +16,15 @@ const StyledHeading = styled(Typography)(
 	`
 )
 
+const StyledNewsFeed = styled(Box)`
+	@media (max-width: 1366px) {
+		flex: 1;
+	}
+` 
+
 function NewsFeed() {
 	return (
-		<div className="newsfeed">
+		<StyledNewsFeed sx={{ gridArea: "news" }} >
 			<StyledHeading variant="h2" color="text.primary">
 				Latest News
 			</StyledHeading>
@@ -29,7 +35,7 @@ function NewsFeed() {
 				</Suspense>
 			</ErrorBoundary>
 			</Subscribe>
-		</div>
+		</StyledNewsFeed>
 	)
 }
 

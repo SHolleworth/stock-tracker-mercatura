@@ -1,5 +1,5 @@
 import { bind } from "@react-rxjs/core";
-import fetchFromSymbol from "../../streams/operators/fetchFromSymbol";
+import { suspendAndFetchFromSymbol } from "../../streams/operators/fetchFromSymbol";
 import symbol$ from "../../streams/symbol$";
 import { base } from "../../utils/baseUrl";
 const token = `token=${import.meta.env.VITE_IEX_TOKEN}`
@@ -12,7 +12,7 @@ type Article = {
 	datetime: number
 }
 
-const newsFeed$ = symbol$.pipe(fetchFromSymbol<Article[]>(url))
+const newsFeed$ = symbol$.pipe(suspendAndFetchFromSymbol<Article[]>(url))
 const [useNewsFeedStream, ] = bind(newsFeed$)
 
 export default useNewsFeedStream

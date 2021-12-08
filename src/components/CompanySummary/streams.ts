@@ -1,7 +1,5 @@
 import { bind } from "@react-rxjs/core";
-import { suspended } from "@react-rxjs/utils";
-import { switchAll, tap } from "rxjs/operators";
-import fetchFromSymbol from "../../streams/operators/fetchFromSymbol";
+import { fetchFromSymbol, suspendAndFetchFromSymbol } from "../../streams/operators/fetchFromSymbol";
 import { symbolSubject$ } from "../../streams/symbol$";
 import { base } from "../../utils/baseUrl"
 
@@ -17,8 +15,12 @@ interface Summary {
 }
 
 const companyInfo$ = symbolSubject$.pipe(
-    fetchFromSymbol<Summary>(COMPANYINFO_URL))
+    suspendAndFetchFromSymbol<Summary>(COMPANYINFO_URL))
+
+const companyInfoWithoutSuspense$ = symbolSubject$.pipe(fetchFromSymbol<Summary>(COMPANYINFO_URL))
 
 const [useCompanyInfoStream, ] = bind(companyInfo$)
+const [useCompanyInfoStreamWithoutSuspense, ] = bind(companyInfoWithoutSuspense$, undefined)
 
+export { useCompanyInfoStreamWithoutSuspense }
 export default useCompanyInfoStream

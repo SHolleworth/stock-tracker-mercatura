@@ -7,9 +7,10 @@ import React, {
 } from "react"
 import Suggestions from "./Suggestions"
 import "./styles.css"
-import { useSymbol } from "../../contexts/SymbolContext"
-import { requestCompanyInfo } from "../CompanySummary/services"
 import { useFocus } from "../../contexts/FocusContext"
+import { useCompanyInfoStreamWithoutSuspense } from "../CompanySummary/streams"
+import { Subscribe } from "@react-rxjs/core"
+import ErrorBoundary from "../ErrorBoundary/ErrorBoundary"
 
 interface SearchBarProps {
 	className?: string
@@ -17,11 +18,31 @@ interface SearchBarProps {
 }
 
 const SearchBar = ({ className, setSearchFocused }: SearchBarProps) => {
+
+	return (
+		<ErrorBoundary fallback={<div>Error with searchbar</div>}>
+		<Subscribe>
+			<SearchBarContent className={className} setSearchFocused={setSearchFocused} />
+		</Subscribe>
+		</ErrorBoundary>
+	)
+}
+
+const SearchBarContent = ({ className, setSearchFocused }: SearchBarProps) => {
 	const [value, setValue] = useState("")
-	const [savedValue, setSavedValue] = useState("")
-	const { symbol } = useSymbol()
 	const { focused, setFocused } = useFocus()
 	const input = useRef<HTMLInputElement>(null)
+	const info = useCompanyInfoStreamWithoutSuspense()
+
+	useEffect(() => {
+		if(info) {
+			setValue(`${info.symbol} - ${info.companyName}`)
+		}
+		if(input.current) {
+			input.current.blur()
+			setFocused(false)
+		}
+	}, [info])
 
 	const handleChange = ({ target }: React.ChangeEvent<HTMLInputElement>) => {
 		setValue(target.value.toString())
@@ -36,12 +57,13 @@ const SearchBar = ({ className, setSearchFocused }: SearchBarProps) => {
 
 	const handleFocus = ({ target }: { target: HTMLInputElement }) => {
 		setFocused(true)
-		setSavedValue(value)
 		setValue("")
 	}
 
 	const handleBlur = ({ target }: { target: HTMLInputElement }) => {
-		setValue(savedValue)
+		if(info) {
+			setValue(`${info.symbol} - ${info.companyName}`)
+		}
 		setFocused(false)
 	}
 
@@ -50,25 +72,6 @@ const SearchBar = ({ className, setSearchFocused }: SearchBarProps) => {
 			event.preventDefault()
 	}
 
-	useEffect(() => {
-		(async () => {
-			if (symbol) {
-				try {
-					const info = await requestCompanyInfo(symbol)
-					setSavedValue(`${info.symbol} - ${info.companyName}`)
-					setValue(`${info.symbol} - ${info.companyName}`)
-					if (input.current) {
-						setFocused(false)
-						input.current.blur()
-					}
-				} catch (error) {
-					console.error(
-						"Error requesting company info for search bar: " + error
-					)
-				}
-			}
-		})()
-	}, [symbol])
 
 	return (
 		<>

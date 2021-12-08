@@ -4,6 +4,7 @@ import largeLogo from "../../assets/dark-branding-logo.svg"
 import { useHistory } from "react-router-dom"
 import { useFocus } from "../../contexts/FocusContext"
 import { useSymbol } from "../../contexts/SymbolContext"
+import { symbolSubject$ } from "../../streams/symbol$"
 
 interface LogoColumnPropsType {
 	alignment: "center" | "stretch"
@@ -19,6 +20,7 @@ const LogoColumn: React.FC<LogoColumnPropsType> = ({
 	const { setFocused } = useFocus()
 	const handleClick = () => {
 		setSymbol("")
+		symbolSubject$.next("")
 		history.push("/")
 	}
 	return (

@@ -1,13 +1,14 @@
 import React, { Suspense } from "react"
 import LoadingPlaceholder from "./Placeholders/LoadingPlaceholder"
-import usePriceStream from "./hooks/useLivePrice"
 import "./styles.css"
 import downArrow from "../../assets/red-arrow.svg"
 import normalArrow from "../../assets/green-arrow.svg"
 import { Price } from "./types"
 import ErrorPlaceholder from "./Placeholders/ErrorPlaceholder"
 import ErrorBoundary from "../ErrorBoundary/ErrorBoundary"
-import { Subscribe } from "@react-rxjs/core"
+import { bind, Subscribe } from "@react-rxjs/core"
+import { symbolSubject$ } from "../../streams/symbol$"
+import streamPricesFromSymbol from "../../streams/operators/streamPricesFromSymbol"
 
 const LivePrice = ({ searchFocused }: { searchFocused: boolean }) => {
 		return (
@@ -20,6 +21,8 @@ const LivePrice = ({ searchFocused }: { searchFocused: boolean }) => {
 			</ErrorBoundary>
 		)
 }
+
+const [usePriceStream, ] = bind(symbolSubject$.pipe(streamPricesFromSymbol))
 
 const LivePriceContent = ({ searchFocused }: { searchFocused: boolean }) => {
 	const price = usePriceStream()

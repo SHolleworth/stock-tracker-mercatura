@@ -1,15 +1,20 @@
 import { SUSPENSE } from "@react-rxjs/core"
-import { Observable } from "rxjs"
+import { Observable, pipe } from "rxjs"
+import { startWith } from "rxjs/operators"
 import { fetchAndCheckResponseForError } from "../../utils/fetchAndCheckResponseForError"
 
-const fetchFromSymbol = <T>(urlFromSymbol: (s: string) => string) => {
+export const fetchFromSymbol = <T>(urlFromSymbol: (s: string) => string) => {
     return (source: Observable<string>) => {
         return new Observable<T | typeof SUSPENSE>(subscriber => {
             return source.subscribe({
                 next: async (symbol) => {
-                    subscriber.next(SUSPENSE)
-                    const info = await fetchAndCheckResponseForError(urlFromSymbol(symbol))
-                    subscriber.next(info)
+                    if(symbol === "") {
+                        subscriber.complete()
+                    }
+                    else {
+                        const info = await fetchAndCheckResponseForError(urlFromSymbol(symbol))
+                        subscriber.next(info)
+                    }
                 },
                 error: error => subscriber.error(error),
                 complete: () => subscriber.complete()
@@ -17,4 +22,4 @@ const fetchFromSymbol = <T>(urlFromSymbol: (s: string) => string) => {
         })
 }}
 
-export default fetchFromSymbol
+export const suspendAndFetchFromSymbol = <T>(urlFromSymbol: (s: string) => string) => pipe(fetchFromSymbol<T>(urlFromSymbol), startWith(SUSPENSE))

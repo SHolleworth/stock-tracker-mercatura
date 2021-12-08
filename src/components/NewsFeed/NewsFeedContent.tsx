@@ -4,6 +4,7 @@ import React from 'react'
 import { styled } from '@mui/material/styles'
 import convertMillisecondsToNewsFeedTime from '../../utils/convertMillisecondsToNewsFeedTime'
 import useNewsFeedStream from './streams'
+import { Box } from '@mui/system'
 
 function NewsFeedContent() {
  
@@ -25,7 +26,6 @@ function NewsFeedContent() {
         </>
     )
 }
-
 
 type ArticleProps = {
 	link: string
@@ -50,9 +50,9 @@ const StyledHeadline = styled(Typography)(
 
 
 
-const StyledArticle = styled("div")(
+const StyledArticle = styled(Box)(
 	({ theme }) => `
-	border-bottom: solid 1px var(--ui-element);
+	border-bottom: solid 1px ${theme.palette.primary};
 	padding-left: ${theme.spacing(1.5)};
 	padding-right: ${theme.spacing(1.5)};
 	padding-bottom: ${theme.spacing(1.9)};
@@ -70,7 +70,7 @@ const NewsArticle = ({
 	const timeString = convertMillisecondsToNewsFeedTime(timeSincePublication)
 
 	return (
-		<StyledArticle>
+		<StyledArticle >
 			<StyledLink
 				href={link}
 				target="_blank"
