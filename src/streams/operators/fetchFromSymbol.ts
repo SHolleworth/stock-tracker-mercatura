@@ -1,25 +1,28 @@
+import { concat, pipe, throwError, timer } from "rxjs"
+import { map, retryWhen, switchMap } from "rxjs/operators"
+import { fromFetch } from "rxjs/fetch"
+import { symbolToUrl } from "./streamPricesFromSymbol"
 import { SUSPENSE } from "@react-rxjs/core"
-import { Observable, pipe } from "rxjs"
-import { startWith } from "rxjs/operators"
-import { fetchAndCheckResponseForError } from "../../utils/fetchAndCheckResponseForError"
+import { suspend, suspended } from "@react-rxjs/utils"
 
-export const fetchFromSymbol = <T>(urlFromSymbol: (s: string) => string) => {
-    return (source: Observable<string>) => {
-        return new Observable<T | typeof SUSPENSE>(subscriber => {
-            return source.subscribe({
-                next: async (symbol) => {
-                    if(symbol === "") {
-                        subscriber.complete()
-                    }
-                    else {
-                        const info = await fetchAndCheckResponseForError(urlFromSymbol(symbol))
-                        subscriber.next(info)
-                    }
-                },
-                error: error => subscriber.error(error),
-                complete: () => subscriber.complete()
+export const fetchFromSymbol = (urlGenerator: (s: string) => string) => pipe(
+    symbolToUrl(urlGenerator),
+    switchMap(url => fromFetch(url)),
+    switchMap(response => {
+        if(response.ok) {
+            return response.json()
+        }
+        else {
+            throw { error: true, status: response.status }
+        }
+    }),
+    retryWhen(errors => 
+        errors.pipe(
+            map(error => {
+                if(error.status === 429) {
+                    return timer(100)
+                }
+                else return throwError(error)
             })
-        })
-}}
-
-export const suspendAndFetchFromSymbol = <T>(urlFromSymbol: (s: string) => string) => pipe(fetchFromSymbol<T>(urlFromSymbol), startWith(SUSPENSE))
+    )),
+)

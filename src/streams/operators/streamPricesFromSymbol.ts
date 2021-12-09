@@ -1,12 +1,12 @@
 import { Observable, pipe } from "rxjs"
-import { catchError, filter, map, scan } from "rxjs/operators"
+import { catchError, filter, map, retry, scan } from "rxjs/operators"
 import { Price } from "../../components/LivePrice/types"
 import { base_sse } from "../../utils/baseUrl"
 
-const symbolToUrl = pipe(
-	map(symbol => 
-		`${base_sse}stocksUS1Second?symbols=${symbol}&token=${import.meta.env.VITE_IEX_TOKEN}`)
-)
+export const symbolToUrl = (urlAssembler: (s: string) => string) => (
+	pipe(
+	map((symbol: string) => urlAssembler(symbol))
+))
 
 const urlToSSE = pipe(
 	scan((acc, newURL: string) => {
@@ -28,11 +28,9 @@ const setupSSEListeners = (source: Observable<EventSource>) => {
 
 const filterAndCatchErrors = pipe(
 	filter(price => price !== undefined),
-	catchError((error, caught) => {
-		console.error("Error in price stream: " + error)
-		return caught
-}))
+	retry()
+)
 
-const streamPricesFromSymbol = pipe(symbolToUrl, urlToSSE, setupSSEListeners, filterAndCatchErrors)
+const priceUrl = (symbol: string) => `${base_sse}stocksUS1Second?symbols=${symbol}&token=${import.meta.env.VITE_IEX_TOKEN}`
 
-export default streamPricesFromSymbol
+export const streamPricesFromSymbol = pipe(symbolToUrl(priceUrl), urlToSSE, setupSSEListeners, filterAndCatchErrors)

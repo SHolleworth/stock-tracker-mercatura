@@ -8,7 +8,7 @@ import ErrorPlaceholder from "./Placeholders/ErrorPlaceholder"
 import ErrorBoundary from "../ErrorBoundary/ErrorBoundary"
 import { bind, Subscribe } from "@react-rxjs/core"
 import { symbolSubject$ } from "../../streams/symbol$"
-import streamPricesFromSymbol from "../../streams/operators/streamPricesFromSymbol"
+import { streamPricesFromSymbol } from "../../streams/operators/streamPricesFromSymbol"
 
 const LivePrice = ({ searchFocused }: { searchFocused: boolean }) => {
 		return (

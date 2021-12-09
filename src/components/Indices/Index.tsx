@@ -2,7 +2,7 @@ import React from "react"
 import { styled } from '@mui/material/styles'
 import { PriceDisplay } from "../LivePrice/LivePrice"
 import "./styles.css"
-import streamPricesFromSymbol from "../../streams/operators/streamPricesFromSymbol"
+import { streamPricesFromSymbol } from "../../streams/operators/streamPricesFromSymbol"
 import { of } from "rxjs"
 import { bind } from "@react-rxjs/core"
 

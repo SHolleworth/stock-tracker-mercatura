@@ -2,7 +2,7 @@ import { useSymbol } from "../../contexts/SymbolContext"
 import { colours } from "./colours"
 import { CurrentPriceChart } from "./components/CurrentPriceChart"
 import { StaticYAxis } from "./components/CustomisedYAxis"
-import { useIntradayPrices, usePreviousClose } from "./hooks/usePrices"
+import { useIntradayPriceStream, usePreviousCloseStream } from "./streams"
 
 
 const style: React.CSSProperties = {
@@ -21,9 +21,8 @@ const axisProps = {
 }
 
 const ChartContent = () => {
-	const { symbol } = useSymbol()
-	const [intradayPrices, minMax] = useIntradayPrices(symbol)
-	const previousClose = usePreviousClose(symbol)
+	const { prices: intradayPrices, minMax } = useIntradayPriceStream()
+	const previousClose = usePreviousCloseStream()
 	const interval = 3
 
 	if (intradayPrices && minMax) {

@@ -1,8 +1,6 @@
 import React, { Suspense } from "react"
 import KeyStatisticsTable from "./KeyStatistics"
 import LoadingPlaceholder from "./Placeholders/LoadingPlaceholder"
-import { StatusStringType } from "../../utils/statusKeys"
-import { KeyStatistics } from "./stats.d"
 import ErrorPlaceholder from "./Placeholders/ErrorPlaceholder"
 import { Subscribe } from "@react-rxjs/core"
 import ErrorBoundary from "../ErrorBoundary/ErrorBoundary"

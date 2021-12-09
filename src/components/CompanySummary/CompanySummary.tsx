@@ -8,7 +8,6 @@ import ErrorBoundary from "../ErrorBoundary/ErrorBoundary"
 import { Subscribe } from "@react-rxjs/core"
 
 const CompanySummary = () => {
-
 	return (
 		<Subscribe>
 			<ErrorBoundary fallback={<ErrorPlaceholder />}>
@@ -21,23 +20,23 @@ const CompanySummary = () => {
 }
 
 function CompanySummaryContent( ) {
-	const companyInfo = useCompanyInfoStream()
+	const { companyName, symbol, website, description } = useCompanyInfoStream()
 	return (
 		<StyledSummary>
 			<Typography variant="h2" color="text.primary" paddingBottom={1.5}>
 				Company Summary
 			</Typography>
 			<Typography variant="subtitle2" color="text.primary" paddingBottom={1}
-					>{`${companyInfo.companyName} (${companyInfo.symbol})`}</Typography>
+					>{companyName && symbol ? `${companyName} (${symbol})` : '-'}</Typography>
 					<StyledLink
-						href={companyInfo.website}
+						href={website}
 						rel="noreferrer"
 						target="_blank"
 					>
-						{companyInfo.website}
+						{website ? website : null}
 					</StyledLink>
 					<Typography variant="body1" >
-						{companyInfo.description}
+						{description ? description : 'No Summary Available'}
 					</Typography>
 		</StyledSummary>
 	)

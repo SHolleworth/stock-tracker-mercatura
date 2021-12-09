@@ -1,6 +1,8 @@
 import { bind } from "@react-rxjs/core";
-import { fetchFromSymbol, suspendAndFetchFromSymbol } from "../../streams/operators/fetchFromSymbol";
-import { symbolSubject$ } from "../../streams/symbol$";
+import { suspended } from "@react-rxjs/utils";
+import { catchError, tap } from "rxjs/operators";
+import { fetchFromSymbol } from "../../streams/operators/fetchFromSymbol";
+import symbol$ from "../../streams/symbol$";
 import { base } from "../../utils/baseUrl"
 
 const COMPANYINFO_URL = (symbol: string) => `${base}stock/${symbol}/company?token=${
@@ -14,10 +16,15 @@ interface Summary {
 	description: string
 }
 
-const companyInfo$ = symbolSubject$.pipe(
-    suspendAndFetchFromSymbol<Summary>(COMPANYINFO_URL))
+const companyInfo$ = symbol$.pipe(
+	fetchFromSymbol(COMPANYINFO_URL),
+	tap((info) => {
+		console.log("Company Info: ")
+		console.log(info)
+	})
+	)
 
-const companyInfoWithoutSuspense$ = symbolSubject$.pipe(fetchFromSymbol<Summary>(COMPANYINFO_URL))
+const companyInfoWithoutSuspense$ = symbol$.pipe(fetchFromSymbol(COMPANYINFO_URL), suspended())
 
 const [useCompanyInfoStream, ] = bind(companyInfo$)
 const [useCompanyInfoStreamWithoutSuspense, ] = bind(companyInfoWithoutSuspense$, undefined)

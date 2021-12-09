@@ -69,7 +69,7 @@ const KeyStatisticsTable: React.FC<KeyStatisticsProps> = ({
 				</div>
 
 				<div className="stat">
-					P/E Ratio <span>{peRatio.toFixed(2)}</span>
+					P/E Ratio <span>{peRatio ? peRatio.toFixed(2) : "-"}</span>
 				</div>
 			</div>
 
